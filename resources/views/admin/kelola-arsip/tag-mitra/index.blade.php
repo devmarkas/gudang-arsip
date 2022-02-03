@@ -13,14 +13,14 @@
         <div class="col-md-6">
             <div class="row">
                 <div class="col-xl-3 col-md-6">
-                   <button>
+                   <button type="button" data-toggle="modal" data-target="#input-arsip-masuk">
                        <img src="{{asset ("template")}}/img/icon-export-arsip.svg" alt="">
                        <p>Input Arsip Masuk</p>
                    </button>
                 </div>
 
                 <div class="col-xl-3 col-md-6">
-                    <button> 
+                    <button type="button" data-toggle="modal" data-target="#input-arsip-keluar"> 
                         <img src="{{asset ("template")}}/img/icon-arsip-keluar.svg" alt="">
                         <p>Input Arsip Keluar</p>
                     </button>
@@ -298,7 +298,11 @@
     </div>
 </div>
 
+<!-- Modal Input Arsip Masuk -->
+@include('admin.kelola-arsip.tag-mitra.modal-arsip-masuk')
 
+<!-- Modal Input Arsip Masuk -->
+@include('admin.kelola-arsip.tag-mitra.modal-arsip-keluar')
 
 @endsection
 

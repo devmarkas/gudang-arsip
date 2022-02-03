@@ -13,14 +13,14 @@
         <div class="col-md-6">
             <div class="row">
                 <div class="col-xl-3 col-md-6">
-                   <button>
+                   <button type="button" data-toggle="modal" data-target="#input-arsip-masuk">
                        <img src="{{asset ("template")}}/img/icon-export-arsip.svg" alt="">
                        <p>Input Arsip Masuk</p>
                    </button>
                 </div>
 
                 <div class="col-xl-3 col-md-6">
-                    <button> 
+                    <button type="button" data-toggle="modal" data-target="#input-arsip-keluar"> 
                         <img src="{{asset ("template")}}/img/icon-arsip-keluar.svg" alt="">
                         <p>Input Arsip Keluar</p>
                     </button>
@@ -34,7 +34,7 @@
                 </div>
 
                 <div class="col-xl-3 col-md-6">
-                    <button> 
+                    <button type="button" data-toggle="modal" data-target="#excel-import"> 
                         <img src="{{asset ("template")}}/img/icon-excel-import.svg" alt="">
                         <p>Excel Import</p>
                     </button>
@@ -159,9 +159,9 @@
                                 <td>JATIM3</td>
                                 <td>BOX A</td>
                                 <td>
-                                    <button type="button" class="btn btn-warning">History</button>
-                                    <button type="button" class="btn btn-success">File</button>
-                                    <button type="button" class="btn btn-danger">Hapus</button>
+                                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#history">History</button>
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#file">File</button>
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapus">Hapus</button>
                                 </td>
                               </tr>
                               <tr>
@@ -265,13 +265,31 @@
                               </tr>
                             </tbody>
                         </table>
-                      </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+
+<!-- Modal Input Arsip Masuk -->
+@include('admin.kelola-arsip.impress-fund.modal-arsip-masuk')
+
+<!-- Modal Input Arsip Keluar -->
+@include('admin.kelola-arsip.impress-fund.modal-arsip-keluar')
+
+<!-- Modal Excel Import -->
+@include('admin.kelola-arsip.impress-fund.modal-excel-import')
+
+<!-- Modal Excel History -->
+@include('admin.kelola-arsip.impress-fund.modal-history')
+
+<!-- Modal Excel Hapus -->
+@include('admin.kelola-arsip.impress-fund.modal-hapus')
+
+<!-- Modal Excel File -->
+@include('admin.kelola-arsip.impress-fund.modal-file')
 
 
 @endsection

@@ -8,13 +8,14 @@
 
    
 
+    <div class="item-wrap">
     <div class="sidebar-title sidebar-heading mb-3 mt-4">
         <span>MENU</span>
     </div>
 
     <!-- Nav Item - Dashboard -->
     <li class="sb nav-item">
-        <a class="nav-link " href="/dashboard">
+        <a class="nav-link " href="/dashboard" id="dashboard">
             <img src="{{asset ("template")}}/img/icon-sidebar-dashboard.svg" alt="">
             <span>Dashboard</span></a>
     </li>
@@ -28,11 +29,11 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-2 collapse-inner rounded">
-                <a class="nav-link " href="/impress-fund">
+                <a class="nav-link " href="/impress-fund" id="impress-fund">
                     <img src="{{asset ("template")}}/img/icon-sidebar-kelola-arsip.svg" alt="">
                     <span>IMPRESS FUND</span>
                 </a>
-                <a class="nav-link " href="/tag-mitra">
+                <a class="nav-link " href="/tag-mitra" id="tag-mitra">
                     <img src="{{asset ("template")}}/img/icon-sidebar-kelola-arsip.svg" alt="">
                     <span>TAG MITRA</span>
                 </a>    
@@ -40,52 +41,39 @@
         </div>
     </li>
 
-    <li class="sb nav-item">
+    {{-- <li class="sb nav-item">
         <a class="nav-link " href="/test">
             <img src="{{asset ("template")}}/img/icon-sidebar-kelola-arsip.svg" alt="">
             <span>Tentang Aplikasi</span></a>
-    </li>
+    </li> --}}
 
        <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
 
+    </div>
 </ul>
 
 @push('js')
-{{-- <script>
+<script>
     $(document).ready(function () {
         var url = window.location.pathname;
         // console.log(url);
 
-        if ( url == "/test"){
+        if ( url == "/dashboard"){
             $('#dashboard').addClass('active-custom')
         }
-        if ( url == "/eskck"){
-            $('#catatanKriminal').addClass('active')
+        if ( url == "/impress-fund"){
+            $('#impress-fund').addClass('active-custom')
         }
-        if ( url == "/riwayatskck"){
-            $('#catatanKriminal').addClass('active')
+        if ( url == "/tag-mitra"){
+            $('#tag-mitra').addClass('active')
         }
-        if ( url == "/pilih-pembayaran"){
-            $('#catatanKriminal').addClass('active')
-        }
-        if ( url == "/pembayaran"){
-            $('#catatanKriminal').addClass('active')
-        
-        }
-        if ( url == "/detailskck"){
-            $('#catatanKriminal').addClass('active')
-        
-        }
-        if ( url == "/tentangapliaksiuser"){
-            $('#tentang').addClass('active')
-        }
-    $('.sb').click(function() {
-        $('.sb').removeClass('active-custom');
-        $(this).addClass('active-custom');
-    });
+    // $('.sb').click(function() {
+    //     $('.sb').removeClass('active-custom');
+    //     $(this).addClass('active-custom');
+    // }); 
 });
-</script> --}}
+</script>
 @endpush
