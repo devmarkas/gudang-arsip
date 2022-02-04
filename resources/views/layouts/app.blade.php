@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Artha | {{ $title ?? 'Dashboard' }}</title>
+    <title>Artha Apps | {{ $title ?? 'Dashboard' }}</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('template') }}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">

@@ -9,7 +9,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
     
-        <title>Artha | {{ $title ?? 'Dashboard' }}</title>
+        <title>Artha Apps | Login</title>
     
         <!-- Custom fonts for this template-->
         <link href="{{ asset('template') }}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -62,9 +62,7 @@
             <div class="col-lg-6 d-none d-lg-block">
                 <img src="{{asset ("template")}}/img/bg-login.svg">
             </div>
-
         </div>
-        
     </div>            
         
     
