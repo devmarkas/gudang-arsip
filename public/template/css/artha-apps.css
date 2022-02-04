@@ -362,3 +362,66 @@ a:hover {
 .sidebar.toggled {
     width: 8.5rem !important;
 }
+
+.full{
+    height: 100vh;
+}
+
+.login-right{
+    padding: 5px;
+}
+
+.login .login-right .artha{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 33px;
+    line-height: 130%;
+    /* identical to box height, or 43px */
+
+
+    color: #1180BF;
+}
+
+.login .login-right{
+    padding-left: 21%;
+    padding-right: 21%;
+    padding-top: 17%;
+}
+
+.login .login-right .apps{
+    font-style: normal;
+    font-size: 33px;
+    line-height: 130%;
+}
+
+.login .login-right h1{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 33px;
+    line-height: 130%;
+    color: #3D3D3E
+}
+
+.login .login-right h4{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 175%;
+    margin: 16px 0px;
+    color: #3D3D3E;
+}
+
+.login .login-right input{
+    background: #FFFFFF;
+    border: 1px solid #1180BF;
+    box-sizing: border-box;
+    border-radius: 4px;
+
+}
+
+.login .login-right .button button{
+    width: 35%;
+    height: 44px;
+    border-radius: 4px;
+
+}

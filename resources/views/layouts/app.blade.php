@@ -21,7 +21,6 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('template') }}/css/markas-hosting.css" rel="stylesheet">
-    <link href="{{ asset('template') }}/css/sidebar.css" rel="stylesheet">
     <link href="{{ asset('template') }}/css/artha-apps.css" rel="stylesheet">
 
 </head>
