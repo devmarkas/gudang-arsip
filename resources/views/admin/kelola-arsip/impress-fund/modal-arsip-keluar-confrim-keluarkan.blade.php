@@ -10,11 +10,11 @@
             </div>
             <div class="modal-body">
               <p class="title text-center mt-4">
-                ID Arsip yang akan dikeluarkan: <span><b>134944</b></span>  
+                ID Arsip yang akan dikeluarkan: <span><b id="archive_id_modal">134944</b></span>  
               </p>
               <div class="row d-flex justify-content-center mt-2">
                 <div class="col-md-4">
-                  <button type="button" class="button" data-toggle="modal" data-target="#input-arsip-confrim-sukses-keluarkan" data-dismiss="modal" aria-label="Close">Keluarkan</button>
+                  <button type="button" class="button" data-toggle="modal" data-target="#input-arsip-confrim-sukses-keluarkan" onclick="archive_out()" data-dismiss="modal" aria-label="Close">Keluarkan</button>
                 </div>
                 <div class="col-md-4">
                   <button type="button" class="button" data-dismiss="modal" aria-label="Close">Batalkan</button>

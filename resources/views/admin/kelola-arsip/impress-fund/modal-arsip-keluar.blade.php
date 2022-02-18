@@ -1,4 +1,4 @@
-<form action="">
+{{-- <form action=""> --}}
     <div class="modal fade" id="input-arsip-keluar" tabindex="-1" role="dialog" aria-labelledby="input-arsip-keluar" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
           <div class="modal-content">
@@ -13,7 +13,7 @@
               <div class="row mb-2">
                 <div class="col-md-8">
                   <div class="input-group">
-                    <input type="text" class="form-control mt-1" placeholder="input id arsip">
+                    <input type="number" maxlength="6" class="form-control mt-1" placeholder="input id arsip" id="id_archive" onkeyup="find_archive()">
                   </div>
                 </div>
                 <div class="col-md-2">
@@ -24,7 +24,7 @@
                 </div>
               </div>
               <div class="table-responsive">
-                <table class="table table-sm table-hover tabel-arsip">
+                <table class="table table-sm table-hover tabel-arsip" id="tabel_archive_out">
                     <thead>
                       <tr>
                         <th scope="col">ID PM</th>
@@ -35,96 +35,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>134947</td>
-                        <td>SEP</td>
-                        <td>JATIM3</td>
-                        <td>BOX A</td>
-                        <td>
-                          <button type="button" class="button" style="height: 29px" data-toggle="modal" data-target="#input-arsip-confrim-keluar" data-dismiss="modal" aria-label="Close">Arsip Keluar</button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>134947</td>
-                        <td>SEP</td>
-                        <td>JATIM3</td>
-                        <td>BOX A</td>
-                        <td>
-                          <button type="button" class="button" data-dismiss="modal" aria-label="Close" style="height: 29px">Arsip Keluar</button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>134947</td>
-                        <td>SEP</td>
-                        <td>JATIM3</td>
-                        <td>BOX A</td>
-                        <td>
-                          <button type="button" class="button" style="height: 29px">Arsip Keluar</button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>134947</td>
-                        <td>SEP</td>
-                        <td>JATIM3</td>
-                        <td>BOX A</td>
-                        <td>
-                          <button type="button" class="button" style="height: 29px">Arsip Keluar</button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>134947</td>
-                        <td>SEP</td>
-                        <td>JATIM3</td>
-                        <td>BOX A</td>
-                        <td>
-                          <button type="button" class="button" style="height: 29px">Arsip Keluar</button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>134947</td>
-                        <td>SEP</td>
-                        <td>JATIM3</td>
-                        <td>BOX A</td>
-                        <td>
-                          <button type="button" class="button" style="height: 29px">Arsip Keluar</button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>134947</td>
-                        <td>SEP</td>
-                        <td>JATIM3</td>
-                        <td>BOX A</td>
-                        <td>
-                          <button type="button" class="button" style="height: 29px">Arsip Keluar</button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>134947</td>
-                        <td>SEP</td>
-                        <td>JATIM3</td>
-                        <td>BOX A</td>
-                        <td>
-                          <button type="button" class="button" style="height: 29px">Arsip Keluar</button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>134947</td>
-                        <td>SEP</td>
-                        <td>JATIM3</td>
-                        <td>BOX A</td>
-                        <td>
-                          <button type="button" class="button" style="height: 29px">Arsip Keluar</button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>134947</td>
-                        <td>SEP</td>
-                        <td>JATIM3</td>
-                        <td>BOX A</td>
-                        <td>
-                          <button type="button" class="button" style="height: 29px">Arsip Keluar</button>
-                        </td>
-                      </tr>
+                      
                     </tbody>
                 </table>
             </div>
@@ -132,7 +43,7 @@
           </div>
         </div>
     </div>
-</form>
+{{-- </form> --}}
 
 <!-- Modal Input Arsip Keluar (Confrim Keluarkan) -->
 @include('admin.kelola-arsip.impress-fund.modal-arsip-keluar-confrim-keluarkan')

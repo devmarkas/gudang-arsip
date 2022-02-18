@@ -11,7 +11,7 @@
             </div>
             <div class="modal-body">
               <p class="title text-center mt-4">
-                ID Arsip: <span><b>134944</b></span> telah berhasil dihapus
+                ID Arsip: <span><b id="archive_id_sukses_delete">134944</b></span> telah berhasil dihapus
               </p>
               <div class="row d-flex justify-content-center mt-3">
                 <div class="col-md-4">

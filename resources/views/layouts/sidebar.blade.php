@@ -22,14 +22,14 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="sb nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+        <a class="nav-link collapsed active" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
             <img src="{{asset ("template")}}/img/icon-sidebar-dashboard.svg" alt="">
             <span>Kelola Arsip</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-2 collapse-inner rounded">
-                <a class="nav-link " href="/impress-fund" id="impress-fund">
+                <a class="nav-link " href="{{ route('impress_fund.index') }}" id="impress-fund">
                     <img src="{{asset ("template")}}/img/icon-sidebar-kelola-arsip.svg" alt="">
                     <span>IMPRESS FUND</span>
                 </a>

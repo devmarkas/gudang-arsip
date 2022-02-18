@@ -5,6 +5,7 @@
 @section('content')
 
 <div class="header-content arsip">
+   
     <div class="row">
         <div class="col-md-6">
             <h1>Lihat Arsip IMPRESS FUND</h1>
@@ -153,116 +154,19 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td>134947</td>
-                                <td>SEP</td>
-                                <td>JATIM3</td>
-                                <td>BOX A</td>
-                                <td>
-                                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#history">History</button>
-                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#file">File</button>
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapus">Hapus</button>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>134947</td>
-                                <td>SEP</td>
-                                <td>JATIM3</td>
-                                <td>BOX A</td>
-                                <td>
-                                    <button type="button" class="btn btn-warning">History</button>
-                                    <button type="button" class="btn btn-success">File</button>
-                                    <button type="button" class="btn btn-danger">Hapus</button>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>134947</td>
-                                <td>SEP</td>
-                                <td>JATIM3</td>
-                                <td>BOX A</td>
-                                <td>
-                                    <button type="button" class="btn btn-warning">History</button>
-                                    <button type="button" class="btn btn-success">File</button>
-                                    <button type="button" class="btn btn-danger">Hapus</button>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>134947</td>
-                                <td>SEP</td>
-                                <td>JATIM3</td>
-                                <td>BOX A</td>
-                                <td>
-                                    <button type="button" class="btn btn-warning">History</button>
-                                    <button type="button" class="btn btn-success">File</button>
-                                    <button type="button" class="btn btn-danger">Hapus</button>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>134947</td>
-                                <td>SEP</td>
-                                <td>JATIM3</td>
-                                <td>BOX A</td>
-                                <td>
-                                    <button type="button" class="btn btn-warning">History</button>
-                                    <button type="button" class="btn btn-success">File</button>
-                                    <button type="button" class="btn btn-danger">Hapus</button>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>134947</td>
-                                <td>SEP</td>
-                                <td>JATIM3</td>
-                                <td>BOX A</td>
-                                <td>
-                                    <button type="button" class="btn btn-warning">History</button>
-                                    <button type="button" class="btn btn-success">File</button>
-                                    <button type="button" class="btn btn-danger">Hapus</button>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>134947</td>
-                                <td>SEP</td>
-                                <td>JATIM3</td>
-                                <td>BOX A</td>
-                                <td>
-                                    <button type="button" class="btn btn-warning">History</button>
-                                    <button type="button" class="btn btn-success">File</button>
-                                    <button type="button" class="btn btn-danger">Hapus</button>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>134947</td>
-                                <td>SEP</td>
-                                <td>JATIM3</td>
-                                <td>BOX A</td>
-                                <td>
-                                    <button type="button" class="btn btn-warning">History</button>
-                                    <button type="button" class="btn btn-success">File</button>
-                                    <button type="button" class="btn btn-danger">Hapus</button>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>134947</td>
-                                <td>SEP</td>
-                                <td>JATIM3</td>
-                                <td>BOX A</td>
-                                <td>
-                                    <button type="button" class="btn btn-warning">History</button>
-                                    <button type="button" class="btn btn-success">File</button>
-                                    <button type="button" class="btn btn-danger">Hapus</button>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>134947</td>
-                                <td>SEP</td>
-                                <td>JATIM3</td>
-                                <td>BOX A</td>
-                                <td>
-                                    <button type="button" class="btn btn-warning">History</button>
-                                    <button type="button" class="btn btn-success">File</button>
-                                    <button type="button" class="btn btn-danger">Hapus</button>
-                                </td>
-                              </tr>
+                                @foreach ($archives as $archive)
+                                <tr>
+                                  <td>{{$archive->id_pm}}</td>
+                                  <td>{{strtoupper(substr($archive->bulan,0,3))}}</td>
+                                  <td>{{$archive->teritory}}</td>
+                                  <td>{{$archive->box}}</td>
+                                  <td>
+                                      <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history({{$archive->id_pm}})" data-target="#history">History</button>
+                                      <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file({{$archive->id_pm}})" data-target="#file" data-arsip-id="{{$archive->id_pm}}">File</button>
+                                      <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_file({{$archive->id_pm}})" data-target="#hapus">Hapus</button>
+                                  </td>
+                                </tr>  
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -272,6 +176,45 @@
     </div>
 </div>
 
+
+{{-- Modal Barcode --}}
+
+ @if (Session::has('barcode'))
+    <input type="hidden" name="text_barcode" id="text_barcode" value="{{ Session::get('barcode') }}">
+    <div class="modal fade" id="barcode_modal" tabindex="-1" role="dialog" aria-labelledby="barcode_modalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <p style="text-align: left;" id="barcode_modalLabel">Barcode Generated</p>
+            </div>
+            <div class="modal-body" style="display: block;margin: auto">
+                {!!QrCode::size(300)->generate(Session::get('barcode'));!!}
+                <table style="width: 100%">
+                    <tr>
+                        <td><b>ID PM</b></td>
+                        <td style="text-align: right">{{json_decode(Session::get('barcode'))[0]}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Periode</b></td>
+                        <td style="text-align: right">{{json_decode(Session::get('barcode'))[1]}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Teritory</b></td>
+                        <td style="text-align: right">{{json_decode(Session::get('barcode'))[2]}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Box</b></td>
+                        <td style="text-align: right">{{json_decode(Session::get('barcode'))[3]}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-primary"  style="background-color: #1180BF; width: 100%" data-dismiss="modal">Print</button>
+            </div>
+        </div>
+        </div>
+    </div>
+@endif
 
 <!-- Modal Input Arsip Masuk -->
 @include('admin.kelola-arsip.impress-fund.modal-arsip-masuk')
@@ -295,5 +238,145 @@
 @endsection
 
 @push('js')
+<script>
+    $(document).ready(function(){
+        $('#barcode_modal').modal();
+        $('#tambah_file').hide();
+
+        $('#btn_tambah_file').click(function(){
+            $('#tambah_file').show();
+        });
+
+    });
+    function add_file(archive_id){
+        $('#archive_id').val(archive_id)
+        $('#tabel-arsip tr').remove()
+        $.ajax({
+            type: 'GET',
+            url: '/impress-fund/'+archive_id,
+            success: function (data) {
+                console.log(data.length)
+                if(data.length>0){
+                    for (let index = 0; index < data.length; index++) {
+                        var tanggal=data[index].created_at
+                        $('#tabel-arsip > tbody:last-child').append('\
+                        <tr>\
+                            <td><?=date("l F Y H:i",strtotime("2022-02-14T22:32:42.000000Z"));?> WIB</td>\
+                            <td>'+data[index].name+'</td>\
+                            <td>\
+                            <img src="{{asset ("template")}}/img/icon-preview.svg" alt="">\
+                            </td>\
+                        </tr>'
+                        );
+                    }
+                }else{
+                    console.log('tidak ada')
+                }
+            },
+            error: function() { 
+                console.log(data);
+            }
+        });
+    }
+    function open_history(archive_id){
+        $('#tabel-history tr').remove()
+        $.ajax({
+            type: 'GET',
+            url: '/history-archive/'+archive_id,
+            success: function (data) {
+                console.log(data.length)
+                if(data.length>0){
+                    for (let index = 0; index < data.length; index++) {
+                        console.log(data[index].status)
+                        $('#tabel-history > tbody:last-child').append('\
+                        <tr>\
+                            <td>12 Januari 2022 08:00 WIB</td>\
+                            <td>'+data[index].status+'</td>\
+                            <td>'+data[index].name+'</td>\
+                        </tr>'
+                        );
+                    }
+                }else{
+                    console.log('tidak ada')
+                }
+            },
+            error: function() { 
+                console.log(data);
+            }
+        });
+    }
+
+    function find_archive(archive_id){
+        var id_archive=$('#id_archive').val()
+        $('#tabel_archive_out tr').remove()
+        $.ajax({
+            type: 'GET',
+            url: '/out-archive/'+id_archive,
+            success: function (data) {
+                console.log(data)
+                if(data.length>0){
+                    for (let index = 0; index < data.length; index++) {
+                        $('#tabel_archive_out > tbody:last-child').append('\
+                        <tr>\
+                        <td>'+data[index].id_pm+'</td>\
+                        <td>'+data[index].bulan.substring(0, 3).toUpperCase()+'</td>\
+                        <td>'+data[index].teritory+'</td>\
+                        <td>BOX '+data[index].box+'</td>\
+                        <td>\
+                          <button type="button" class="button" style="height: 29px" data-toggle="modal" data-target="#input-arsip-confrim-keluar" data-dismiss="modal" onclick="modal_archive_out('+data[index].id_pm+')" aria-label="Close">Arsip Keluar</button>\
+                        </td>\
+                      </tr>'
+                        );
+                    }
+                }else{
+                    console.log('tidak ada')
+                }
+            },
+            error: function() { 
+                console.log(data);
+            }
+        });
+    }
+
+    function modal_archive_out(id_archive){
+        $("#archive_id_modal").html(id_archive);
+    }
     
+    function archive_out(){
+        var id_archive=$("#archive_id_modal").html()
+        $("#archive_id_take_out").html(id_archive);
+        $.ajax({
+            type: 'GET',
+            url: '/take-out-archive/'+id_archive,
+            success: function (data) {
+                console.log(data)
+            },
+            error: function() { 
+                console.log(data);
+            }
+        });
+    }
+
+    function modal_delete_file(archive_id){
+        console.log(archive_id)
+        $("#archive_id_modal_hapus").html(archive_id);
+    }
+
+    function delete_file(){
+        var id_archive=$("#archive_id_modal_hapus").html()
+        $("#archive_id_sukses_delete").html(id_archive);
+        $.ajax({
+            type: 'GET',
+            url: '/delete-impress-archive/'+id_archive,
+            success: function (data) {
+                setTimeout(function(){// wait for 5 secs(2)
+                    location.reload(); // then reload the page.(3)
+                }, 1000); 
+            },
+            error: function() { 
+                console.log(data);
+            }
+        });
+    }
+</script>
 @endpush

@@ -37,16 +37,23 @@
                     <span class="apps">
                         Apps
                     </span> 
-                    <form class="form login mt-5" action="">
+                    <form class="form login mt-5" action="{{ route('login') }}" method="POST">@csrf
                         <h1 class="text-center title">Sign In</h1>
                         <h4 class="text-center sub-title">Sign in to stay connected.</h4>
+                        @if (count($errors) > 0)
+                        <div class="alert alert-danger" role="alert">
+                            @foreach ($errors->all() as $message)
+                                {{$message}} <br>
+                            @endforeach
+                        </div>
+                        @endif
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" required>
+                            <input type="email" class="form-control" id="email" name="email" required>
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="password" class="form-control password" id="password" required>
+                            <input type="password" class="form-control password" name="password" id="password" required>
                         </div>   
                         <div class="form-group form-check">
                             <input type="checkbox" class="form-check-input remember" id="remember">

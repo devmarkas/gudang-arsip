@@ -10,7 +10,7 @@
           </div>
           <div class="modal-body">
             <div class="table-responsive">
-              <table class="table table-sm table-hover tabel-arsip">
+              <table class="table table-sm table-hover tabel-arsip" id="tabel-history">
                   <thead>
                     <tr>
                       <th scope="col">Tanggal</th>
@@ -19,21 +19,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>12 Januari 2022 08:00 WIB</td>
-                      <td>Arsip Masuk</td>
-                      <td>Admin 1</td>
-                    </tr>
-                    <tr>
-                      <td>13 Januari 2022 09:00 WIB</td>
-                      <td>Arsip Keluar</td>
-                      <td>Admin 2</td>
-                    </tr>
-                    <tr>
-                      <td>23 Januari 2022 13:00 WIB</td>
-                      <td>Arsip Masuk</td>
-                      <td>Admin 3</td>
-                    </tr>
+                   
                   </tbody>
               </table>
           </div>

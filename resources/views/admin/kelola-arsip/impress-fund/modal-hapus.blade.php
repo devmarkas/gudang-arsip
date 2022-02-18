@@ -10,11 +10,11 @@
             </div>
             <div class="modal-body">
               <p class="title text-center mt-4">
-                ID Arsip yang akan dihapus: <span><b>134944</b></span>  
+                ID Arsip yang akan dihapus: <span><b id="archive_id_modal_hapus">134944</b></span>  
               </p>
               <div class="row d-flex justify-content-center mt-2">
                 <div class="col-md-4">
-                  <button type="button" class="button" data-toggle="modal" data-target="#sukses-hapus" data-dismiss="modal" aria-label="Close">Hapus</button>
+                  <button type="button" class="button" data-toggle="modal" data-target="#sukses-hapus" data-dismiss="modal" onclick="delete_file()" aria-label="Close">Hapus</button>
                 </div>
                 <div class="col-md-4">
                   <button type="button" class="button" data-dismiss="modal" aria-label="Close">Batalkan</button>
