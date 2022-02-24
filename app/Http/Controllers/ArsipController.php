@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\File;
 use App\Models\History;
 use App\Models\ImpressFund;
+use App\Models\TagPartner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -51,7 +52,8 @@ class ArsipController extends Controller
     public function cek_zero($num)
     {
         $cek_db=ImpressFund::where('id_pm',$num)->first();
-        if(substr($num,0,1)!=0&&$cek_db==null){
+        $cek_db2=TagPartner::where('id_pm',$num)->first();
+        if(substr($num,0,1)!=0&&$cek_db==null&&$cek_db2==null){
             return $num;
         }else{
             $num=sprintf("%6d", mt_rand(1, 999999));
@@ -105,5 +107,25 @@ class ArsipController extends Controller
         $archive=ImpressFund::where('id_pm',$id)->first();
         $archive->delete();
         return response($archive);
+    }
+
+    public function filter_impress_fund(Request $request)
+    {
+        $archives=ImpressFund::where(function ($query) use ($request) {
+            if ($request->bulan != "") {
+                $query->where('bulan', $request->bulan);
+            }
+            if($request->tahun != ""){
+                $query->where('periode', $request->tahun);
+            }
+            if($request->teritory != ""){
+                $query->where('teritory', $request->teritory);
+            }
+            if($request->box != ""){
+                $query->where('box', $request->box);
+            }
+        })
+        ->get();
+        return response($archives);
     }
 }

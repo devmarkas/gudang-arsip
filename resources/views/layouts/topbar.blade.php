@@ -17,7 +17,7 @@
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img class="img-profile rounded-circle"
                     src="{{asset ("template")}}/img/undraw_profile.svg">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Arza Rizky Nova Ramadhani</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{Auth::user()->name}}</span>
                 
             </a>
             <!-- Dropdown - User Information -->

@@ -26,17 +26,15 @@ function number_format(number, decimals, dec_point, thousands_sep) {
   }
   return s.join(dec);
 }
+var years=JSON.parse($('#years_chart').val())
+var impress_fund=JSON.parse($('#impress_fund_chart').val())
+var tag_partner=JSON.parse($('#tag_partner_chart').val())
 
+console.log(years)
 // Bar Chart Example
 var barChartData = {
-  labels: [
-    "2018",
-    "2019",
-    "2020",
-    "2021",
-    "2022",
-
-  ],
+  labels: 
+    years,
 
   datasets: [
     {
@@ -44,14 +42,14 @@ var barChartData = {
       backgroundColor: "pink",
       borderColor: "red",
       borderWidth: 1,
-      data: [30, 55, 60, 70, 35, 50, 60, 70]
+      data: impress_fund
     },
     {
       label: "TAG MITRA",
       backgroundColor: "lightblue",
       borderColor: "blue",
       borderWidth: 1,
-      data: [43, 70, 30, 60, 10, 70, 40, 60]
+      data: tag_partner
     },
   ]
 };

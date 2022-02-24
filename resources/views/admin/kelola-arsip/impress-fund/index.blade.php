@@ -56,64 +56,64 @@
                    <form action="">
                         <div class="form-group">
                             <select class="form-control" id="tahun">
-                            <option>Tahun</option>
-                            <option>2022</option>
-                            <option>2021</option>
-                            <option>2020</option>
-                            <option>2019</option>
+                            <option value="">Tahun</option>
+                            <option value="2022">2022</option>
+                            <option value="2021">2021</option>
+                            <option value="2020">2020</option>
+                            <option value="2019">2019</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <select class="form-control" id="bulan">
-                            <option>Bulan</option>
-                            <option>Januari</option>
-                            <option>Februari</option>
-                            <option>Maret</option>
-                            <option>April</option>
-                            <option>Mei</option>
-                            <option>Juni</option>
-                            <option>Juli</option>
-                            <option>Agustus</option>
-                            <option>September</option>
-                            <option>Oktober</option>
-                            <option>November</option>
-                            <option>Desember</option>
+                                <option value="">Bulan</option>
+                                <option value="Januari">Januari</option>
+                                <option value="Februari">Februari</option>
+                                <option value="Maret">Maret</option>
+                                <option value="April">April</option>
+                                <option value="Mei">Mei</option>
+                                <option value="Juni">Juni</option>
+                                <option value="Juli">Juli</option>
+                                <option value="Agustus">Agustus</option>
+                                <option value="September">September</option>
+                                <option value="Oktober">Oktober</option>
+                                <option value="November">November</option>
+                                <option value="Desember">Desember</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <select class="form-control" id="teritory">
-                            <option>Pilih Teritory</option>
-                            <option>JATIM1</option>
-                            <option>JATIM2</option>
-                            <option>JATIM3</option>
-                            <option>BALI</option>
-                            <option>NUSRA</option>
-                            <option>REGIONAL</option>
-                            <option>BALNUS</option>
-                            <option>GEMA</option>
-                            <option>SCM</option>
-                            <option>SURABAYA</option>
-                            <option>GRESIK</option>
-                            <option>SURAMADU</option>
-                            <option>SIDOARJO</option>
-                            <option>PASURUAN</option>
-                            <option>MALANG</option>
-                            <option>KEDIRI</option>
-                            <option>MADIUN</option>
-                            <option>JEMBER</option>
-                            <option>DENPASAR</option>
-                            <option>SINGARAJA</option>
-                            <option>KUPANG</option>
+                            <option value="">Pilih Teritory</option>
+                            <option value="JATIM1">JATIM1</option>
+                            <option value="JATIM2">JATIM2</option>
+                            <option value="JATIM3">JATIM3</option>
+                            <option value="BALI">BALI</option>
+                            <option value="NUSRA">NUSRA</option>
+                            <option value="REGIONAL">REGIONAL</option>
+                            <option value="BALNUS">BALNUS</option>
+                            <option value="GEMA">GEMA</option>
+                            <option value="SCM">SCM</option>
+                            <option value="SURABAYA">SURABAYA</option>
+                            <option value="GRESIK">GRESIK</option>
+                            <option value="SURAMADU">SURAMADU</option>
+                            <option value="SIDOARJO">SIDOARJO</option>
+                            <option value="PASURUAN">PASURUAN</option>
+                            <option value="MALANG">MALANG</option>
+                            <option value="KEDIRI">KEDIRI</option>
+                            <option value="MADIUN">MADIUN</option>
+                            <option value="JEMBER">JEMBER</option>
+                            <option value="DENPASAR">DENPASAR</option>
+                            <option value="SINGARAJA">SINGARAJA</option>
+                            <option value="KUPANG">KUPANG</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <select class="form-control" id="box">
-                            <option>Pilih Box</option>
-                            <option>A</option>
-                            <option>B</option>
-                            <option>C</option>
-                            <option>D</option>
-                            <option>E</option>
+                            <option value="">Pilih Box</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                            <option value="E">E</option>
                             </select>
                         </div>
                    </form>
@@ -143,7 +143,7 @@
                     </div>
                     
                     <div class="table-responsive">
-                        <table class="table table-sm table-hover tabel-arsip">
+                        <table class="table table-sm table-hover tabel-arsip" id="archive_table">
                             <thead>
                               <tr>
                                 <th scope="col">ID PM</th>
@@ -209,7 +209,7 @@
                 </table>
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-primary"  style="background-color: #1180BF; width: 100%" data-dismiss="modal">Print</button>
+            <button type="button" class="btn btn-primary" id="downloadPNG"  style="background-color: #1180BF; width: 100%" data-dismiss="modal">Print</button>
             </div>
         </div>
         </div>
@@ -234,7 +234,7 @@
 <!-- Modal Excel File -->
 @include('admin.kelola-arsip.impress-fund.modal-file')
 
-
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 @endsection
 
 @push('js')
@@ -246,6 +246,79 @@
         $('#btn_tambah_file').click(function(){
             $('#tambah_file').show();
         });
+
+        $('#tahun').on('change', function() {
+            var tahun=this.value;
+            var bulan=$('#bulan').val();
+            var teritory=$('#teritory').val();
+            var box=$('#box').val();
+            archives(tahun,bulan,teritory,box)
+        });
+
+        $('#bulan').on('change', function() {
+            var tahun=$('#tahun').val();
+            var bulan=this.value;
+            var teritory=$('#teritory').val();
+            var box=$('#box').val();
+            archives(tahun,bulan,teritory,box)
+        });
+
+        $('#teritory').on('change', function() {
+            var tahun=$('#tahun').val();
+            var bulan=$('#bulan').val();
+            var teritory=this.value;
+            var box=$('#box').val();
+            archives(tahun,bulan,teritory,box)
+        });
+
+        $('#box').on('change', function() {
+            var tahun=$('#tahun').val();
+            var bulan=$('#bulan').val();
+            var teritory=$('#teritory').val();
+            var box=this.value;
+            archives(tahun,bulan,teritory,box)
+        });
+
+        function archives(tahun,bulan,teritory,box){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: '/filter-impress-fund',
+            data:{
+                tahun: tahun,
+                bulan: bulan,
+                teritory: teritory,
+                box: box,
+            },
+            success: function (data) {
+                console.log(data)
+                $('#archive_table tr').remove()
+                for (let index = 0; index < data.length; index++) {
+                    $('#archive_table > tbody:last-child').append('\
+                        <tr>\
+                        <td>'+data[index].id_pm+'</td>\
+                        <td>'+data[index].bulan.substring(0, 3).toUpperCase()+'</td>\
+                        <td>'+data[index].teritory+'</td>\
+                        <td>BOX '+data[index].box+'</td>\
+                        <td>\
+                            <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history('+data[index].id_pm+')" data-target="#history">History</button>\
+                                      <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file('+data[index].id_pm+')" data-target="#file" data-arsip-id="'+data[index].id_pm+'">File</button>\
+                                      <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_file('+data[index].id_pm+')" data-target="#hapus">Hapus</button>\
+                        </td>\
+                        </tr>'
+                    );
+                }
+            },
+            error: function() { 
+                console.log(data);
+            }
+        });       
+    }
 
     });
     function add_file(archive_id){
@@ -378,5 +451,37 @@
             }
         });
     }
+    function downloadSVGAsPNG(e){
+        const canvas = document.createElement("canvas");
+        const svg = document.querySelector('svg');
+        const base64doc = btoa(unescape(encodeURIComponent(svg.outerHTML)));
+        const w = parseInt(svg.getAttribute('width'));
+        const h = parseInt(svg.getAttribute('height'));
+        const img_to_download = document.createElement('img');
+        img_to_download.src = 'data:image/svg+xml;base64,' + base64doc;
+        console.log(w, h);
+        img_to_download.onload = function () {    
+            canvas.setAttribute('width', w);
+            canvas.setAttribute('height', h);
+            const context = canvas.getContext("2d");
+            //context.clearRect(0, 0, w, h);
+            context.drawImage(img_to_download,0,0,w,h);
+            const dataURL = canvas.toDataURL('image/png');
+            if (window.navigator.msSaveBlob) {
+            window.navigator.msSaveBlob(canvas.msToBlob(), "download.png");
+            e.preventDefault();
+            } else {
+            const a = document.createElement('a');
+            const my_evt = new MouseEvent('click');
+            a.download = 'download.png';
+            a.href = dataURL;
+            a.dispatchEvent(my_evt);
+            }
+            //canvas.parentNode.removeChild(canvas);
+        }  
+    }
+    const downloadPNG = document.querySelector('#downloadPNG');
+    downloadPNG.addEventListener('click', downloadSVGAsPNG);
+    
 </script>
 @endpush

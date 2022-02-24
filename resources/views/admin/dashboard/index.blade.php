@@ -26,7 +26,9 @@
     </div>
 </div>
 @endsection
-
+<input type="hidden" name="" id="years_chart" value="{{(json_encode($year_combine))}}">
+<input type="hidden" name="" id="impress_fund_chart" value="{{(json_encode($impress_funds))}}">
+<input type="hidden" name="" id="tag_partner_chart" value="{{(json_encode($tag_partners))}}">
 @push('js')
     <script src="{{ asset('template') }}/vendor/chart.js/Chart.min.js"></script>
     <script src="{{ asset('template') }}/js/demo/chart-bar-demo.js"></script>

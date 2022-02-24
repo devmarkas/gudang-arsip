@@ -15,7 +15,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="sb nav-item">
-        <a class="nav-link " href="/dashboard" id="dashboard">
+        <a class="nav-link " href="{{ route('home') }}" id="dashboard">
             <img src="{{asset ("template")}}/img/icon-sidebar-dashboard.svg" alt="">
             <span>Dashboard</span></a>
     </li>
@@ -33,7 +33,7 @@
                     <img src="{{asset ("template")}}/img/icon-sidebar-kelola-arsip.svg" alt="">
                     <span>IMPRESS FUND</span>
                 </a>
-                <a class="nav-link " href="/tag-mitra" id="tag-mitra">
+                <a class="nav-link " href="{{ route('tag_mitra.index') }}" id="tag-mitra">
                     <img src="{{asset ("template")}}/img/icon-sidebar-kelola-arsip.svg" alt="">
                     <span>TAG MITRA</span>
                 </a>    
