@@ -17,30 +17,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
-
-Route::get('/test', function () {
-    return view('test');
-});
-
-Route::get('/test1', function () {
-    return view('test1');
-});
-
-// Route::get('/dashboard', function () {
-//     return view('admin.dashboard.index');
-// });
-
-
-// Route::get('/tag-mitra', function () {
-//     return view('admin.kelola-arsip.tag-mitra.index');
-// });
 Auth::routes();
 
 //Dashboard Route
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 //Impress Fund Arsip Route
 Route::get('/impress-fund', [ArsipController::class, 'impress_fund'])->name('impress_fund.index');
@@ -52,6 +32,7 @@ Route::post('/archive-save/', [ArsipController::class, 'archive_save'])->name('a
 Route::get('/take-out-archive/{id}', [ArsipController::class, 'take_out_archive'])->name('archive.take_out');
 Route::get('/delete-impress-archive/{id}', [ArsipController::class, 'delete_impress'])->name('archive.take_out');
 Route::post('/filter-impress-fund', [ArsipController::class, 'filter_impress_fund'])->name('impress_fund.filter');
+Route::post('/import-impress-fund', [ArsipController::class, 'import_impress_fund'])->name('impress_fund.import');
 
 //Tag Mitra Arsip Route
 Route::get('/tag-mitra', [PartnerController::class, 'index'])->name('tag_mitra.index');

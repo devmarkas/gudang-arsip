@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\ImpressFunds;
 use App\Models\File;
 use App\Models\History;
 use App\Models\ImpressFund;
@@ -9,6 +10,8 @@ use App\Models\TagPartner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class ArsipController extends Controller
 {
@@ -34,7 +37,12 @@ class ArsipController extends Controller
 
     public function save_impress_fund(Request $request)
     {
-        $request->validate(['*'=>'required']);
+        $request->validate([
+            'tahun'=>'required',
+            'bulan'=>'required',
+            'teritory'=>'required',
+            'box'=>'required',
+        ]);
         $id_pm = sprintf("%6d", mt_rand(1, 999999));
         $id_pm=$this->cek_zero($id_pm);
         $impress=new ImpressFund();
@@ -45,6 +53,12 @@ class ArsipController extends Controller
         $impress->box=$request->box;
         $impress->status='IN';
         $impress->save();
+
+        $history=new History();
+        $history->status='Arsip Masuk';
+        $history->user_id=Auth::id();
+        $history->archive_id=$id_pm;
+        $history->save();
 
         return redirect()->back()->with('barcode',json_encode([$id_pm,$request->bulan,$request->teritory,$request->box]));
         
@@ -92,6 +106,11 @@ class ArsipController extends Controller
 
     public function take_out_archive($id){
 
+        $impress=new ImpressFund();
+        $impress=ImpressFund::where('id_pm',$id)->first();
+        $impress->status='OUT';
+        $impress->save();
+
         $history=new History();
         $history->status='Arsip Keluar';
         $history->user_id=Auth::id();
@@ -127,5 +146,31 @@ class ArsipController extends Controller
         })
         ->get();
         return response($archives);
+    }
+
+    public function import_impress_fund(Request $request)
+    {
+        $archives = Excel::toArray(new ImpressFunds, request()->file('file'));
+        // $archives[0][1][0]
+        $i=1;
+        for ($n=0; $n < count($archives[0])-1; $n++) { 
+            $impress=new ImpressFund();
+            $impress->id_pm=$archives[0][$i][0];
+            $impress->periode=$archives[0][$i][1];
+            $impress->bulan=$archives[0][$i][2];
+            $impress->teritory=$archives[0][$i][3];
+            $impress->box=$archives[0][$i][4];
+            $impress->status='IN';
+            $impress->save();
+    
+            $history=new History();
+            $history->status='Arsip Masuk';
+            $history->user_id=Auth::id();
+            $history->archive_id=$archives[0][$i][0];
+            $history->save();
+            $i++;
+        }
+
+        return redirect()->route('impress_fund.index');
     }
 }

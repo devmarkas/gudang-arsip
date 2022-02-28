@@ -14,7 +14,7 @@
                     <label for="tahun-input-arsip-masuk">Periode Arsip</label>
                     <div class="form-group">
                         <select class="form-control" id="tahun-input-arsip-masuk" name="tahun">
-                            <option>Tahun</option>
+                            <option value="">Tahun</option>
                             <option value="2020">2022</option>
                             <option value="2021">2021</option>
                             <option value="2020">2020</option>
@@ -26,7 +26,7 @@
                     <div class="form-group">
                         <label></label>
                         <select class="form-control mt-2" id="bulan-input-arsip-masuk" name="bulan">
-                            <option>Bulan</option>
+                            <option value="">Bulan</option>
                             <option value="januari">Januari</option>
                             <option value="februari">Februari</option>
                             <option value="maret">Maret</option>
@@ -46,7 +46,7 @@
                     <label for="teritory-input-arsip-masuk">Arsip Teritory</label>
                     <div class="form-group">
                         <select class="form-control" id="teritory-input-arsip-masuk" name="teritory">
-                          <option>Pilih Teritory</option>
+                          <option value="">Pilih Teritory</option>
                           <option value="JATIM1">JATIM1</option>
                           <option value="JATIM2">JATIM2</option>
                           <option value="JATIM3">JATIM3</option>
@@ -75,7 +75,7 @@
                     <label for="teritory-input-arsip-masuk">Box Penyimpanan Arsip</label>
                     <div class="form-group">
                         <select class="form-control" id="box-penyimpanan-arsip-input-arsip-masuk" name="box">
-                            <option>Pilih Box Penyimpanan Arsip</option>
+                            <option value="">Pilih Box Penyimpanan Arsip</option>
                             <option value="A">A</option>
                             <option value="B">B</option>
                             <option value="C">C</option>

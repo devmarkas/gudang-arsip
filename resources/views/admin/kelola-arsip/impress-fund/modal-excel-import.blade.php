@@ -1,4 +1,4 @@
-<form action="">
+<form action="{{ route('impress_fund.import') }}" method="POST" enctype="multipart/form-data">@csrf
     <div class="modal fade" id="excel-import" tabindex="-1" role="dialog" aria-labelledby="excel-import" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
           <div class="modal-content">
@@ -15,7 +15,7 @@
                   <div class="input-group">
                     <div class="input-group mb-3">
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="inputGroupFile02">
+                        <input type="file" class="custom-file-input" name="file" id="inputGroupFile02">
                         <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
                       </div>
                       <div class="input-group-append">
@@ -26,7 +26,7 @@
                 </div>
                 <div class="col-md-2">
                   
-                  <button type="button" class="button" style="width: 110%; margin-left: -12%;">
+                  <button type="submit" class="button" style="width: 110%; margin-left: -12%;">
                     <span class="mr-2">
                       <img src="{{asset ("template")}}/img/icon-upload.svg" alt="">
                     </span>Upload</button>

@@ -155,7 +155,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($archives as $archive)
-                                <tr>
+                                <tr style="background-color: {{$archive->status!='IN'?'#d5483b;':''}}">
                                   <td>{{$archive->id_pm}}</td>
                                   <td>{{strtoupper(substr($archive->bulan,0,3))}}</td>
                                   <td>{{$archive->teritory}}</td>
@@ -280,50 +280,62 @@
         });
 
         function archives(tahun,bulan,teritory,box){
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            type: 'POST',
-            url: '/filter-impress-fund',
-            data:{
-                tahun: tahun,
-                bulan: bulan,
-                teritory: teritory,
-                box: box,
-            },
-            success: function (data) {
-                console.log(data)
-                $('#archive_table tr').remove()
-                for (let index = 0; index < data.length; index++) {
-                    $('#archive_table > tbody:last-child').append('\
-                        <tr>\
-                        <td>'+data[index].id_pm+'</td>\
-                        <td>'+data[index].bulan.substring(0, 3).toUpperCase()+'</td>\
-                        <td>'+data[index].teritory+'</td>\
-                        <td>BOX '+data[index].box+'</td>\
-                        <td>\
-                            <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history('+data[index].id_pm+')" data-target="#history">History</button>\
-                                      <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file('+data[index].id_pm+')" data-target="#file" data-arsip-id="'+data[index].id_pm+'">File</button>\
-                                      <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_file('+data[index].id_pm+')" data-target="#hapus">Hapus</button>\
-                        </td>\
-                        </tr>'
-                    );
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
-            },
-            error: function() { 
-                console.log(data);
-            }
-        });       
-    }
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: '/filter-impress-fund',
+                data:{
+                    tahun: tahun,
+                    bulan: bulan,
+                    teritory: teritory,
+                    box: box,
+                },
+                success: function (data) {
+                    console.log(data)
+                    $('#archive_table tbody tr').remove()
+                    if(data.length>0){
+                        for (let index = 0; index < data.length; index++) {
+                            $('#archive_table > tbody:last-child').append('\
+                                <tr>\
+                                <td>'+data[index].id_pm+'</td>\
+                                <td>'+data[index].bulan.substring(0, 3).toUpperCase()+'</td>\
+                                <td>'+data[index].teritory+'</td>\
+                                <td>BOX '+data[index].box+'</td>\
+                                <td>\
+                                    <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history('+data[index].id_pm+')" data-target="#history">History</button>\
+                                            <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file('+data[index].id_pm+')" data-target="#file" data-arsip-id="'+data[index].id_pm+'">File</button>\
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_file('+data[index].id_pm+')" data-target="#hapus">Hapus</button>\
+                                </td>\
+                                </tr>'
+                            );
+                        }
+                    }else{
+                        $('#archive_table > tbody:last-child').append('\
+                        <tr>\
+                            <td></td>\
+                            <td></td>\
+                            <td style="text-align:center">Item Arsip Tidak Ditemukan</td>\
+                            <td></td>\
+                            <td></td>\
+                        </tr>');
+
+                    }
+                },
+                error: function() { 
+                    console.log(data);
+                }
+            });       
+        }
 
     });
     function add_file(archive_id){
         $('#archive_id').val(archive_id)
-        $('#tabel-arsip tr').remove()
+        $('#tabel-arsip tbody tr').remove()
         $.ajax({
             type: 'GET',
             url: '/impress-fund/'+archive_id,
@@ -332,9 +344,12 @@
                 if(data.length>0){
                     for (let index = 0; index < data.length; index++) {
                         var tanggal=data[index].created_at
+                        console.log(tanggal)
+                        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                        var today  = new Date(tanggal);
                         $('#tabel-arsip > tbody:last-child').append('\
                         <tr>\
-                            <td><?=date("l F Y H:i",strtotime("2022-02-14T22:32:42.000000Z"));?> WIB</td>\
+                            <td>'+today.toLocaleDateString("en-US", options)+' WIB</td>\
                             <td>'+data[index].name+'</td>\
                             <td>\
                             <img src="{{asset ("template")}}/img/icon-preview.svg" alt="">\
@@ -352,7 +367,7 @@
         });
     }
     function open_history(archive_id){
-        $('#tabel-history tr').remove()
+        $('#tabel-history tbody tr').remove()
         $.ajax({
             type: 'GET',
             url: '/history-archive/'+archive_id,
@@ -361,9 +376,13 @@
                 if(data.length>0){
                     for (let index = 0; index < data.length; index++) {
                         console.log(data[index].status)
+                        var tanggal=data[index].created_at
+                        console.log(tanggal)
+                        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                        var today  = new Date(tanggal);
                         $('#tabel-history > tbody:last-child').append('\
                         <tr>\
-                            <td>12 Januari 2022 08:00 WIB</td>\
+                            <td>'+today.toLocaleDateString("en-US", options)+' WIB</td>\
                             <td>'+data[index].status+'</td>\
                             <td>'+data[index].name+'</td>\
                         </tr>'
@@ -381,7 +400,7 @@
 
     function find_archive(archive_id){
         var id_archive=$('#id_archive').val()
-        $('#tabel_archive_out tr').remove()
+        $('#tabel_archive_out tbody tr').remove()
         $.ajax({
             type: 'GET',
             url: '/out-archive/'+id_archive,
@@ -402,7 +421,15 @@
                         );
                     }
                 }else{
-                    console.log('tidak ada')
+                    $('#tabel_archive_out tbody tr').remove()
+                    $('#tabel_archive_out > tbody:last-child').append('\
+                        <tr>\
+                            <td></td>\
+                            <td></td>\
+                            <td style="text-align:center">Item Arsip Tidak Ditemukan</td>\
+                            <td></td>\
+                            <td></td>\
+                        </tr>');
                 }
             },
             error: function() { 
@@ -422,7 +449,9 @@
             type: 'GET',
             url: '/take-out-archive/'+id_archive,
             success: function (data) {
-                console.log(data)
+                setTimeout(function(){// wait for 5 secs(2)
+                    location.reload(); // then reload the page.(3)
+                }, 1000); 
             },
             error: function() { 
                 console.log(data);

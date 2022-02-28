@@ -274,9 +274,11 @@ function add_file(archive_id){
             if(data.length>0){
                 for (let index = 0; index < data.length; index++) {
                     var tanggal=data[index].created_at
+                    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                    var today  = new Date(tanggal);
                     $('#tabel-arsip > tbody:last-child').append('\
                     <tr>\
-                        <td><?=date("l F Y H:i",strtotime("2022-02-14T22:32:42.000000Z"));?> WIB</td>\
+                        <td>'+today.toLocaleDateString("en-US", options)+' WIB</td>\
                         <td>'+data[index].name+'</td>\
                         <td>\
                         <img src="{{asset ("template")}}/img/icon-preview.svg" alt="">\
@@ -300,13 +302,15 @@ function open_history(archive_id){
         type: 'GET',
         url: '/history-archive/'+archive_id,
         success: function (data) {
-            console.log(data.length)
+            
             if(data.length>0){
                 for (let index = 0; index < data.length; index++) {
-                    console.log(data[index].status)
+                    var tanggal=data[index].created_at
+                    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                    var today  = new Date(tanggal);
                     $('#tabel-history > tbody:last-child').append('\
                     <tr>\
-                        <td>12 Januari 2022 08:00 WIB</td>\
+                        <td>'+today.toLocaleDateString("en-US", options)+' WIB</td>\
                         <td>'+data[index].status+'</td>\
                         <td>'+data[index].name+'</td>\
                     </tr>'
