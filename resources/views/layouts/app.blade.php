@@ -22,6 +22,14 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('template') }}/css/markas-hosting.css" rel="stylesheet">
     <link href="{{ asset('template') }}/css/artha-apps.css" rel="stylesheet">
+    <style>
+        .peringatan {
+            position: fixed;
+            z-index: 100;
+            top: 5rem;
+            right: 1rem;
+        }
+    </style>
 
 </head>
 

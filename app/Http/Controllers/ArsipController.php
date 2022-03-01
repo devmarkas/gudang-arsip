@@ -29,6 +29,13 @@ class ArsipController extends Controller
         return response($files);
     }
 
+    public function detail($id)
+    {
+        $archive=ImpressFund::where('id_pm',$id)->first();
+        return response($archive);
+
+    }
+
     public function archive_history($id)
     {
         $histories=DB::table('histories')->select('histories.*','users.name')->where('archive_id',$id)->leftJoin('users','users.id','histories.user_id')->get();
@@ -77,6 +84,11 @@ class ArsipController extends Controller
 
     public function archive_save(Request $request)
     {
+        $request->validate([
+            'name'=>'required',
+            'file'=>'required|file',
+        ]);
+
         date_default_timezone_set('Asia/Jakarta');
         $path = public_path().'/template/img/archive';
         $file_name=time().'.'.$request->file->getClientOriginalExtension();
@@ -150,27 +162,46 @@ class ArsipController extends Controller
 
     public function import_impress_fund(Request $request)
     {
-        $archives = Excel::toArray(new ImpressFunds, request()->file('file'));
-        // $archives[0][1][0]
-        $i=1;
-        for ($n=0; $n < count($archives[0])-1; $n++) { 
-            $impress=new ImpressFund();
-            $impress->id_pm=$archives[0][$i][0];
-            $impress->periode=$archives[0][$i][1];
-            $impress->bulan=$archives[0][$i][2];
-            $impress->teritory=$archives[0][$i][3];
-            $impress->box=$archives[0][$i][4];
-            $impress->status='IN';
-            $impress->save();
-    
-            $history=new History();
-            $history->status='Arsip Masuk';
-            $history->user_id=Auth::id();
-            $history->archive_id=$archives[0][$i][0];
-            $history->save();
-            $i++;
+        if(request()->file('file')){
+            $archives = Excel::toArray(new ImpressFunds, request()->file('file'));
+            // $archives[0][1][0]
+            if($archives[0]!=null){
+                $i=1;
+                for ($n=0; $n < count($archives[0])-1; $n++) { 
+                    $impress=new ImpressFund();
+                    $impress->id_pm=$archives[0][$i][0];
+                    $impress->periode=$archives[0][$i][1];
+                    $impress->bulan=$archives[0][$i][2];
+                    $impress->teritory=$archives[0][$i][3];
+                    $impress->box=$archives[0][$i][4];
+                    $impress->status='IN';
+                    $impress->save();
+            
+                    $history=new History();
+                    $history->status='Arsip Masuk';
+                    $history->user_id=Auth::id();
+                    $history->archive_id=$archives[0][$i][0];
+                    $history->save();
+                    $i++;
+                }
+                return redirect()->route('impress_fund.index');
+            }else{
+                return redirect()->route('impress_fund.index');
+            }
+        }else{
+            return redirect()->route('impress_fund.index');
         }
 
-        return redirect()->route('impress_fund.index');
+    }
+
+    public function cari_impress_fund($query)
+    {
+        $archives=DB::table('impress_funds')
+        ->where('id_pm','LIKE','%'.$query.'%')
+        ->orWhere('periode','LIKE','%'.$query.'%')
+        ->orWhere('bulan','LIKE','%'.$query.'%')
+        ->orWhere('teritory','LIKE','%'.$query.'%')
+        ->orWhere('box','LIKE','%'.$query.'%')->get();
+        return response($archives);
     }
 }

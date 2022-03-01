@@ -5,7 +5,18 @@
 @section('content')
 
 <div class="header-content arsip">
-   
+    @if ($errors->any())
+        <div id="validasi" class="peringatan">
+            @foreach ($errors->all() as $error)
+            <div class="alert alert-danger"> 
+                <span>{{$error}}</span> 
+                <button type="button" style="width: 30px; height: 30px;" class="close ml-3" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @endforeach
+        </div>
+    @endif
     <div class="row">
         <div class="col-md-6">
             <h1>Lihat Arsip IMPRESS FUND</h1>
@@ -116,6 +127,7 @@
                             <option value="E">E</option>
                             </select>
                         </div>
+                        <button class="btn btn-secondary" type="button" style="width: 100%" id="btn_reset_filter">Reset Filter</button>
                    </form>
                    
                 </div>
@@ -132,7 +144,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="input-group search-box">
-                                <input type="text" class="form-control" placeholder="Cari Arsip">
+                                <input type="text" class="form-control" placeholder="Cari Arsip" id="cari_arsip" onkeyup="cari_arsip()">
                                 <div class="input-group-append">
                                   <button class="btn btn-secondary" type="button">
                                     <i class="fa fa-search"></i>
@@ -164,6 +176,7 @@
                                       <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history({{$archive->id_pm}})" data-target="#history">History</button>
                                       <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file({{$archive->id_pm}})" data-target="#file" data-arsip-id="{{$archive->id_pm}}">File</button>
                                       <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_file({{$archive->id_pm}})" data-target="#hapus">Hapus</button>
+                                      <button type="button" class="btn btn-secondary" onclick="qrcode_archive({{$archive->id_pm}})">QR</button>
                                   </td>
                                 </tr>  
                                 @endforeach
@@ -215,6 +228,41 @@
         </div>
     </div>
 @endif
+<div class="modal fade" id="qrcode_modal" tabindex="-1" role="dialog" aria-labelledby="barcode_modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <p style="text-align: left;" id="barcode_modalLabel">Barcode Generated</p>
+        </div>
+        <div class="modal-body" style="display: block;margin: auto">
+            <div id="qrcode">
+
+            </div>
+            <table style="width: 100%">
+                <tr>
+                    <td><b>ID PM</b></td>
+                    <td style="text-align: right" id="qr_code_id_pm"></td>
+                </tr>
+                <tr>
+                    <td><b>Periode</b></td>
+                    <td style="text-align: right" id="qr_code_periode"></td>
+                </tr>
+                <tr>
+                    <td><b>Teritory</b></td>
+                    <td style="text-align: right" id="qr_code_teritory"></td>
+                </tr>
+                <tr>
+                    <td><b>Box</b></td>
+                    <td style="text-align: right" id="qr_code_box"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="download_qrcode_fun()"  style="background-color: #1180BF; width: 100%" data-dismiss="modal">Print</button>
+        </div>
+    </div>
+    </div>
+</div>
 
 <!-- Modal Input Arsip Masuk -->
 @include('admin.kelola-arsip.impress-fund.modal-arsip-masuk')
@@ -238,14 +286,21 @@
 @endsection
 
 @push('js')
+<script src="/template/js/qrcode.js"></script>
 <script>
+    
+
     $(document).ready(function(){
+
+
         $('#barcode_modal').modal();
         $('#tambah_file').hide();
 
         $('#btn_tambah_file').click(function(){
             $('#tambah_file').show();
         });
+
+        
 
         $('#tahun').on('change', function() {
             var tahun=this.value;
@@ -278,6 +333,15 @@
             var box=this.value;
             archives(tahun,bulan,teritory,box)
         });
+
+        $('#btn_reset_filter').click(function(){
+            $("select").each(function() { this.selectedIndex = 0 });
+            var tahun=$('#tahun').val();
+            var bulan=$('#bulan').val();
+            var teritory=$('#teritory').val();
+            var box=this.value;
+            archives(tahun,bulan,teritory,box)
+        })
 
         function archives(tahun,bulan,teritory,box){
             $.ajaxSetup({
@@ -332,7 +396,79 @@
             });       
         }
 
+        $('#qrcode_archive').click(function(){
+
+        })
+
     });
+
+    function cari_arsip(){
+        var cari=$('#cari_arsip').val()
+        console.log(cari)
+        $.ajax({
+            type: 'GET',
+            url: '/cari-impress-fund/'+cari,
+            success: function (data) {
+                console.log(data)
+                    $('#archive_table tbody tr').remove()
+                    if(data.length>0){
+                        for (let index = 0; index < data.length; index++) {
+                            $('#archive_table > tbody:last-child').append('\
+                                <tr>\
+                                <td>'+data[index].id_pm+'</td>\
+                                <td>'+data[index].bulan.substring(0, 3).toUpperCase()+'</td>\
+                                <td>'+data[index].teritory+'</td>\
+                                <td>BOX '+data[index].box+'</td>\
+                                <td>\
+                                    <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history('+data[index].id_pm+')" data-target="#history">History</button>\
+                                            <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file('+data[index].id_pm+')" data-target="#file" data-arsip-id="'+data[index].id_pm+'">File</button>\
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_file('+data[index].id_pm+')" data-target="#hapus">Hapus</button>\
+                                </td>\
+                                </tr>'
+                            );
+                        }
+                    }else{
+                        $('#archive_table > tbody:last-child').append('\
+                        <tr>\
+                            <td></td>\
+                            <td></td>\
+                            <td style="text-align:center">Item Arsip Tidak Ditemukan</td>\
+                            <td></td>\
+                            <td></td>\
+                        </tr>');
+
+                    }
+            },
+            error: function() { 
+                console.log(data);
+            }
+        });
+    }
+
+    function qrcode_archive(archive_id){
+        $('#qrcode canvas').remove()
+        $('#qrcode img').remove()
+        $.ajax({
+            type: 'GET',
+            url: '/qrcode-impress-fund/'+archive_id,
+            success: function (data) {
+                $('#qrcode_modal').modal();
+                var qrcode = new QRCode(document.getElementById("qrcode"), {
+                    text: JSON.stringify([data.id_pm,data.bulan,data.teritory,data.box]),
+                    width: 300,
+                    height: 300,
+                });
+                $('#qr_code_id_pm').html(data.id_pm)
+                $('#qr_code_periode').html(data.bulan)
+                $('#qr_code_teritory').html(data.teritory)
+                $('#qr_code_box').html(data.box)
+            },
+            error: function() { 
+                console.log(data);
+            }
+        });
+    }
+    
     function add_file(archive_id){
         $('#archive_id').val(archive_id)
         $('#tabel-arsip tbody tr').remove()
@@ -511,6 +647,38 @@
     }
     const downloadPNG = document.querySelector('#downloadPNG');
     downloadPNG.addEventListener('click', downloadSVGAsPNG);
+
+
+    function download_qrcode_fun(e){
+        console.log('jaya')
+        const canvas = document.createElement("canvas");
+        const svg = document.getElementById('qrcode').getElementsByTagName('img')
+        const base64doc = btoa(unescape(encodeURIComponent(svg.outerHTML)));
+        const w = parseInt(300);
+        const h = parseInt(300);
+        const img_to_download = document.createElement('img');
+        img_to_download.src = svg[0].currentSrc;
+        console.log(base64doc);
+        img_to_download.onload = function () {    
+            canvas.setAttribute('width', w);
+            canvas.setAttribute('height', h);
+            const context = canvas.getContext("2d");
+            //context.clearRect(0, 0, w, h);
+            context.drawImage(img_to_download,0,0,w,h);
+            const dataURL = canvas.toDataURL('image/png');
+            if (window.navigator.msSaveBlob) {
+            window.navigator.msSaveBlob(canvas.msToBlob(), "download.png");
+            e.preventDefault();
+            } else {
+            const a = document.createElement('a');
+            const my_evt = new MouseEvent('click');
+            a.download = 'download.png';
+            a.href = dataURL;
+            a.dispatchEvent(my_evt);
+            }
+            //canvas.parentNode.removeChild(canvas);
+        }  
+    }
     
 </script>
 @endpush
