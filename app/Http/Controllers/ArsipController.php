@@ -170,6 +170,12 @@ class ArsipController extends Controller
                 for ($n=0; $n < count($archives[0])-1; $n++) { 
                     $check_archive=ImpressFund::where('id_pm')->where('id_pm',$archives[0][$i][0])->first();
                     if($archives[0][$i][0]&&$check_archive==null){
+                        $data[$n]=[
+                            'id_pm'=>$archives[0][$i][0],
+                            'periode'=>$archives[0][$i][1],
+                            'teritory'=>$archives[0][$i][3],
+                            'box'=>$archives[0][$i][4],
+                        ];
                         $impress=new ImpressFund();
                         $impress->id_pm=$archives[0][$i][0];
                         $impress->periode=$archives[0][$i][1];
@@ -183,16 +189,16 @@ class ArsipController extends Controller
                         $history->status='Arsip Masuk';
                         $history->user_id=Auth::id();
                         $history->archive_id=$archives[0][$i][0];
-                        $history->save();
+                        // $history->save();
                     }
                     $i++;
                 }
-                return redirect()->route('impress_fund.index')->with('succes_import','Sukses Import Data Excel');
+                return redirect()->route('impress_fund.index')->with('succes_import',json_encode($data));
             }else{
-                return redirect()->route('impress_fund.index')->with('succes_import','Sukses Import Data Excel');
+                return redirect()->route('impress_fund.index')->with('error_import','Import Data Excel Kosong');
             }
         }else{
-            return redirect()->route('impress_fund.index')->with('succes_import','Sukses Import Data Excel');
+            return redirect()->route('impress_fund.index')->with('error_import','File Excel Required');
         }
 
     }

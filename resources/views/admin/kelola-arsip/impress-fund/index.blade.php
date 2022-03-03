@@ -17,10 +17,10 @@
             @endforeach
         </div>
     @endif
-    @if (Session::has('succes_import'))
+    @if (Session::has('error_import'))
     <div id="validasi" class="peringatan">
-        <div class="alert alert-success"> 
-            <span>{{Session::get('succes_import')}}</span> 
+        <div class="alert alert-danger"> 
+            <span>{{Session::get('error_import')}}</span> 
             <button type="button" style="width: 30px; height: 30px;" class="close ml-3" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -202,6 +202,44 @@
 
 {{-- Modal Barcode --}}
 
+ @if (Session::has('succes_import'))
+ <div class="modal fade" id="barcode_modal_import" tabindex="-1" role="dialog" aria-labelledby="barcode_modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <p style="text-align: left;" id="barcode_modalLabel">Barcode Generated</p>
+        </div>
+        <div class="modal-body" id="print_qrcode_import" style="display: block;margin: auto">
+            @foreach (json_decode(Session::get('succes_import')) as $barcode)
+            {!!QrCode::size(300)->generate(json_encode($barcode));!!}
+            
+            <table style="width: 100%">
+                <tr>
+                    <td><b>ID PM</b></td>
+                    <td style="text-align: right">{{$barcode->id_pm}}</td>
+                </tr>
+                <tr>
+                    <td><b>Periode</b></td>
+                    <td style="text-align: right">{{$barcode->periode}}</td>
+                </tr>
+                <tr>
+                    <td><b>Teritory</b></td>
+                    <td style="text-align: right">{{$barcode->teritory}}</td>
+                </tr>
+                <tr>
+                    <td><b>Box</b></td>
+                    <td style="text-align: right">{{$barcode->box}}</td>
+                </tr>
+            </table>
+            @endforeach
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onClick="printJS('print_qrcode_import', 'html')" id="downloadPNG"  style="background-color: #1180BF; width: 100%" data-dismiss="modal">Print</button>
+        </div>
+    </div>
+    </div>
+</div>
+ @endif
  @if (Session::has('barcode'))
     <input type="hidden" name="text_barcode" id="text_barcode" value="{{ Session::get('barcode') }}">
     <div class="modal fade" id="barcode_modal" tabindex="-1" role="dialog" aria-labelledby="barcode_modalLabel" aria-hidden="true">
@@ -305,6 +343,7 @@
     $(document).ready(function(){
 
 
+        $('#barcode_modal_import').modal();
         $('#barcode_modal').modal();
         $('#tambah_file').hide();
 
