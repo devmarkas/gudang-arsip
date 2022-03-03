@@ -168,28 +168,31 @@ class ArsipController extends Controller
             if($archives[0]!=null){
                 $i=1;
                 for ($n=0; $n < count($archives[0])-1; $n++) { 
-                    $impress=new ImpressFund();
-                    $impress->id_pm=$archives[0][$i][0];
-                    $impress->periode=$archives[0][$i][1];
-                    $impress->bulan=$archives[0][$i][2];
-                    $impress->teritory=$archives[0][$i][3];
-                    $impress->box=$archives[0][$i][4];
-                    $impress->status='IN';
-                    $impress->save();
-            
-                    $history=new History();
-                    $history->status='Arsip Masuk';
-                    $history->user_id=Auth::id();
-                    $history->archive_id=$archives[0][$i][0];
-                    $history->save();
+                    $check_archive=ImpressFund::where('id_pm')->where('id_pm',$archives[0][$i][0])->first();
+                    if($archives[0][$i][0]&&$check_archive==null){
+                        $impress=new ImpressFund();
+                        $impress->id_pm=$archives[0][$i][0];
+                        $impress->periode=$archives[0][$i][1];
+                        $impress->bulan=$archives[0][$i][2];
+                        $impress->teritory=$archives[0][$i][3];
+                        $impress->box=$archives[0][$i][4];
+                        $impress->status='IN';
+                        $impress->save();
+                
+                        $history=new History();
+                        $history->status='Arsip Masuk';
+                        $history->user_id=Auth::id();
+                        $history->archive_id=$archives[0][$i][0];
+                        $history->save();
+                    }
                     $i++;
                 }
-                return redirect()->route('impress_fund.index');
+                return redirect()->route('impress_fund.index')->with('succes_import','Sukses Import Data Excel');
             }else{
-                return redirect()->route('impress_fund.index');
+                return redirect()->route('impress_fund.index')->with('succes_import','Sukses Import Data Excel');
             }
         }else{
-            return redirect()->route('impress_fund.index');
+            return redirect()->route('impress_fund.index')->with('succes_import','Sukses Import Data Excel');
         }
 
     }

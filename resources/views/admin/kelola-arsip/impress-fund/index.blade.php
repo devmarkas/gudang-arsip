@@ -17,6 +17,16 @@
             @endforeach
         </div>
     @endif
+    @if (Session::has('succes_import'))
+    <div id="validasi" class="peringatan">
+        <div class="alert alert-success"> 
+            <span>{{Session::get('succes_import')}}</span> 
+            <button type="button" style="width: 30px; height: 30px;" class="close ml-3" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    @endif
     <div class="row">
         <div class="col-md-6">
             <h1>Lihat Arsip IMPRESS FUND</h1>
@@ -200,7 +210,7 @@
             <div class="modal-header">
             <p style="text-align: left;" id="barcode_modalLabel">Barcode Generated</p>
             </div>
-            <div class="modal-body" style="display: block;margin: auto">
+            <div class="modal-body" id="print_qrcode" style="display: block;margin: auto">
                 {!!QrCode::size(300)->generate(Session::get('barcode'));!!}
                 <table style="width: 100%">
                     <tr>
@@ -222,7 +232,7 @@
                 </table>
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-primary" id="downloadPNG"  style="background-color: #1180BF; width: 100%" data-dismiss="modal">Print</button>
+            <button type="button" class="btn btn-primary" onClick="printJS('print_qrcode', 'html')" id="downloadPNG"  style="background-color: #1180BF; width: 100%" data-dismiss="modal">Print</button>
             </div>
         </div>
         </div>
@@ -234,7 +244,7 @@
         <div class="modal-header">
         <p style="text-align: left;" id="barcode_modalLabel">Barcode Generated</p>
         </div>
-        <div class="modal-body" style="display: block;margin: auto">
+        <div class="modal-body" id="print_qrcode" style="display: block;margin: auto">
             <div id="qrcode">
 
             </div>
@@ -258,7 +268,7 @@
             </table>
         </div>
         <div class="modal-footer">
-        <button type="button" class="btn btn-primary" onclick="download_qrcode_fun()"  style="background-color: #1180BF; width: 100%" data-dismiss="modal">Print</button>
+        <button type="button" class="btn btn-primary" onClick="printJS('print_qrcode', 'html')"  style="background-color: #1180BF; width: 100%" data-dismiss="modal">Print</button>
         </div>
     </div>
     </div>
@@ -287,6 +297,8 @@
 
 @push('js')
 <script src="/template/js/qrcode.js"></script>
+<script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+
 <script>
     
 
@@ -363,17 +375,24 @@
                     console.log(data)
                     $('#archive_table tbody tr').remove()
                     if(data.length>0){
+                        var color=''
                         for (let index = 0; index < data.length; index++) {
+                            if (data[index].status!='IN') {
+                                color='#d5483b'
+                            } else {
+                                color=''
+                            }
                             $('#archive_table > tbody:last-child').append('\
-                                <tr>\
+                                <tr style="background-color: '+color+'">\
                                 <td>'+data[index].id_pm+'</td>\
                                 <td>'+data[index].bulan.substring(0, 3).toUpperCase()+'</td>\
                                 <td>'+data[index].teritory+'</td>\
                                 <td>BOX '+data[index].box+'</td>\
                                 <td>\
                                     <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history('+data[index].id_pm+')" data-target="#history">History</button>\
-                                            <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file('+data[index].id_pm+')" data-target="#file" data-arsip-id="'+data[index].id_pm+'">File</button>\
-                                            <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_file('+data[index].id_pm+')" data-target="#hapus">Hapus</button>\
+                                    <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file('+data[index].id_pm+')" data-target="#file" data-arsip-id="'+data[index].id_pm+'">File</button>\
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_file('+data[index].id_pm+')" data-target="#hapus">Hapus</button>\
+                                    <button type="button" class="btn btn-secondary" onclick="qrcode_archive('+data[index].id_pm+')">QR</button>\
                                 </td>\
                                 </tr>'
                             );
@@ -413,16 +432,22 @@
                     $('#archive_table tbody tr').remove()
                     if(data.length>0){
                         for (let index = 0; index < data.length; index++) {
+                        if (data[index].status!='IN') {
+                                color='#d5483b'
+                            } else {
+                                color=''
+                            }
                             $('#archive_table > tbody:last-child').append('\
-                                <tr>\
+                            <tr style="background-color: '+color+'">\
                                 <td>'+data[index].id_pm+'</td>\
                                 <td>'+data[index].bulan.substring(0, 3).toUpperCase()+'</td>\
                                 <td>'+data[index].teritory+'</td>\
                                 <td>BOX '+data[index].box+'</td>\
                                 <td>\
                                     <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history('+data[index].id_pm+')" data-target="#history">History</button>\
-                                            <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file('+data[index].id_pm+')" data-target="#file" data-arsip-id="'+data[index].id_pm+'">File</button>\
-                                            <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_file('+data[index].id_pm+')" data-target="#hapus">Hapus</button>\
+                                    <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file('+data[index].id_pm+')" data-target="#file" data-arsip-id="'+data[index].id_pm+'">File</button>\
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_file('+data[index].id_pm+')" data-target="#hapus">Hapus</button>\
+                                    <button type="button" class="btn btn-secondary" onclick="qrcode_archive('+data[index].id_pm+')">QR</button>\
                                 </td>\
                                 </tr>'
                             );
@@ -480,8 +505,7 @@
                 if(data.length>0){
                     for (let index = 0; index < data.length; index++) {
                         var tanggal=data[index].created_at
-                        console.log(tanggal)
-                        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                        var options = {day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric',minute:'numeric' };
                         var today  = new Date(tanggal);
                         $('#tabel-arsip > tbody:last-child').append('\
                         <tr>\
@@ -615,69 +639,6 @@
                 console.log(data);
             }
         });
-    }
-    function downloadSVGAsPNG(e){
-        const canvas = document.createElement("canvas");
-        const svg = document.querySelector('svg');
-        const base64doc = btoa(unescape(encodeURIComponent(svg.outerHTML)));
-        const w = parseInt(svg.getAttribute('width'));
-        const h = parseInt(svg.getAttribute('height'));
-        const img_to_download = document.createElement('img');
-        img_to_download.src = 'data:image/svg+xml;base64,' + base64doc;
-        console.log(w, h);
-        img_to_download.onload = function () {    
-            canvas.setAttribute('width', w);
-            canvas.setAttribute('height', h);
-            const context = canvas.getContext("2d");
-            //context.clearRect(0, 0, w, h);
-            context.drawImage(img_to_download,0,0,w,h);
-            const dataURL = canvas.toDataURL('image/png');
-            if (window.navigator.msSaveBlob) {
-            window.navigator.msSaveBlob(canvas.msToBlob(), "download.png");
-            e.preventDefault();
-            } else {
-            const a = document.createElement('a');
-            const my_evt = new MouseEvent('click');
-            a.download = 'download.png';
-            a.href = dataURL;
-            a.dispatchEvent(my_evt);
-            }
-            //canvas.parentNode.removeChild(canvas);
-        }  
-    }
-    const downloadPNG = document.querySelector('#downloadPNG');
-    downloadPNG.addEventListener('click', downloadSVGAsPNG);
-
-
-    function download_qrcode_fun(e){
-        console.log('jaya')
-        const canvas = document.createElement("canvas");
-        const svg = document.getElementById('qrcode').getElementsByTagName('img')
-        const base64doc = btoa(unescape(encodeURIComponent(svg.outerHTML)));
-        const w = parseInt(300);
-        const h = parseInt(300);
-        const img_to_download = document.createElement('img');
-        img_to_download.src = svg[0].currentSrc;
-        console.log(base64doc);
-        img_to_download.onload = function () {    
-            canvas.setAttribute('width', w);
-            canvas.setAttribute('height', h);
-            const context = canvas.getContext("2d");
-            //context.clearRect(0, 0, w, h);
-            context.drawImage(img_to_download,0,0,w,h);
-            const dataURL = canvas.toDataURL('image/png');
-            if (window.navigator.msSaveBlob) {
-            window.navigator.msSaveBlob(canvas.msToBlob(), "download.png");
-            e.preventDefault();
-            } else {
-            const a = document.createElement('a');
-            const my_evt = new MouseEvent('click');
-            a.download = 'download.png';
-            a.href = dataURL;
-            a.dispatchEvent(my_evt);
-            }
-            //canvas.parentNode.removeChild(canvas);
-        }  
     }
     
 </script>
