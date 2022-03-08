@@ -1,4 +1,4 @@
-<ul class="navbar-nav sidebar sidebar-dark sidebar-custom accordion" id="accordionSidebar">
+<ul class="nav navbar-nav sidebar sidebar-dark sidebar-custom accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html" >
@@ -15,27 +15,39 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="sb nav-item">
-        <a class="nav-link " href="{{ route('home') }}" id="dashboard">
-            <img src="{{asset ("template")}}/img/icon-sidebar-dashboard.svg" alt="">
-            <span>Dashboard</span></a>
+        <a class="nav-link {{ Request::is('/*') ? 'nav-active-custom' : '' }} " href="{{ route('home') }}" id="dashboard">
+            @if (Request::is('/*'))
+                <img src="{{asset ("template")}}/img/icon-sidebar-dashboard-active.svg" alt="">
+            @else
+                <img src="{{asset ("template")}}/img/icon-sidebar-dashboard.svg" alt="">
+            @endif
+            <span class="{{ Request::is('/*') ? 'nav-active-custom-span' : '' }}">Dashboard</span></a>
     </li>
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="sb nav-item">
         <a class="nav-link collapsed active" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
-            <img src="{{asset ("template")}}/img/icon-sidebar-dashboard.svg" alt="">
+            <img src="{{asset ("template")}}/img/icon-sidebar-kelola-arsip.svg" alt="">
             <span>Kelola Arsip</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-2 collapse-inner rounded">
-                <a class="nav-link " href="{{ route('impress_fund.index') }}" id="impress-fund">
+                <a class="nav-link {{ Request::is('impress-fund*') ? 'nav-active-custom' : '' }} " href="{{ route('impress_fund.index') }}" id="impress-fund">
+                @if (Request::is('impress-fund*'))
+                    <img src="{{asset ("template")}}/img/icon-sidebar-kelola-arsip-active.svg" alt="">
+                @else
                     <img src="{{asset ("template")}}/img/icon-sidebar-kelola-arsip.svg" alt="">
-                    <span>IMPRESS FUND</span>
+                @endif
+                <span class="{{ Request::is('impress-fund*') ? 'nav-active-custom-span' : '' }}">IMPRESS FUND</span>
                 </a>
-                <a class="nav-link " href="{{ route('tag_mitra.index') }}" id="tag-mitra">
+                <a class="nav-link {{ Request::is('tag-mitra*') ? 'nav-active-custom' : '' }} " href="{{ route('tag_mitra.index') }}" id="tag-mitra">
+                @if (Request::is('tag-mitra*'))
+                    <img src="{{asset ("template")}}/img/icon-sidebar-kelola-arsip-active.svg" alt="">
+                @else
                     <img src="{{asset ("template")}}/img/icon-sidebar-kelola-arsip.svg" alt="">
-                    <span>TAG MITRA</span>
+                @endif
+                <span class="{{ Request::is('tag-mitra*') ? 'nav-active-custom-span' : '' }}">TAG MITRA</span>
                 </a>    
             </div>
         </div>
@@ -54,26 +66,3 @@
 
     </div>
 </ul>
-
-@push('js')
-<script>
-    $(document).ready(function () {
-        var url = window.location.pathname;
-        // console.log(url);
-
-        if ( url == "/dashboard"){
-            $('#dashboard').addClass('active-custom')
-        }
-        if ( url == "/impress-fund"){
-            $('#impress-fund').addClass('active-custom')
-        }
-        if ( url == "/tag-mitra"){
-            $('#tag-mitra').addClass('active')
-        }
-    // $('.sb').click(function() {
-    //     $('.sb').removeClass('active-custom');
-    //     $(this).addClass('active-custom');
-    // }); 
-});
-</script>
-@endpush
