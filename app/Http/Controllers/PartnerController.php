@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Counter;
 use App\Models\ImpressFund;
 use App\Models\TagPartner;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class PartnerController extends Controller
     {
         $request->validate(['*'=>'required']);
         $id_pm = sprintf("%6d", mt_rand(1, 999999));
-        $id_pm=$this->cek_zero($id_pm);
+        $id_pm=$this->id_archive($request->tahun);
         $impress=new TagPartner();
         $impress->id_pm=$id_pm;
         $impress->pekerjaan=$request->pekerjaan;
@@ -31,16 +32,14 @@ class PartnerController extends Controller
         return redirect()->back()->with('barcode',json_encode([$id_pm,$request->bulan,$request->pekerjaan,$request->teritory,$request->box]));
     }
 
-    public function cek_zero($num)
+    public function id_archive($year)
     {
-        $cek_db=ImpressFund::where('id_pm',$num)->first();
-        $cek_db2=TagPartner::where('id_pm',$num)->first();
-        if(substr($num,0,1)!=0&&$cek_db==null&&$cek_db2==null){
-            return $num;
-        }else{
-            $num=sprintf("%6d", mt_rand(1, 999999));
-            $this->cek_zero($num);
-        }
+        $last_counter=Counter::select('counter')->pluck('counter')->first();
+        $counter=new Counter();
+        $counter=Counter::first();
+        $counter->counter=$last_counter+=1;
+        $counter->save();
+        return $year.sprintf("%05d", $last_counter);
     }
 
     public function out_archive($id){

@@ -1,0 +1,24 @@
+
+#barcode_modal_import .modal-dialog,
+#barcode_modal .modal-dialog {
+    max-width: 768px;
+}
+
+#barcode_modal_import .modal-dialog .item-barcode,
+#barcode_modal .modal-dialog .item-barcode {
+    width: 33.33%;
+    float: left;
+    padding: 15px;
+}
+
+#barcode_modal_import .modal-dialog .modal-body,
+#barcode_modal .modal-dialog .modal-body {
+    flex: none;
+    margin: 0 !important;
+    margin-top: -45px !important;
+}
+
+#barcode_modal_import .modal-dialog .item-barcode svg,
+#barcode_modal .modal-dialog .item-barcode svg {
+width: 100%;
+}

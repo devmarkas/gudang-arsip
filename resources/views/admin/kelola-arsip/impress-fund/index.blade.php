@@ -2,6 +2,35 @@
 	'title' => 'Impress Fund',
 ])
 
+@section('style')
+<link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
+    <style>
+        div#barcode_modal_import .modal-dialog,
+        div#barcode_modal .modal-dialog {
+            max-width: 768px;
+        }
+
+        div#barcode_modal_import .modal-dialog .item-barcode,
+        div#barcode_modal .modal-dialog .item-barcode {
+            width: 33.33%;
+            float: left;
+            padding: 15px;
+        }
+
+        div#barcode_modal_import .modal-dialog .modal-body,
+        div#barcode_modal .modal-dialog .modal-body {
+            flex: none;
+            margin: 0 !important;
+            margin-top: -45px !important;
+        }
+
+        div#barcode_modal_import .modal-dialog .item-barcode svg,
+        div#barcode_modal .modal-dialog .item-barcode svg {
+        width: 100%;
+        }
+    </style>
+@endsection
+
 @section('content')
 
 <div class="header-content arsip">
@@ -209,32 +238,42 @@
         <div class="modal-header">
         <p style="text-align: left;" id="barcode_modalLabel">Barcode Generated</p>
         </div>
-        <div class="modal-body" id="print_qrcode_import" style="display: block;margin: auto">
+        <div class="modal-body" id="print_qrcode_import">
             @foreach (json_decode(Session::get('succes_import')) as $barcode)
-            {!!QrCode::size(300)->generate(json_encode($barcode));!!}
-            
-            <table style="width: 100%">
-                <tr>
-                    <td><b>ID PM</b></td>
-                    <td style="text-align: right">{{$barcode->id_pm}}</td>
-                </tr>
-                <tr>
-                    <td><b>Periode</b></td>
-                    <td style="text-align: right">{{$barcode->periode}}</td>
-                </tr>
-                <tr>
-                    <td><b>Teritory</b></td>
-                    <td style="text-align: right">{{$barcode->teritory}}</td>
-                </tr>
-                <tr>
-                    <td><b>Box</b></td>
-                    <td style="text-align: right">{{$barcode->box}}</td>
-                </tr>
-            </table>
+            <div class="item-barcode" id="item-barcode">
+                {!!QrCode::size(300)->generate(json_encode($barcode));!!}
+                <table style="width: 100%">
+                    <tr>
+                        <td><b>ID PM</b></td>
+                        <td style="text-align: right">{{$barcode->id_pm}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Periode</b></td>
+                        <td style="text-align: right">{{$barcode->periode}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Teritory</b></td>
+                        <td style="text-align: right">{{$barcode->teritory}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Box</b></td>
+                        <td style="text-align: right">{{$barcode->box}}</td>
+                    </tr>
+                </table>
+        </div>
             @endforeach
         </div>
         <div class="modal-footer">
-        <button type="button" class="btn btn-primary" onClick="printJS('print_qrcode_import', 'html')" id="downloadPNG"  style="background-color: #1180BF; width: 100%" data-dismiss="modal">Print</button>
+        <button type="button" class="btn btn-primary" onclick="printJS({
+            printable: 'print_qrcode_import',
+            type: 'html',
+            css: [
+              '/template/css/print.css',
+            ],
+            style: '#barcode_modal_import .modal-dialog,#barcode_modal .modal-dialog {max-width: 768px;}',
+            scanStyles: false
+          });" style="background-color: #1180BF; width: 100%" data-dismiss="modal">Print</button>
+        
         </div>
     </div>
     </div>
@@ -335,7 +374,7 @@
 
 @push('js')
 <script src="/template/js/qrcode.js"></script>
-<script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+<script src="/template/js/print.js"></script>
 
 <script>
     
@@ -577,7 +616,7 @@
                         console.log(data[index].status)
                         var tanggal=data[index].created_at
                         console.log(tanggal)
-                        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                        var options = {day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric',minute:'numeric' };
                         var today  = new Date(tanggal);
                         $('#tabel-history > tbody:last-child').append('\
                         <tr>\

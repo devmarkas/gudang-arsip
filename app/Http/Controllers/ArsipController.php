@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Imports\ImpressFunds;
+use App\Models\Counter;
 use App\Models\File;
 use App\Models\History;
 use App\Models\ImpressFund;
@@ -11,10 +12,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
-
+use PHPUnit\Framework\Constraint\Count;
 
 class ArsipController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function impress_fund()
     {
@@ -50,36 +56,38 @@ class ArsipController extends Controller
             'teritory'=>'required',
             'box'=>'required',
         ]);
-        $id_pm = sprintf("%6d", mt_rand(1, 999999));
-        $id_pm=$this->cek_zero($id_pm);
-        $impress=new ImpressFund();
-        $impress->id_pm=$id_pm;
-        $impress->periode=$request->tahun;
-        $impress->bulan=$request->bulan;
-        $impress->teritory=$request->teritory;
-        $impress->box=$request->box;
-        $impress->status='IN';
-        $impress->save();
+        $id_pm=$this->id_archive($request->tahun);
 
-        $history=new History();
-        $history->status='Arsip Masuk';
-        $history->user_id=Auth::id();
-        $history->archive_id=$id_pm;
-        $history->save();
+        $check_archive=ImpressFund::where('id_pm',$id_pm)->first();
+        if($check_archive==null){
+            $impress=new ImpressFund();
+            $impress->id_pm=$id_pm;
+            $impress->periode=$request->tahun;
+            $impress->bulan=$request->bulan;
+            $impress->teritory=$request->teritory;
+            $impress->box=$request->box;
+            $impress->status='IN';
+            $impress->save();
 
-        return redirect()->back()->with('barcode',json_encode([$id_pm,$request->bulan,$request->teritory,$request->box]));
+            $history=new History();
+            $history->status='Arsip Masuk';
+            $history->user_id=Auth::id();
+            $history->archive_id=$id_pm;
+            $history->save();
+            return redirect()->back()->with('barcode',json_encode([$id_pm,$request->bulan,$request->teritory,$request->box]));
+        }else{
+            return redirect()->back()->with('error_import','Data Duplikasi');
+        }
         
     }
-    public function cek_zero($num)
+    public function id_archive($year)
     {
-        $cek_db=ImpressFund::where('id_pm',$num)->first();
-        $cek_db2=TagPartner::where('id_pm',$num)->first();
-        if(substr($num,0,1)!=0&&$cek_db==null&&$cek_db2==null){
-            return $num;
-        }else{
-            $num=sprintf("%6d", mt_rand(1, 999999));
-            $this->cek_zero($num);
-        }
+        $last_counter=Counter::select('counter')->pluck('counter')->first();
+        $counter=new Counter();
+        $counter=Counter::first();
+        $counter->counter=$last_counter+=1;
+        $counter->save();
+        return $year.sprintf("%05d", $last_counter);
     }
 
     public function archive_save(Request $request)
@@ -164,11 +172,10 @@ class ArsipController extends Controller
     {
         if(request()->file('file')){
             $archives = Excel::toArray(new ImpressFunds, request()->file('file'));
-            // $archives[0][1][0]
             if($archives[0]!=null){
                 $i=1;
                 for ($n=0; $n < count($archives[0])-1; $n++) { 
-                    $check_archive=ImpressFund::where('id_pm')->where('id_pm',$archives[0][$i][0])->first();
+                    $check_archive=ImpressFund::where('id_pm',$archives[0][$i][0])->first();
                     if($archives[0][$i][0]&&$check_archive==null){
                         $data[$n]=[
                             'id_pm'=>$archives[0][$i][0],
@@ -189,7 +196,7 @@ class ArsipController extends Controller
                         $history->status='Arsip Masuk';
                         $history->user_id=Auth::id();
                         $history->archive_id=$archives[0][$i][0];
-                        // $history->save();
+                        $history->save();
                     }
                     $i++;
                 }

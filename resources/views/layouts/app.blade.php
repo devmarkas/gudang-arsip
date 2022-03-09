@@ -30,6 +30,7 @@
             right: 1rem;
         }
     </style>
+    @yield('style')
 
 </head>
 
