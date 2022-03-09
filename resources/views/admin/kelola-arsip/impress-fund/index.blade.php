@@ -4,7 +4,7 @@
 
 @section('style')
 <link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
-    <style>
+    {{-- <style>
         div#barcode_modal_import .modal-dialog,
         div#barcode_modal .modal-dialog {
             max-width: 768px;
@@ -28,7 +28,7 @@
         div#barcode_modal .modal-dialog .item-barcode svg {
         width: 100%;
         }
-    </style>
+    </style> --}}
 @endsection
 
 @section('content')
@@ -264,15 +264,7 @@
             @endforeach
         </div>
         <div class="modal-footer">
-        <button type="button" class="btn btn-primary" onclick="printJS({
-            printable: 'print_qrcode_import',
-            type: 'html',
-            css: [
-              '/template/css/print.css',
-            ],
-            style: '#barcode_modal_import .modal-dialog,#barcode_modal .modal-dialog {max-width: 768px;}',
-            scanStyles: false
-          });" style="background-color: #1180BF; width: 100%" data-dismiss="modal">Print</button>
+        <button type="button" class="btn btn-primary" style="background-color: #1180BF; width: 100%" data-dismiss="modal">Print</button>
         
         </div>
     </div>
@@ -587,10 +579,10 @@
                         var today  = new Date(tanggal);
                         $('#tabel-arsip > tbody:last-child').append('\
                         <tr>\
-                            <td>'+today.toLocaleDateString("en-US", options)+' WIB</td>\
+                            <td>'+today.toLocaleDateString("en-US", options)+'</td>\
                             <td>'+data[index].name+'</td>\
                             <td>\
-                            <img src="{{asset ("template")}}/img/icon-preview.svg" alt="">\
+                                <a href="/template/img/archive/'+data[index].file+'" ><img src="{{asset ("template")}}/img/icon-preview.svg" alt=""></a>\
                             </td>\
                         </tr>'
                         );
@@ -620,7 +612,7 @@
                         var today  = new Date(tanggal);
                         $('#tabel-history > tbody:last-child').append('\
                         <tr>\
-                            <td>'+today.toLocaleDateString("en-US", options)+' WIB</td>\
+                            <td>'+today.toLocaleDateString("en-US", options)+'</td>\
                             <td>'+data[index].status+'</td>\
                             <td>'+data[index].name+'</td>\
                         </tr>'

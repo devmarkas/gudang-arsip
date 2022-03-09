@@ -50,13 +50,14 @@ class ArsipController extends Controller
 
     public function save_impress_fund(Request $request)
     {
+        date_default_timezone_set('Asia/Jakarta');
         $request->validate([
             'tahun'=>'required',
             'bulan'=>'required',
             'teritory'=>'required',
             'box'=>'required',
         ]);
-        $id_pm=$this->id_archive($request->tahun);
+        $id_pm=$this->id_archive();
 
         $check_archive=ImpressFund::where('id_pm',$id_pm)->first();
         if($check_archive==null){
@@ -80,14 +81,10 @@ class ArsipController extends Controller
         }
         
     }
-    public function id_archive($year)
+    public function id_archive()
     {
-        $last_counter=Counter::select('counter')->pluck('counter')->first();
-        $counter=new Counter();
-        $counter=Counter::first();
-        $counter->counter=$last_counter+=1;
-        $counter->save();
-        return $year.sprintf("%05d", $last_counter);
+        $last_id=DB::table('impress_funds')->select('id_pm')->latest('created_at')->pluck('id_pm')->first();
+        return $last_id+=1;
     }
 
     public function archive_save(Request $request)
@@ -125,6 +122,7 @@ class ArsipController extends Controller
     }
 
     public function take_out_archive($id){
+        date_default_timezone_set('Asia/Jakarta');
 
         $impress=new ImpressFund();
         $impress=ImpressFund::where('id_pm',$id)->first();
@@ -142,6 +140,7 @@ class ArsipController extends Controller
 
     public function delete_impress($id)
     {
+        date_default_timezone_set('Asia/Jakarta');
         $archive=new ImpressFund();
         $archive=ImpressFund::where('id_pm',$id)->first();
         $archive->delete();
@@ -150,6 +149,7 @@ class ArsipController extends Controller
 
     public function filter_impress_fund(Request $request)
     {
+        
         $archives=ImpressFund::where(function ($query) use ($request) {
             if ($request->bulan != "") {
                 $query->where('bulan', $request->bulan);
@@ -170,6 +170,7 @@ class ArsipController extends Controller
 
     public function import_impress_fund(Request $request)
     {
+        date_default_timezone_set('Asia/Jakarta');
         if(request()->file('file')){
             $archives = Excel::toArray(new ImpressFunds, request()->file('file'));
             if($archives[0]!=null){
