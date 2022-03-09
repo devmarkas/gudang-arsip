@@ -197,11 +197,15 @@ ul li span{
     color: #1180BF;
 }
 
-.active-custom{
+.nav-active-custom{
     background: #1180BF; 
-    color: #FFFFFF !important;
     border-radius: 4px;
 }
+
+.nav-active-custom-span{
+    color: #FFFFFF !important;
+}
+
 
 .sb{
     margin-bottom: 15px;

@@ -197,10 +197,10 @@
                         <table class="table table-sm table-hover tabel-arsip" id="archive_table">
                             <thead>
                               <tr>
-                                <th scope="col">ID PM</th>
-                                <th scope="col">PERIODE</th>
-                                <th scope="col">TERITORY</th>
-                                <th scope="col">BOX</th>
+                                <th class="action" scope="col">ID PM</th>
+                                <th class="action" scope="col">PERIODE</th>
+                                <th class="action" scope="col">TERITORY</th>
+                                <th class="action" scope="col">BOX</th>
                                 <th class="action" scope="col">Action</th>
                               </tr>
                             </thead>
