@@ -1,10 +1,142 @@
 @extends('layouts.app',[
 	'title' => 'Tagihan Mitra',
 ])
+@section('style')
+<link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
+    <style>
+        div#barcode_modal_import .modal-dialog,
+        div#barcode_modal .modal-dialog {
+            max-width: 768px;
+        }
 
+        div#barcode_modal_import .modal-dialog .item-barcode,
+        div#barcode_modal .modal-dialog .item-barcode {
+            width: 33.33%;
+            float: left;
+            padding: 15px;
+        }
+
+        div#barcode_modal_import .modal-dialog .modal-body,
+        div#barcode_modal .modal-dialog .modal-body {
+            flex: none;
+            margin: 0 !important;
+            margin-top: -45px !important;
+        }
+
+        div#barcode_modal_import .modal-dialog .item-barcode svg,
+        div#barcode_modal .modal-dialog .item-barcode svg {
+        width: 100%;
+        }
+    </style>
+    <style>
+        @media screen {
+            #printSection {
+                display: none;
+            }
+            #barcode_modal_import .modal-dialog,
+        #barcode_modal .modal-dialog {
+            max-width: 768px;
+        }
+
+        #barcode_modal_import .modal-dialog .item-barcode,
+        #barcode_modal .modal-dialog .item-barcode {
+            width: 33.33%;
+            float: left;
+            padding: 15px;
+        }
+
+        #barcode_modal_import .modal-dialog .modal-body,
+        #barcode_modal .modal-dialog .modal-body {
+            flex: none;
+            margin: 0 !important;
+            margin-top: -45px !important;
+        }
+
+        #barcode_modal_import .modal-dialog .item-barcode svg,
+        #barcode_modal .modal-dialog .item-barcode svg {
+        width: 100%;
+        }
+        }
+
+        @media print {
+            body * {
+                visibility:hidden;
+            }
+            #printSection, #printSection * {
+                visibility:visible;
+                /* width: 100% */
+            }
+            #printSection {
+                position:absolute;
+                left:0;
+                top:0;
+            }
+            #barcode_modal_import .modal-dialog,
+        #barcode_modal .modal-dialog {
+            max-width: 768px;
+        }
+
+        #barcode_modal_import .modal-dialog .item-barcode,
+        #barcode_modal .modal-dialog .item-barcode {
+            width: 33.33%;
+            float: left;
+            padding: 15px;
+        }
+
+        #barcode_modal_import .modal-dialog .modal-body,
+        #barcode_modal .modal-dialog .modal-body {
+            flex: none;
+            margin: 0 !important;
+            margin-top: -45px !important;
+        }
+
+        #barcode_modal_import .modal-dialog .item-barcode svg,
+        #barcode_modal .modal-dialog .item-barcode svg {
+        width: 100%;
+        }
+        }
+    </style>
+    <style type="text/css" media="print">
+        #barcode_modal_import .modal-dialog,
+        #barcode_modal .modal-dialog {
+            max-width: 768px;
+        }
+
+        #barcode_modal_import .modal-dialog .item-barcode,
+        #barcode_modal .modal-dialog .item-barcode {
+            width: 33.33%;
+            float: left;
+            padding: 15px;
+        }
+
+        #barcode_modal_import .modal-dialog .modal-body,
+        #barcode_modal .modal-dialog .modal-body {
+            flex: none;
+            margin: 0 !important;
+            margin-top: -45px !important;
+        }
+
+        #barcode_modal_import .modal-dialog .item-barcode svg,
+        #barcode_modal .modal-dialog .item-barcode svg {
+        width: 100%;
+        }
+      </style>
+@endsection
 @section('content')
 
 <div class="header-content arsip">
+    @if ($errors->any())
+        <div id="validasi" class="peringatan">
+            @foreach ($errors->all() as $error)
+            <div class="alert alert-danger"> 
+                <span>{{$error}}</span> 
+                <button type="button" style="width: 30px; height: 30px;" class="close ml-3" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @endforeach
+        </div>
+    @endif
     <div class="row">
         <div class="col-md-6">
             <h1>Lihat Arsip TAGIHAN MITRA</h1>
@@ -34,7 +166,7 @@
                 </div>
 
                 <div class="col-xl-3 col-md-6">
-                    <button> 
+                    <button type="button" data-toggle="modal" data-target="#excel-import"> 
                         <img src="{{asset ("template")}}/img/icon-excel-import.svg" alt="">
                         <p>Excel Import</p>
                     </button>
@@ -55,78 +187,78 @@
                    <form action="">
                         <div class="form-group">
                             <select class="form-control" id="tahun">
-                            <option>Tahun</option>
-                            <option>2022</option>
-                            <option>2021</option>
-                            <option>2020</option>
-                            <option>2019</option>
+                            <option value="">Tahun</option>
+                            <option value="2022">2022</option>
+                            <option value="2021">2021</option>
+                            <option value="2020">2020</option>
+                            <option value="2019">2019</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <select class="form-control" id="bulan">
-                            <option>Bulan</option>
-                            <option>Januari</option>
-                            <option>Februari</option>
-                            <option>Maret</option>
-                            <option>April</option>
-                            <option>Mei</option>
-                            <option>Juni</option>
-                            <option>Juli</option>
-                            <option>Agustus</option>
-                            <option>September</option>
-                            <option>Oktober</option>
-                            <option>November</option>
-                            <option>Desember</option>
+                            <option value="">Bulan</option>
+                            <option value="Januari">Januari</option>
+                            <option value="Februari">Februari</option>
+                            <option value="Maret">Maret</option>
+                            <option value="April">April</option>
+                            <option value="Mei">Mei</option>
+                            <option value="Juni">Juni</option>
+                            <option value="Juli">Juli</option>
+                            <option value="Agustus">Agustus</option>
+                            <option value="September">September</option>
+                            <option value="Oktober">Oktober</option>
+                            <option value="November">November</option>
+                            <option value="Desember">Desember</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <select class="form-control" id="pekerjaan">
-                            <option>Pilih Pekerjaan</option>
-                            <option> 25%</option>
-                            <option> 75%</option>
-                            <option>PSB</option>
-                            <option>MIGRASI</option>
-                            <option>OSP</option>
-                            <option>EKSPEDISI</option>
-                            <option>LEMBUR</option>
-                            <option>ITMOA 15%</option>
-                            <option>ITMOA 25%</option>
-                            <option>ITMOA 85%</option>
-                            <option>ITMOA 75%</option>
-                            <option>AMS 15%</option>
-                            <option>AMS 25%</option>
-                            <option>AMS 85%</option>
-                            <option>AMS 75%</option>
-                            <option>PT2 SIMPLE</option>
+                            <option value="">Pilih Pekerjaan</option>
+                            <option value="25">25%</option>
+                            <option value="75">75%</option>
+                            <option value="PSB">PSB</option>
+                            <option value="MIGRASI">MIGRASI</option>
+                            <option value="OSP">OSP</option>
+                            <option value="EKSPEDISI">EKSPEDISI</option>
+                            <option value="LEMBUR">LEMBUR</option>
+                            <option value="ITMOA 15%">ITMOA 15%</option>
+                            <option value="ITMOA 25%">ITMOA 25%</option>
+                            <option value="ITMOA 85%">ITMOA 85%</option>
+                            <option value="ITMOA 75%">ITMOA 75%</option>
+                            <option value="AMS 15%">AMS 15%</option>
+                            <option value="AMS 25%">AMS 25%</option>
+                            <option value="AMS 85%">AMS 85%</option>
+                            <option value="AMS 75%">AMS 75%</option>
+                            <option value="PT2 SIMPLE">PT2 SIMPLE</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <select class="form-control" id="area">
-                            <option>Pilih Area</option>
-                            <option>SBU</option>
-                            <option>MDR</option>
-                            <option>SBS</option>
-                            <option>SDA</option>
-                            <option>PSN</option>
-                            <option>MLG</option>
-                            <option>KDI</option>
-                            <option>MAN</option>
-                            <option>JER</option>
-                            <option>DPS</option>
-                            <option>SGR</option>
-                            <option>NTB</option>
-                            <option>NTT</option>
-                            <option>REG</option>
+                            <select class="form-control" id="teritory">
+                            <option value="">Pilih Area</option>
+                            <option value="SBU">SBU</option>
+                            <option value="MDR">MDR</option>
+                            <option value="SBS">SBS</option>
+                            <option value="SDA">SDA</option>
+                            <option value="PSN">PSN</option>
+                            <option value="MLG">MLG</option>
+                            <option value="KDI">KDI</option>
+                            <option value="MAN">MAN</option>
+                            <option value="JER">JER</option>
+                            <option value="DPS">DPS</option>
+                            <option value="SGR">SGR</option>
+                            <option value="NTB">NTB</option>
+                            <option value="NTT">NTT</option>
+                            <option value="REG">REG</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <select class="form-control" id="box">
-                                <option>Pilih Box</option>
-                                <option>A</option>
-                                <option>B</option>
-                                <option>C</option>
-                                <option>D</option>
-                                <option>E</option>
+                                <option value="">Pilih Box</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                                <option value="E">E</option>
                             </select>
                         </div>
                    </form>
@@ -145,7 +277,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="input-group search-box">
-                                <input type="text" class="form-control" placeholder="Cari Arsip">
+                                <input type="text" class="form-control" placeholder="Cari Arsip" id="cari_arsip" onkeyup="cari_arsip()">
                                 <div class="input-group-append">
                                   <button class="btn btn-secondary" type="button">
                                     <i class="fa fa-search"></i>
@@ -156,7 +288,7 @@
                     </div>
                     
                     <div class="table-responsive">
-                        <table class="table table-sm table-hover tabel-arsip">
+                        <table class="table table-sm table-hover tabel-arsip" id="tag_mitra_table">
                             <thead>
                               <tr>
                                 <th scope="col">ID PM</th>
@@ -169,7 +301,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($archives as $archive)
-                                <tr>
+                                <tr style="background-color: {{$archive->status!='IN'?'#d5483b':''}}">
                                   <td>{{$archive->id_pm}}</td>
                                   <td>{{$archive->pekerjaan}}</td>
                                   <td>{{strtoupper($archive->bulan)}}</td>
@@ -179,6 +311,7 @@
                                     <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history({{$archive->id_pm}})" data-target="#history">History</button>
                                     <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file({{$archive->id_pm}})" data-target="#file" data-arsip-id="{{$archive->id_pm}}">File</button>
                                     <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_file({{$archive->id_pm}})" data-target="#hapus">Hapus</button>
+                                    <button type="button" class="btn btn-secondary" onclick="qrcode_archive({{$archive->id_pm}})">QR</button>
                                   </td>
                                 </tr> 
                                 @endforeach
@@ -199,7 +332,7 @@
         <div class="modal-header">
         <p style="text-align: left;" id="barcode_modalLabel">Barcode Generated</p>
         </div>
-        <div class="modal-body" style="display: block;margin: auto">
+        <div class="modal-body" id="print_qrcode_input" style="display: block;margin: auto">
             {!!QrCode::size(300)->generate(Session::get('barcode'));!!}
             <table style="width: 100%">
                 <tr>
@@ -225,19 +358,97 @@
             </table>
         </div>
         <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="downloadPNG"  style="background-color: #1180BF; width: 100%" data-dismiss="modal">Print</button>
+        <button type="button" class="btn btn-primary" onclick="print_barcode('print_qrcode_input')"   style="background-color: #1180BF; width: 100%" data-dismiss="modal">Print</button>
         </div>
     </div>
     </div>
 </div>
 @endif
+
+<div class="modal fade" id="qrcode_modal" tabindex="-1" role="dialog" aria-labelledby="barcode_modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <p style="text-align: left;" id="barcode_modalLabel">Barcode Generated</p>
+        </div>
+        <div class="modal-body" id="print_qrcode" style="display: block;margin: auto">
+            <div id="qrcode">
+
+            </div>
+            <table style="width: 100%">
+                <tr>
+                    <td><b>ID PM</b></td>
+                    <td style="text-align: right" id="qr_code_id_pm"></td>
+                </tr>
+                <tr>
+                    <td><b>Periode</b></td>
+                    <td style="text-align: right" id="qr_code_periode"></td>
+                </tr>
+                <tr>
+                    <td><b>Teritory</b></td>
+                    <td style="text-align: right" id="qr_code_teritory"></td>
+                </tr>
+                <tr>
+                    <td><b>Box</b></td>
+                    <td style="text-align: right" id="qr_code_box"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="print_barcode('print_qrcode')"  style="background-color: #1180BF; width: 100%" data-dismiss="modal">Print</button>
+        </div>
+    </div>
+    </div>
+</div>
+
+@if (Session::has('succes_import'))
+ <div class="modal fade" id="barcode_modal_import" tabindex="-1" role="dialog" aria-labelledby="barcode_modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <p style="text-align: left;" id="barcode_modalLabel">Barcode Generated</p>
+        </div>
+        <div class="modal-body" id="print_qrcode_import">
+            @foreach (json_decode(Session::get('succes_import')) as $barcode)
+            <div class="item-barcode" id="item-barcode">
+                {!!QrCode::size(300)->generate(json_encode($barcode));!!}
+                <table style="width: 100%">
+                    <tr>
+                        <td><b>ID PM</b></td>
+                        <td style="text-align: right">{{$barcode->id_pm}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Periode</b></td>
+                        <td style="text-align: right">{{$barcode->periode}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Teritory</b></td>
+                        <td style="text-align: right">{{$barcode->teritory}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Box</b></td>
+                        <td style="text-align: right">{{$barcode->box}}</td>
+                    </tr>
+                </table>
+        </div>
+            @endforeach
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="print_barcode('print_qrcode_import')" style="background-color: #1180BF; width: 100%" data-dismiss="modal">Print</button>
+        
+        </div>
+    </div>
+    </div>
+</div>
+ @endif
 <!-- Modal Input Arsip Masuk -->
 @include('admin.kelola-arsip.tag-mitra.modal-arsip-masuk')
 
 <!-- Modal Input Arsip Masuk -->
 @include('admin.kelola-arsip.tag-mitra.modal-arsip-keluar')
 
-
+<!-- Modal Excel Import -->
+@include('admin.kelola-arsip.tag-mitra.modal-excel-import')
 <!-- Modal Excel History -->
 @include('admin.kelola-arsip.tag-mitra.modal-history')
 
@@ -246,12 +457,31 @@
 
 <!-- Modal Excel Hapus -->
 @include('admin.kelola-arsip.tag-mitra.modal-hapus')
-
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 @endsection
 
 @push('js')
+<script src="/template/js/qrcode.js"></script>
 <script>
+
+function print_barcode(elem){
+    const node = document.getElementById(elem);
+    var domClone = node.cloneNode(true);
+    
+    var $printSection = document.getElementById("printSection");
+    
+    if (!$printSection) {
+        var $printSection = document.createElement("div");
+        $printSection.id = "printSection";
+        document.body.appendChild($printSection);
+    }
+    
+    $printSection.innerHTML = "";
+    $printSection.appendChild(domClone);
+    window.print();
+}
 $(document).ready(function(){
+    $('#barcode_modal_import').modal();
     //Show  Modal If Exist
     $('#barcode_modal').modal();
     //Hide Button Tambah File
@@ -260,34 +490,157 @@ $(document).ready(function(){
     $('#btn_tambah_file').click(function(){
         $('#tambah_file').show();
     });
+
+    $('#tahun').on('change', function() {
+            var tahun=this.value;
+            var bulan=$('#bulan').val();
+            var pekerjaan=$('#pekerjaan').val();
+            var teritory=$('#teritory').val();
+            var box=$('#box').val();
+            archives(tahun,bulan,pekerjaan,teritory,box)
+        });
+
+        $('#bulan').on('change', function() {
+            var tahun=$('#tahun').val();
+            var bulan=this.value;
+            var teritory=$('#teritory').val();
+            var pekerjaan=$('#pekerjaan').val();
+            var box=$('#box').val();
+            archives(tahun,bulan,pekerjaan,teritory,box)
+        });
+
+        $('#teritory').on('change', function() {
+            var tahun=$('#tahun').val();
+            var bulan=$('#bulan').val();
+            var teritory=this.value;
+            var box=$('#box').val();
+            var pekerjaan=$('#pekerjaan').val();
+            archives(tahun,bulan,pekerjaan,teritory,box)
+        });
+
+        $('#pekerjaan').on('change', function() {
+            var tahun=$('#tahun').val();
+            var bulan=$('#bulan').val();
+            var teritory=$('#teritory').val();
+            var pekerjaan=this.value;
+            var box=$('#box').val();
+            archives(tahun,bulan,pekerjaan,teritory,box)
+        });
+
+        $('#box').on('change', function() {
+            var tahun=$('#tahun').val();
+            var bulan=$('#bulan').val();
+            var teritory=$('#teritory').val();
+            var pekerjaan=$('#pekerjaan').val();
+            var box=this.value;
+            archives(tahun,bulan,pekerjaan,teritory,box)
+        });
+
+        $('#btn_reset_filter').click(function(){
+            $("select").each(function() { this.selectedIndex = 0 });
+            var tahun=$('#tahun').val();
+            var bulan=$('#bulan').val();
+            var teritory=$('#teritory').val();
+            var box=$('#box').val();
+            var pekerjaan=$('#pekerjaan').val();
+            archives(tahun,bulan,pekerjaan,teritory,box)
+        })
+
+        function archives(tahun,bulan,pekerjaan,teritory,box){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: '/filter-impress-fund',
+                data:{
+                    tahun: tahun,
+                    bulan: bulan,
+                    teritory: teritory,
+                    pekerjaan: pekerjaan,
+                    box: box,
+                    type: 'TM',
+                },
+                success: function (data) {
+                    console.log(data)
+                    $('#tag_mitra_table tbody tr').remove()
+                    if(data.length>0){
+                        var color=''
+                        for (let index = 0; index < data.length; index++) {
+                            if (data[index].status!='IN') {
+                                color='#d5483b'
+                            } else {
+                                color=''
+                            }
+                            $('#tag_mitra_table > tbody:last-child').append('\
+                                <tr style="background-color: '+color+'">\
+                                <td>'+data[index].id_pm+'</td>\
+                                <td>'+data[index].pekerjaan+'</td>\
+                                <td>'+data[index].bulan.substring(0, 3).toUpperCase()+'</td>\
+                                <td>'+data[index].teritory+'</td>\
+                                <td>BOX '+data[index].box+'</td>\
+                                <td>\
+                                    <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history('+data[index].id_pm+')" data-target="#history">History</button>\
+                                    <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file('+data[index].id_pm+')" data-target="#file" data-arsip-id="'+data[index].id_pm+'">File</button>\
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_file('+data[index].id_pm+')" data-target="#hapus">Hapus</button>\
+                                    <button type="button" class="btn btn-secondary" onclick="qrcode_archive('+data[index].id_pm+')">QR</button>\
+                                </td>\
+                                </tr>'
+                            );
+                        }
+                    }else{
+                        $('#tag_mitra_table > tbody:last-child').append('\
+                        <tr>\
+                            <td></td>\
+                            <td></td>\
+                            <td style="text-align:center">Item Arsip Tidak Ditemukan</td>\
+                            <td></td>\
+                            <td></td>\
+                        </tr>');
+
+                    }
+                },
+                error: function() { 
+                    console.log(data);
+                }
+            });       
+        }
 });
 
 // Add File and open List File in Archive
 function add_file(archive_id){
     $('#archive_id').val(archive_id)
-    $('#tabel-arsip tr').remove()
+    $('#tabel-arsip tbody tr').remove()
     $.ajax({
         type: 'GET',
         url: '/impress-fund/'+archive_id,
         success: function (data) {
-            console.log(data.length)
+            $('#tabel-arsip tbody tr').remove()
             if(data.length>0){
                 for (let index = 0; index < data.length; index++) {
                     var tanggal=data[index].created_at
-                    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                    var options = {day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric',minute:'numeric' };
                     var today  = new Date(tanggal);
                     $('#tabel-arsip > tbody:last-child').append('\
                     <tr>\
-                        <td>'+today.toLocaleDateString("en-US", options)+' WIB</td>\
+                        <td>'+today.toLocaleDateString("en-US", options)+'</td>\
                         <td>'+data[index].name+'</td>\
                         <td>\
-                        <img src="{{asset ("template")}}/img/icon-preview.svg" alt="">\
+                            <a href="/template/img/archive/'+data[index].file+'" ><img src="{{asset ("template")}}/img/icon-preview.svg" alt=""></a>\
                         </td>\
                     </tr>'
                     );
                 }
             }else{
-                console.log('tidak ada')
+                $('#tabel-arsip > tbody:last-child').append('\
+                    <tr>\
+                        <td></td>\
+                        <td style="text-align:center">Item Arsip Tidak Ditemukan</td>\
+                        <td></td>\
+                    </tr>');
             }
         },
         error: function() { 
@@ -297,20 +650,20 @@ function add_file(archive_id){
 }
 //open History
 function open_history(archive_id){
-    $('#tabel-history tr').remove()
+    $('#tabel-history tbody tr').remove()
     $.ajax({
         type: 'GET',
         url: '/history-archive/'+archive_id,
         success: function (data) {
-            
+            $('#tabel-history tbody tr').remove()
             if(data.length>0){
                 for (let index = 0; index < data.length; index++) {
                     var tanggal=data[index].created_at
-                    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                    var options = {day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric',minute:'numeric' };
                     var today  = new Date(tanggal);
                     $('#tabel-history > tbody:last-child').append('\
                     <tr>\
-                        <td>'+today.toLocaleDateString("en-US", options)+' WIB</td>\
+                        <td>'+today.toLocaleDateString("en-US", options)+'</td>\
                         <td>'+data[index].status+'</td>\
                         <td>'+data[index].name+'</td>\
                     </tr>'
@@ -333,6 +686,7 @@ function find_archive(archive_id){
         url: '/out-archive-partner/'+id_archive,
         success: function (data) {
             console.log(data)
+            $('#tabel_archive_partner_out tr').remove()
             if(data.length>0){
                 for (let index = 0; index < data.length; index++) {
                     $('#tabel_archive_partner_out > tbody:last-child').append('\
@@ -397,38 +751,79 @@ function archive_out(){
         }
     });
 }
-
-//Download SVG Barcode
-function downloadSVGAsPNG(e){
-    const canvas = document.createElement("canvas");
-    const svg = document.querySelector('svg');
-    const base64doc = btoa(unescape(encodeURIComponent(svg.outerHTML)));
-    const w = parseInt(svg.getAttribute('width'));
-    const h = parseInt(svg.getAttribute('height'));
-    const img_to_download = document.createElement('img');
-    img_to_download.src = 'data:image/svg+xml;base64,' + base64doc;
-    console.log(w, h);
-    img_to_download.onload = function () {    
-        canvas.setAttribute('width', w);
-        canvas.setAttribute('height', h);
-        const context = canvas.getContext("2d");
-        //context.clearRect(0, 0, w, h);
-        context.drawImage(img_to_download,0,0,w,h);
-        const dataURL = canvas.toDataURL('image/png');
-        if (window.navigator.msSaveBlob) {
-        window.navigator.msSaveBlob(canvas.msToBlob(), "download.png");
-        e.preventDefault();
-        } else {
-        const a = document.createElement('a');
-        const my_evt = new MouseEvent('click');
-        a.download = 'download.png';
-        a.href = dataURL;
-        a.dispatchEvent(my_evt);
+function qrcode_archive(archive_id){
+    $('#qrcode canvas').remove()
+    $('#qrcode img').remove()
+    $.ajax({
+        type: 'GET',
+        url: '/qrcode-impress-fund/'+archive_id,
+        success: function (data) {
+            console.log(data)
+            $('#qrcode_modal').modal();
+            var qrcode = new QRCode(document.getElementById("qrcode"), {
+                text: JSON.stringify([data.id_pm,data.bulan,data.teritory,data.box]),
+                width: 300,
+                height: 300,
+            });
+            $('#qr_code_id_pm').html(data.id_pm)
+            $('#qr_code_periode').html(data.bulan)
+            $('#qr_code_teritory').html(data.teritory)
+            $('#qr_code_box').html(data.box)
+        },
+        error: function() { 
+            console.log(data);
         }
-        //canvas.parentNode.removeChild(canvas);
-    }  
+    });
 }
-const downloadPNG = document.querySelector('#downloadPNG');
-downloadPNG.addEventListener('click', downloadSVGAsPNG);
+
+function cari_arsip(){
+    var cari=$('#cari_arsip').val()
+    $.ajax({
+        type: 'GET',
+        url: '/cari-tag-partner/'+cari,
+        success: function (data) {
+        console.log(data)
+        $('#tag_mitra_table tbody tr').remove()
+            if(data.length>0){
+                for (let index = 0; index < data.length; index++) {
+                if (data[index].status!='IN') {
+                        color='#d5483b'
+                    } else {
+                        color=''
+                    }
+                    $('#archive_table > tbody:last-child').append('\
+                    <tr style="background-color: '+color+'">\
+                        <td>'+data[index].id_pm+'</td>\
+                        <td>'+data[index].pekerjaan+'</td>\
+                        <td>'+data[index].bulan.substring(0, 3).toUpperCase()+'</td>\
+                        <td>'+data[index].teritory+'</td>\
+                        <td>BOX '+data[index].box+'</td>\
+                        <td>\
+                            <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history('+data[index].id_pm+')" data-target="#history">History</button>\
+                            <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file('+data[index].id_pm+')" data-target="#file" data-arsip-id="'+data[index].id_pm+'">File</button>\
+                            <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_file('+data[index].id_pm+')" data-target="#hapus">Hapus</button>\
+                            <button type="button" class="btn btn-secondary" onclick="qrcode_archive('+data[index].id_pm+')">QR</button>\
+                        </td>\
+                        </tr>'
+                    );
+                }
+            }else{
+                $('#archive_table > tbody:last-child').append('\
+                <tr>\
+                    <td></td>\
+                    <td></td>\
+                    <td style="text-align:center">Item Arsip Tidak Ditemukan</td>\
+                    <td></td>\
+                    <td></td>\
+                </tr>');
+
+            }
+        },
+        error: function() { 
+            console.log(data);
+        }
+    });
+}
+
 </script>
 @endpush

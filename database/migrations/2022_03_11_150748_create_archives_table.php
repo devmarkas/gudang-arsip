@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTagPartnersTable extends Migration
+class CreateArchivesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,16 @@ class CreateTagPartnersTable extends Migration
      */
     public function up()
     {
-        Schema::create('tag_partners', function (Blueprint $table) {
+        Schema::create('archives', function (Blueprint $table) {
             $table->id();
-            $table->string('id_pm');
-            $table->string('pekerjaan');
+            $table->string('id_pm')->unique();
             $table->string('periode');
             $table->string('bulan');
             $table->string('teritory');
             $table->string('box');
             $table->string('status');
+            $table->string('pekerjaan')->nullable();
+            $table->string('type');
             $table->timestamps();
         });
     }
@@ -33,6 +34,6 @@ class CreateTagPartnersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tag_partners');
+        Schema::dropIfExists('archives');
     }
 }

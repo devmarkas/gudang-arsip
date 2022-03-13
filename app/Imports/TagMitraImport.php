@@ -4,12 +4,10 @@ namespace App\Imports;
 
 use App\Models\Archive;
 use App\Models\History;
-use App\Models\ImpressFund;
-use App\Models\TagPartner;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Concerns\ToModel;
 
-class ImpressFunds implements ToModel
+class TagMitraImport implements ToModel
 {
     /**
     * @param array $row
@@ -20,11 +18,12 @@ class ImpressFunds implements ToModel
     {
         $impress=new Archive();
         $impress->id_pm=$row[0];
-        $impress->type='IF';
-        $impress->periode=$row[1];
-        $impress->bulan=$row[2];
-        $impress->teritory=$row[3];
-        $impress->box=$row[4];
+        $impress->type='TM';
+        $impress->pekerjaan=$row[1];
+        $impress->periode=$row[2];
+        $impress->bulan=$row[3];
+        $impress->teritory=$row[4];
+        $impress->box=$row[5];
         $impress->status='IN';
         $impress->save();
 

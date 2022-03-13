@@ -4,7 +4,7 @@
 
 @section('style')
 <link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
-    {{-- <style>
+    <style>
         div#barcode_modal_import .modal-dialog,
         div#barcode_modal .modal-dialog {
             max-width: 768px;
@@ -28,7 +28,100 @@
         div#barcode_modal .modal-dialog .item-barcode svg {
         width: 100%;
         }
-    </style> --}}
+    </style>
+    <style>
+        @media screen {
+            #printSection {
+                display: none;
+            }
+            #barcode_modal_import .modal-dialog,
+        #barcode_modal .modal-dialog {
+            max-width: 768px;
+        }
+
+        #barcode_modal_import .modal-dialog .item-barcode,
+        #barcode_modal .modal-dialog .item-barcode {
+            width: 33.33%;
+            float: left;
+            padding: 15px;
+        }
+
+        #barcode_modal_import .modal-dialog .modal-body,
+        #barcode_modal .modal-dialog .modal-body {
+            flex: none;
+            margin: 0 !important;
+            margin-top: -45px !important;
+        }
+
+        #barcode_modal_import .modal-dialog .item-barcode svg,
+        #barcode_modal .modal-dialog .item-barcode svg {
+        width: 100%;
+        }
+        }
+
+        @media print {
+            body * {
+                visibility:hidden;
+            }
+            #printSection, #printSection * {
+                visibility:visible;
+                /* width: 100% */
+            }
+            #printSection {
+                position:absolute;
+                left:0;
+                top:0;
+            }
+            #barcode_modal_import .modal-dialog,
+        #barcode_modal .modal-dialog {
+            max-width: 768px;
+        }
+
+        #barcode_modal_import .modal-dialog .item-barcode,
+        #barcode_modal .modal-dialog .item-barcode {
+            width: 33.33%;
+            float: left;
+            padding: 15px;
+        }
+
+        #barcode_modal_import .modal-dialog .modal-body,
+        #barcode_modal .modal-dialog .modal-body {
+            flex: none;
+            margin: 0 !important;
+            margin-top: -45px !important;
+        }
+
+        #barcode_modal_import .modal-dialog .item-barcode svg,
+        #barcode_modal .modal-dialog .item-barcode svg {
+        width: 100%;
+        }
+        }
+    </style>
+    <style type="text/css" media="print">
+        #barcode_modal_import .modal-dialog,
+        #barcode_modal .modal-dialog {
+            max-width: 768px;
+        }
+
+        #barcode_modal_import .modal-dialog .item-barcode,
+        #barcode_modal .modal-dialog .item-barcode {
+            width: 33.33%;
+            float: left;
+            padding: 15px;
+        }
+
+        #barcode_modal_import .modal-dialog .modal-body,
+        #barcode_modal .modal-dialog .modal-body {
+            flex: none;
+            margin: 0 !important;
+            margin-top: -45px !important;
+        }
+
+        #barcode_modal_import .modal-dialog .item-barcode svg,
+        #barcode_modal .modal-dialog .item-barcode svg {
+        width: 100%;
+        }
+      </style>
 @endsection
 
 @section('content')
@@ -78,7 +171,7 @@
                 </div>
 
                 <div class="col-xl-3 col-md-6">
-                    <button>
+                    <button type="button" data-toggle="modal" data-target="#input-scan-barcode" >
                         <img src="{{asset ("template")}}/img/icon-scan-arsip.svg" alt="">
                         <p>Scan Arsip</p>
                     </button>
@@ -264,7 +357,7 @@
             @endforeach
         </div>
         <div class="modal-footer">
-        <button type="button" class="btn btn-primary" style="background-color: #1180BF; width: 100%" data-dismiss="modal">Print</button>
+        <button type="button" class="btn btn-primary" onclick="print_barcode('print_qrcode_import')" style="background-color: #1180BF; width: 100%" data-dismiss="modal">Print</button>
         
         </div>
     </div>
@@ -279,7 +372,7 @@
             <div class="modal-header">
             <p style="text-align: left;" id="barcode_modalLabel">Barcode Generated</p>
             </div>
-            <div class="modal-body" id="print_qrcode" style="display: block;margin: auto">
+            <div class="modal-body" id="print_qrcode_input" style="display: block;margin: auto">
                 {!!QrCode::size(300)->generate(Session::get('barcode'));!!}
                 <table style="width: 100%">
                     <tr>
@@ -301,7 +394,8 @@
                 </table>
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-primary" onClick="printJS('print_qrcode', 'html')" id="downloadPNG"  style="background-color: #1180BF; width: 100%" data-dismiss="modal">Print</button>
+            <button type="button" class="btn btn-primary" onclick="print_barcode('print_qrcode_input')" id="downloadPNG"  style="background-color: #1180BF; width: 100%" data-dismiss="modal">Print</button>
+            
             </div>
         </div>
         </div>
@@ -337,7 +431,7 @@
             </table>
         </div>
         <div class="modal-footer">
-        <button type="button" class="btn btn-primary" onClick="printJS('print_qrcode', 'html')"  style="background-color: #1180BF; width: 100%" data-dismiss="modal">Print</button>
+        <button type="button" class="btn btn-primary" onclick="print_barcode('print_qrcode')"  style="background-color: #1180BF; width: 100%" data-dismiss="modal">Print</button>
         </div>
     </div>
     </div>
@@ -346,6 +440,7 @@
 <!-- Modal Input Arsip Masuk -->
 @include('admin.kelola-arsip.impress-fund.modal-arsip-masuk')
 
+@include('admin.kelola-arsip.impress-fund.modal-scan-barcode')
 <!-- Modal Input Arsip Keluar -->
 @include('admin.kelola-arsip.impress-fund.modal-arsip-keluar')
 
@@ -370,7 +465,22 @@
 
 <script>
     
-
+    function print_barcode(elem){
+        const node = document.getElementById(elem);
+        var domClone = node.cloneNode(true);
+        
+        var $printSection = document.getElementById("printSection");
+        
+        if (!$printSection) {
+            var $printSection = document.createElement("div");
+            $printSection.id = "printSection";
+            document.body.appendChild($printSection);
+        }
+        
+        $printSection.innerHTML = "";
+        $printSection.appendChild(domClone);
+        window.print();
+    }
     $(document).ready(function(){
 
 
@@ -440,6 +550,7 @@
                     bulan: bulan,
                     teritory: teritory,
                     box: box,
+                    type: 'IF'
                 },
                 success: function (data) {
                     console.log(data)
@@ -489,11 +600,16 @@
 
         })
 
+        $('#input-scan-barcode').on('shown.bs.modal', function () {
+            $('#scan_archive').focus()
+        })
+
     });
 
     function cari_arsip(){
         var cari=$('#cari_arsip').val()
         console.log(cari)
+        $('#archive_table tbody tr').remove()
         $.ajax({
             type: 'GET',
             url: '/cari-impress-fund/'+cari,
@@ -588,7 +704,14 @@
                         );
                     }
                 }else{
-                    console.log('tidak ada')
+                    $('#tabel-arsip > tbody:last-child').append('\
+                        <tr>\
+                            <td></td>\
+                            <td></td>\
+                            <td style="text-align:center">Item Arsip Tidak Ditemukan</td>\
+                            <td></td>\
+                            <td></td>\
+                        </tr>');
                 }
             },
             error: function() { 
@@ -653,6 +776,50 @@
                 }else{
                     $('#tabel_archive_out tbody tr').remove()
                     $('#tabel_archive_out > tbody:last-child').append('\
+                        <tr>\
+                            <td></td>\
+                            <td></td>\
+                            <td style="text-align:center">Item Arsip Tidak Ditemukan</td>\
+                            <td></td>\
+                            <td></td>\
+                        </tr>');
+                }
+            },
+            error: function() { 
+                console.log(data);
+            }
+        });
+    }
+
+    function scan_barcode(archive_id){
+        var id_archive=$('#scan_archive').val()
+        $('#tabel_scan_archive tbody tr').remove()
+        $.ajax({
+            type: 'GET',
+            url: '/scan-if-archive/'+id_archive,
+            success: function (data) {
+                // console.log(data)
+                if(data.length>0){
+                    $('#tabel_scan_archive tbody tr').remove()
+                    for (let index = 0; index < data.length; index++) {
+                        $('#tabel_scan_archive > tbody:last-child').append('\
+                        <tr>\
+                        <td>'+data[index].id_pm+'</td>\
+                        <td>'+data[index].bulan.substring(0, 3).toUpperCase()+'</td>\
+                        <td>'+data[index].teritory+'</td>\
+                        <td>BOX '+data[index].box+'</td>\
+                        <td>\
+                            <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history('+data[index].id_pm+')" data-target="#history">History</button>\
+                            <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file('+data[index].id_pm+')" data-target="#file" data-arsip-id="'+data[index].id_pm+'">File</button>\
+                            <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_file('+data[index].id_pm+')" data-target="#hapus">Hapus</button>\
+                            <button type="button" class="btn btn-secondary" onclick="qrcode_archive('+data[index].id_pm+')">QR</button>\
+                        </td>\
+                      </tr>'
+                        );
+                    }
+                }else{
+                    $('#tabel_scan_archive tbody tr').remove()
+                    $('#tabel_scan_archive > tbody:last-child').append('\
                         <tr>\
                             <td></td>\
                             <td></td>\

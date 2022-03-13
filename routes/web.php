@@ -27,6 +27,7 @@ Route::get('/impress-fund', [ArsipController::class, 'impress_fund'])->name('imp
 Route::get('/impress-fund/{id}', [ArsipController::class, 'impress_fund_detail'])->name('impress_fund.detail');
 Route::get('/qrcode-impress-fund/{id}', [ArsipController::class, 'detail'])->name('impress_fund.detail_qrcode');
 Route::get('/out-archive/{id}', [ArsipController::class, 'out_archive'])->name('archive.out');
+Route::get('/scan-if-archive/{id}', [ArsipController::class, 'out_archive']);
 Route::get('/history-archive/{id}', [ArsipController::class, 'archive_history'])->name('archive.history');
 Route::post('/impress-fund', [ArsipController::class, 'save_impress_fund'])->name('impress_fund.save');
 Route::post('/archive-save/', [ArsipController::class, 'archive_save'])->name('archive_save.save');
@@ -39,7 +40,9 @@ Route::get('/cari-impress-fund/{id}', [ArsipController::class, 'cari_impress_fun
 //Tag Mitra Arsip Route
 Route::get('/tag-mitra', [PartnerController::class, 'index'])->name('tag_mitra.index');
 Route::post('/tag-mitra', [PartnerController::class, 'save'])->name('tag_mitra.save');
-Route::get('/out-archive-partner/{id}', [PartnerController::class, 'out_archive'])->name('archive.out');
+Route::get('/out-archive-partner/{id}', [PartnerController::class, 'out_archive']);
+Route::get('/cari-tag-partner/{id}', [PartnerController::class, 'cari_tag_partner'])->name('tag_mitra.cari');
+Route::post('/import_tag_partner', [PartnerController::class, 'import_tag_partner'])->name('tag_mitra.import');
 Route::get('/delete-partner-archive/{id}', [PartnerController::class, 'delete_partner'])->name('archive.take_out_partner');
 
 

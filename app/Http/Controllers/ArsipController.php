@@ -6,7 +6,7 @@ use App\Imports\ImpressFunds;
 use App\Models\Counter;
 use App\Models\File;
 use App\Models\History;
-use App\Models\ImpressFund;
+use App\Models\Archive;
 use App\Models\TagPartner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +24,7 @@ class ArsipController extends Controller
 
     public function impress_fund()
     {
-        $data['archives']=ImpressFund::all();
+        $data['archives']=Archive::where('type','IF')->get();
         // dd($data);
         return view('admin.kelola-arsip.impress-fund.index',$data);
     }
@@ -37,7 +37,7 @@ class ArsipController extends Controller
 
     public function detail($id)
     {
-        $archive=ImpressFund::where('id_pm',$id)->first();
+        $archive=Archive::where('id_pm',$id)->first();
         return response($archive);
 
     }
@@ -57,17 +57,18 @@ class ArsipController extends Controller
             'teritory'=>'required',
             'box'=>'required',
         ]);
-        $id_pm=$this->id_archive();
+        $id_pm=$this->id_archive($request->tahun);
 
-        $check_archive=ImpressFund::where('id_pm',$id_pm)->first();
+        $check_archive=Archive::where('id_pm',$id_pm)->first();
         if($check_archive==null){
-            $impress=new ImpressFund();
+            $impress=new Archive();
             $impress->id_pm=$id_pm;
             $impress->periode=$request->tahun;
             $impress->bulan=$request->bulan;
             $impress->teritory=$request->teritory;
             $impress->box=$request->box;
             $impress->status='IN';
+            $impress->type='IF';
             $impress->save();
 
             $history=new History();
@@ -81,9 +82,15 @@ class ArsipController extends Controller
         }
         
     }
-    public function id_archive()
+    public function id_archive($year)
     {
-        $last_id=DB::table('impress_funds')->select('id_pm')->latest('created_at')->pluck('id_pm')->first();
+        $last_id=DB::table('archives')->max('id');
+        if(!$last_id){
+            $last_id=$year.'00000'.$last_id;
+        }else{
+            $last_id=DB::table('archives')->select('id_pm')->where('id',$last_id)->pluck('id_pm')->first();
+            $last_id=$year.substr($last_id,4,5);
+        }
         return $last_id+=1;
     }
 
@@ -117,15 +124,21 @@ class ArsipController extends Controller
     }
 
     public function out_archive($id){
-        $archives=ImpressFund::where('id_pm','LIKE','%'.$id.'%')->get();
+        $archives=Archive::where('id_pm','LIKE','%'.$id.'%')->where('type','IF')->get();
+        return response($archives);
+    }
+
+    public function scan_barcode($id)
+    {
+        $archives=Archive::where('id_pm','LIKE','%'.$id.'%')->where('type','IF')->get();
         return response($archives);
     }
 
     public function take_out_archive($id){
         date_default_timezone_set('Asia/Jakarta');
 
-        $impress=new ImpressFund();
-        $impress=ImpressFund::where('id_pm',$id)->first();
+        $impress=new Archive();
+        $impress=Archive::where('id_pm',$id)->first();
         $impress->status='OUT';
         $impress->save();
 
@@ -141,8 +154,8 @@ class ArsipController extends Controller
     public function delete_impress($id)
     {
         date_default_timezone_set('Asia/Jakarta');
-        $archive=new ImpressFund();
-        $archive=ImpressFund::where('id_pm',$id)->first();
+        $archive=new Archive();
+        $archive=Archive::where('id_pm',$id)->first();
         $archive->delete();
         return response($archive);
     }
@@ -150,7 +163,7 @@ class ArsipController extends Controller
     public function filter_impress_fund(Request $request)
     {
         
-        $archives=ImpressFund::where(function ($query) use ($request) {
+        $archives=Archive::where(function ($query) use ($request) {
             if ($request->bulan != "") {
                 $query->where('bulan', $request->bulan);
             }
@@ -163,7 +176,11 @@ class ArsipController extends Controller
             if($request->box != ""){
                 $query->where('box', $request->box);
             }
+            if($request->pekerjaan != ""){
+                $query->where('pekerjaan','LIKE','%'. $request->pekerjaan.'%');
+            }
         })
+        ->where('type',$request->type)
         ->get();
         return response($archives);
     }
@@ -176,7 +193,7 @@ class ArsipController extends Controller
             if($archives[0]!=null){
                 $i=1;
                 for ($n=0; $n < count($archives[0])-1; $n++) { 
-                    $check_archive=ImpressFund::where('id_pm',$archives[0][$i][0])->first();
+                    $check_archive=Archive::where('id_pm',$archives[0][$i][0])->first();
                     if($archives[0][$i][0]&&$check_archive==null){
                         $data[$n]=[
                             'id_pm'=>$archives[0][$i][0],
@@ -184,13 +201,14 @@ class ArsipController extends Controller
                             'teritory'=>$archives[0][$i][3],
                             'box'=>$archives[0][$i][4],
                         ];
-                        $impress=new ImpressFund();
+                        $impress=new Archive();
                         $impress->id_pm=$archives[0][$i][0];
                         $impress->periode=$archives[0][$i][1];
                         $impress->bulan=$archives[0][$i][2];
                         $impress->teritory=$archives[0][$i][3];
                         $impress->box=$archives[0][$i][4];
                         $impress->status='IN';
+                        $impress->type='IF';
                         $impress->save();
                 
                         $history=new History();
@@ -213,12 +231,9 @@ class ArsipController extends Controller
 
     public function cari_impress_fund($query)
     {
-        $archives=DB::table('impress_funds')
-        ->where('id_pm','LIKE','%'.$query.'%')
-        ->orWhere('periode','LIKE','%'.$query.'%')
-        ->orWhere('bulan','LIKE','%'.$query.'%')
-        ->orWhere('teritory','LIKE','%'.$query.'%')
-        ->orWhere('box','LIKE','%'.$query.'%')->get();
+        $archives=DB::table('archives')
+        ->where('type','IF')
+        ->where('id_pm','LIKE','%'.$query)->get();
         return response($archives);
     }
 }
