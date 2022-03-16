@@ -140,7 +140,7 @@ footer.sticky-footer.bg-white.mt-5 .container {
     box-shadow: 0px 10px 30px rgba(17, 38, 146, 0.05);
     position: relative;
     z-index: 1;
-    width: 17rem !important;
+    width: 18rem !important;
 }
 
 .sidebar-custom .text-center.d-none.d-md-inline button {
@@ -164,10 +164,15 @@ ul li a{
     padding-right: 37px;
 }
 
-ul li a img{
-    padding-right: 10px; 
+
+
+.nav-icon-impress{
+    height: 27px;
+    margin-top: -6px
+    /* padding-right: 10px;  */
     /* padding-left: 9px; */
 }
+
 
 ul li span{
     font-style: normal;
@@ -428,4 +433,24 @@ a:hover {
     height: 44px;
     border-radius: 4px;
 
+}
+
+.sidebar .nav-item .nav-link span{
+    padding-left: 7%;
+}
+
+.sidebar-dark .nav-item .nav-link[data-toggle="collapse"]::after {
+    color: rgba(61, 61, 62, 1);
+    padding-right: 1px !important;
+}
+
+.sidebar .nav-item .nav-link .img-profile, .topbar .nav-item .nav-link .img-profile {
+    height: 2rem;
+    width: 2rem;
+    margin-left: -50%;
+    padding-left: -16%;
+}
+
+.topbar-name{
+    padding-left: 15%;
 }
