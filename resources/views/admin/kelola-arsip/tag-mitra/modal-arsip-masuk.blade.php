@@ -46,23 +46,18 @@
                     <label for="teritory-input-arsip-masuk">Pekerjaan</label>
                     <div class="form-group">
                         <select class="form-control" id="teritory-input-arsip-masuk" name="pekerjaan">
-                            <option>Pilih Pekerjaan</option>
-                            <option value="25%"> 25%</option>
-                            <option value="75%"> 75%</option>
-                            <option value="PSB">PSB</option>
-                            <option value="MIGRASI">MIGRASI</option>
-                            <option value="OSP">OSP</option>
-                            <option value="EKSPEDISI">EKSPEDISI</option>
-                            <option value="LEMBUR">LEMBUR</option>
-                            <option value="ITMOA 15%">ITMOA 15%</option>
-                            <option value="ITMOA 25%">ITMOA 25%</option>
-                            <option value="ITMOA 85%">ITMOA 85%</option>
-                            <option value="ITMOA 75%">ITMOA 75%</option>
-                            <option value="AMS 15%">AMS 15%</option>
-                            <option value="AMS 25%">AMS 25%</option>
-                            <option value="AMS 85%">AMS 85%</option>
-                            <option value="AMS 75%">AMS 75%</option>
-                            <option value="PT2 SIMPLE">PT2 SIMPLE</option>
+                          <option value="">Pilih Pekerjaan</option>
+                          <option value='DSHR'>DSHR</option>
+                          <option value='GCU'>GCU</option>
+                          <option value='IOAN'>IOAN</option>
+                          <option value='MIGRASI'>MIGRASI</option>
+                          <option value='OSP'>OSP</option>
+                          <option value='PELOLOSAN'>PELOLOSAN</option>
+                          <option value='PENGADAAN'>PENGADAAN</option>
+                          <option value='PENGIRIMAN'>PENGIRIMAN</option>
+                          <option value='PSB'>PSB</option>
+                          <option value='PT2 SIMPLE'>PT2 SIMPLE</option>
+                          <option value='SEWA'>SEWA</option>
                         </select>
                     </div>
                   </div>
@@ -71,20 +66,21 @@
                     <div class="form-group">
                         <select class="form-control" id="box-penyimpanan-arsip-input-arsip-masuk" name="teritory">
                             <option>Pilih Area</option>
-                            <option value="SBU">SBU</option>
-                            <option value="MDR">MDR</option>
-                            <option value="SBS">SBS</option>
-                            <option value="SDA">SDA</option>
-                            <option value="PSN">PSN</option>
-                            <option value="MLG">MLG</option>
-                            <option value="KDI">KDI</option>
-                            <option value="MAN">MAN</option>
-                            <option value="JER">JER</option>
-                            <option value="DPS">DPS</option>
-                            <option value="SGR">SGR</option>
-                            <option value="NTB">NTB</option>
-                            <option value="NTT">NTT</option>
-                            <option value="REG">REG</option>
+                            <option value='DENPASAR'>DENPASAR</option>
+                            <option value='JATIM'>JATIM</option>
+                            <option value='JEMBER'>JEMBER</option>
+                            <option value='KEDIRI'>KEDIRI</option>
+                            <option value='KUPANG'>KUPANG</option>
+                            <option value='MADIUN'>MADIUN</option>
+                            <option value='MADURA'>MADURA</option>
+                            <option value='MALANG'>MALANG</option>
+                            <option value='MATARAM'>MATARAM</option>
+                            <option value='PASURUAN'>PASURUAN</option>
+                            <option value='REGIONAL'>REGIONAL</option>
+                            <option value='SBY SELATAN'>SBY SELATAN</option>
+                            <option value='SBY UTARA'>SBY UTARA</option>
+                            <option value='SIDOARJO'>SIDOARJO</option>
+                            <option value='SINGARAJA'>SINGARAJA</option>
                         </select>
                     </div>
                   </div>

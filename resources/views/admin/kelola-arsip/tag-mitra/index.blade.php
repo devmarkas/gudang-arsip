@@ -214,41 +214,37 @@
                         <div class="form-group">
                             <select class="form-control" id="pekerjaan">
                             <option value="">Pilih Pekerjaan</option>
-                            <option value="25">25%</option>
-                            <option value="75">75%</option>
-                            <option value="PSB">PSB</option>
-                            <option value="MIGRASI">MIGRASI</option>
-                            <option value="OSP">OSP</option>
-                            <option value="EKSPEDISI">EKSPEDISI</option>
-                            <option value="LEMBUR">LEMBUR</option>
-                            <option value="ITMOA 15%">ITMOA 15%</option>
-                            <option value="ITMOA 25%">ITMOA 25%</option>
-                            <option value="ITMOA 85%">ITMOA 85%</option>
-                            <option value="ITMOA 75%">ITMOA 75%</option>
-                            <option value="AMS 15%">AMS 15%</option>
-                            <option value="AMS 25%">AMS 25%</option>
-                            <option value="AMS 85%">AMS 85%</option>
-                            <option value="AMS 75%">AMS 75%</option>
-                            <option value="PT2 SIMPLE">PT2 SIMPLE</option>
+                            <option value='DSHR'>DSHR</option>
+                            <option value='GCU'>GCU</option>
+                            <option value='IOAN'>IOAN</option>
+                            <option value='MIGRASI'>MIGRASI</option>
+                            <option value='OSP'>OSP</option>
+                            <option value='PELOLOSAN'>PELOLOSAN</option>
+                            <option value='PENGADAAN'>PENGADAAN</option>
+                            <option value='PENGIRIMAN'>PENGIRIMAN</option>
+                            <option value='PSB'>PSB</option>
+                            <option value='PT2 SIMPLE'>PT2 SIMPLE</option>
+                            <option value='SEWA'>SEWA</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <select class="form-control" id="teritory">
                             <option value="">Pilih Area</option>
-                            <option value="SBU">SBU</option>
-                            <option value="MDR">MDR</option>
-                            <option value="SBS">SBS</option>
-                            <option value="SDA">SDA</option>
-                            <option value="PSN">PSN</option>
-                            <option value="MLG">MLG</option>
-                            <option value="KDI">KDI</option>
-                            <option value="MAN">MAN</option>
-                            <option value="JER">JER</option>
-                            <option value="DPS">DPS</option>
-                            <option value="SGR">SGR</option>
-                            <option value="NTB">NTB</option>
-                            <option value="NTT">NTT</option>
-                            <option value="REG">REG</option>
+                            <option value='DENPASAR'>DENPASAR</option>
+                            <option value='JATIM'>JATIM</option>
+                            <option value='JEMBER'>JEMBER</option>
+                            <option value='KEDIRI'>KEDIRI</option>
+                            <option value='KUPANG'>KUPANG</option>
+                            <option value='MADIUN'>MADIUN</option>
+                            <option value='MADURA'>MADURA</option>
+                            <option value='MALANG'>MALANG</option>
+                            <option value='MATARAM'>MATARAM</option>
+                            <option value='PASURUAN'>PASURUAN</option>
+                            <option value='REGIONAL'>REGIONAL</option>
+                            <option value='SBY SELATAN'>SBY SELATAN</option>
+                            <option value='SBY UTARA'>SBY UTARA</option>
+                            <option value='SIDOARJO'>SIDOARJO</option>
+                            <option value='SINGARAJA'>SINGARAJA</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -333,7 +329,9 @@
         <p style="text-align: left;" id="barcode_modalLabel">Barcode Generated</p>
         </div>
         <div class="modal-body" id="print_qrcode_input" style="display: block;margin: auto">
-            {!!QrCode::size(300)->generate(Session::get('barcode'));!!}
+            @php
+                echo '<img style="margin-bottom:10px;" src="data:image/png;base64,' . DNS1D::getBarcodePNG(json_decode(Session::get('barcode'))[0], 'CODABAR') . '" alt="barcode"   />';
+            @endphp
             <table style="width: 100%">
                 <tr>
                     <td><b>ID PM</b></td>
@@ -372,9 +370,7 @@
         <p style="text-align: left;" id="barcode_modalLabel">Barcode Generated</p>
         </div>
         <div class="modal-body" id="print_qrcode" style="display: block;margin: auto">
-            <div id="qrcode">
-
-            </div>
+            <img id="barcode"/>
             <table style="width: 100%">
                 <tr>
                     <td><b>ID PM</b></td>
@@ -411,7 +407,9 @@
         <div class="modal-body" id="print_qrcode_import">
             @foreach (json_decode(Session::get('succes_import')) as $barcode)
             <div class="item-barcode" id="item-barcode">
-                {!!QrCode::size(300)->generate(json_encode($barcode));!!}
+                @php
+                    echo '<img style="margin-bottom:10px;" src="data:image/png;base64,' . DNS1D::getBarcodePNG($barcode->id_pm, 'CODABAR') . '" alt="barcode"   />';
+                @endphp
                 <table style="width: 100%">
                     <tr>
                         <td><b>ID PM</b></td>
@@ -461,7 +459,7 @@
 @endsection
 
 @push('js')
-<script src="/template/js/qrcode.js"></script>
+<script src="https://cdn.jsdelivr.net/jsbarcode/3.3.20/JsBarcode.all.min.js"></script>
 <script>
 
 function print_barcode(elem){
@@ -760,11 +758,7 @@ function qrcode_archive(archive_id){
         success: function (data) {
             console.log(data)
             $('#qrcode_modal').modal();
-            var qrcode = new QRCode(document.getElementById("qrcode"), {
-                text: JSON.stringify([data.id_pm,data.bulan,data.teritory,data.box]),
-                width: 300,
-                height: 300,
-            });
+            JsBarcode("#barcode", data.id_pm.toString(), {format: "msi",  displayValue: false});
             $('#qr_code_id_pm').html(data.id_pm)
             $('#qr_code_periode').html(data.bulan)
             $('#qr_code_teritory').html(data.teritory)

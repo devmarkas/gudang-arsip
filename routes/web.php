@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArsipController;
+use App\Http\Controllers\ConstructionController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PartnerController;
 use Illuminate\Support\Facades\Auth;
@@ -44,6 +45,9 @@ Route::get('/out-archive-partner/{id}', [PartnerController::class, 'out_archive'
 Route::get('/cari-tag-partner/{id}', [PartnerController::class, 'cari_tag_partner'])->name('tag_mitra.cari');
 Route::post('/import_tag_partner', [PartnerController::class, 'import_tag_partner'])->name('tag_mitra.import');
 Route::get('/delete-partner-archive/{id}', [PartnerController::class, 'delete_partner'])->name('archive.take_out_partner');
+
+//Route Construction 
+Route::get('/construction', [ConstructionController::class, 'index'])->name('construction.index');
 
 
 

@@ -79,7 +79,7 @@
                 </a>
 
                 <!-- Nav Item - Construction -->
-                <a class="nav-link" href="#" id="construction">
+                <a class="nav-link" href="{{ route('construction.index')}}" id="construction">
                     <img class="nav-icon-impress" src="{{asset ("template")}}/img/icon-sidebar-kelola-arsip.svg" alt="">
                     <span>Construction</span>
                 </a>

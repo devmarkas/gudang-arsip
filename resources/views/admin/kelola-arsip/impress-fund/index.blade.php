@@ -226,37 +226,24 @@
                         <div class="form-group">
                             <select class="form-control" id="teritory">
                             <option value="">Pilih Teritory</option>
+                            <option value="BALI">BALI</option>
+                            <option value="BALNUS">BALNUS</option>
+                            <option value="JATIM">JATIM</option>
                             <option value="JATIM1">JATIM1</option>
                             <option value="JATIM2">JATIM2</option>
                             <option value="JATIM3">JATIM3</option>
-                            <option value="BALI">BALI</option>
                             <option value="NUSRA">NUSRA</option>
                             <option value="REGIONAL">REGIONAL</option>
-                            <option value="BALNUS">BALNUS</option>
-                            <option value="GEMA">GEMA</option>
-                            <option value="SCM">SCM</option>
-                            <option value="SURABAYA">SURABAYA</option>
-                            <option value="GRESIK">GRESIK</option>
-                            <option value="SURAMADU">SURAMADU</option>
-                            <option value="SIDOARJO">SIDOARJO</option>
-                            <option value="PASURUAN">PASURUAN</option>
-                            <option value="MALANG">MALANG</option>
-                            <option value="KEDIRI">KEDIRI</option>
-                            <option value="MADIUN">MADIUN</option>
-                            <option value="JEMBER">JEMBER</option>
-                            <option value="DENPASAR">DENPASAR</option>
-                            <option value="SINGARAJA">SINGARAJA</option>
-                            <option value="KUPANG">KUPANG</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <select class="form-control" id="box">
-                            <option value="">Pilih Box</option>
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                            <option value="D">D</option>
-                            <option value="E">E</option>
+                                <option value="">Pilih Box</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                                <option value="E">E</option>
                             </select>
                         </div>
                         <button class="btn btn-secondary" type="button" style="width: 100%" id="btn_reset_filter">Reset Filter</button>
@@ -334,7 +321,9 @@
         <div class="modal-body" id="print_qrcode_import">
             @foreach (json_decode(Session::get('succes_import')) as $barcode)
             <div class="item-barcode" id="item-barcode">
-                {!!QrCode::size(300)->generate(json_encode($barcode));!!}
+                @php
+                    echo '<img style="margin-bottom:10px;" src="data:image/png;base64,' . DNS1D::getBarcodePNG($barcode->id_pm, 'CODABAR') . '" alt="barcode"   />';
+                @endphp
                 <table style="width: 100%">
                     <tr>
                         <td><b>ID PM</b></td>
@@ -373,7 +362,9 @@
             <p style="text-align: left;" id="barcode_modalLabel">Barcode Generated</p>
             </div>
             <div class="modal-body" id="print_qrcode_input" style="display: block;margin: auto">
-                {!!QrCode::size(300)->generate(Session::get('barcode'));!!}
+                @php
+                    echo '<img style="margin-bottom:10px;" src="data:image/png;base64,' . DNS1D::getBarcodePNG(json_decode(Session::get('barcode'))[0], 'CODABAR') . '" alt="barcode"   />';
+                @endphp
                 <table style="width: 100%">
                     <tr>
                         <td><b>ID PM</b></td>
@@ -408,9 +399,7 @@
         <p style="text-align: left;" id="barcode_modalLabel">Barcode Generated</p>
         </div>
         <div class="modal-body" id="print_qrcode" style="display: block;margin: auto">
-            <div id="qrcode">
-
-            </div>
+            <img id="barcode"/>
             <table style="width: 100%">
                 <tr>
                     <td><b>ID PM</b></td>
@@ -460,7 +449,7 @@
 @endsection
 
 @push('js')
-<script src="/template/js/qrcode.js"></script>
+<script src="https://cdn.jsdelivr.net/jsbarcode/3.3.20/JsBarcode.all.min.js"></script>
 <script src="/template/js/print.js"></script>
 
 <script>
@@ -663,12 +652,9 @@
             type: 'GET',
             url: '/qrcode-impress-fund/'+archive_id,
             success: function (data) {
+                console.log(data.id_pm.toString())
                 $('#qrcode_modal').modal();
-                var qrcode = new QRCode(document.getElementById("qrcode"), {
-                    text: JSON.stringify([data.id_pm,data.bulan,data.teritory,data.box]),
-                    width: 300,
-                    height: 300,
-                });
+                JsBarcode("#barcode", data.id_pm.toString(), {format: "msi",  displayValue: false});
                 $('#qr_code_id_pm').html(data.id_pm)
                 $('#qr_code_periode').html(data.bulan)
                 $('#qr_code_teritory').html(data.teritory)

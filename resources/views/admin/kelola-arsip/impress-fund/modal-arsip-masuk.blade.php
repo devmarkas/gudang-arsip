@@ -47,27 +47,14 @@
                     <div class="form-group">
                         <select class="form-control" id="teritory-input-arsip-masuk" name="teritory">
                           <option value="">Pilih Teritory</option>
-                          <option value="JATIM1">JATIM1</option>
-                          <option value="JATIM2">JATIM2</option>
-                          <option value="JATIM3">JATIM3</option>
-                          <option value="BALI">BALI</option>
-                          <option value="NUSRA">NUSRA</option>
-                          <option value="REGIONAL">REGIONAL</option>
-                          <option value="BALNUS">BALNUS</option>
-                          <option value="GEMA">GEMA</option>
-                          <option value="SCM">SCM</option>
-                          <option value="SURABAYA">SURABAYA</option>
-                          <option value="GRESIK">GRESIK</option>
-                          <option value="SURAMADU">SURAMADU</option>
-                          <option value="SIDOARJO">SIDOARJO</option>
-                          <option value="PASURUAN">PASURUAN</option>
-                          <option value="MALANG">MALANG</option>
-                          <option value="KEDIRI">KEDIRI</option>
-                          <option value="MADIUN">MADIUN</option>
-                          <option value="JEMBER">JEMBER</option>
-                          <option value="DENPASAR">DENPASAR</option>
-                          <option value="SINGARAJA">SINGARAJA</option>
-                          <option value="KUPANG">KUPANG</option>
+                          <option value='BALI'>BALI</option>
+                          <option value='BALNUS'>BALNUS</option>
+                          <option value='JATIM'>JATIM</option>
+                          <option value='JATIM1'>JATIM1</option>
+                          <option value='JATIM2'>JATIM2</option>
+                          <option value='JATIM3'>JATIM3</option>
+                          <option value='NUSRA'>NUSRA</option>
+                          <option value='REGIONAL'>REGIONAL</option>
                         </select>
                     </div>
                   </div>
