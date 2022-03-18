@@ -64,7 +64,7 @@
                         </a>    
                                                 
                         <!-- Nav Item - BILLING COLLECTION -->
-                        <a class="nav-link" href="#" id="billing collection">
+                        <a class="nav-link" href="{{ route('billing.index') }}" id="billing collection">
                             <img class="nav-icon-impress" src="{{asset ("template")}}/img/icon-sidebar-kelola-arsip.svg" alt="">
                             <span>BILLING COLLECTION</span>
                         </a>
@@ -73,7 +73,7 @@
 
 
                 <!-- Nav Item - Commerce -->
-                <a class="nav-link" href="#" id="commerce">
+                <a class="nav-link" href="{{ route('commerce.index') }}" id="commerce">
                     <img class="nav-icon-impress" src="{{asset ("template")}}/img/icon-sidebar-kelola-arsip.svg" alt="">
                     <span>Commerce</span>
                 </a>
@@ -85,7 +85,7 @@
                 </a>
 
                 <!-- Nav Item - HCM -->
-                <a class="nav-link" href="#" id="hcm">
+                <a class="nav-link" href="{{ route('hcm.index') }}" id="hcm">
                     <img class="nav-icon-impress" src="{{asset ("template")}}/img/icon-sidebar-kelola-arsip.svg" alt="">
                     <span>HCM</span>
                 </a>

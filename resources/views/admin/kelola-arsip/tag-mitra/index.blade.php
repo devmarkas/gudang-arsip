@@ -257,6 +257,7 @@
                                 <option value="E">E</option>
                             </select>
                         </div>
+                        <button class="btn btn-secondary" type="button" style="width: 100%" id="btn_reset_filter">Reset Filter</button>
                    </form>
                    
                 </div>

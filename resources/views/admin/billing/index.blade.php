@@ -1,5 +1,5 @@
 @extends('layouts.app',[
-	'title' => 'Construction',
+	'title' => 'BILLING COLLECTION',
 ])
 @section('content')
 
@@ -18,8 +18,8 @@
     @endif
     <div class="row">
         <div class="col-md-6">
-            <h1>Lihat Construction</h1>
-            <p>Data lengkap Construction</p>
+            <h1>Lihat BILLING COLLECTION</h1>
+            <p>Data lengkap BILLING COLLECTION</p>
         </div>
         <div class="col-md-6">
             <div class="row">

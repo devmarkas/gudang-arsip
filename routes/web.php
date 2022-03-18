@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\ArsipController;
+use App\Http\Controllers\BillingController;
+use App\Http\Controllers\CommerceController;
 use App\Http\Controllers\ConstructionController;
+use App\Http\Controllers\HcmController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PartnerController;
 use Illuminate\Support\Facades\Auth;
@@ -48,6 +51,15 @@ Route::get('/delete-partner-archive/{id}', [PartnerController::class, 'delete_pa
 
 //Route Construction 
 Route::get('/construction', [ConstructionController::class, 'index'])->name('construction.index');
+
+//Route BILLING COLLECTION 
+Route::get('/billing-collection', [BillingController::class, 'index'])->name('billing.index');
+
+//Route Commerce
+Route::get('/commerce', [CommerceController::class, 'index'])->name('commerce.index');
+
+//Route HCM
+Route::get('/hcm', [HcmController::class, 'index'])->name('hcm.index');
 
 
 
