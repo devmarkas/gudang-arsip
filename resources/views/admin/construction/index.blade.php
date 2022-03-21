@@ -73,28 +73,54 @@
                             <option value="2021">2021</option>
                             </select>
                         </div>
+
                         <div class="form-group">
-                            <select class="form-control" id="bulan">
+                            <select class="form-control" id="nomor_surat_pesanan">
                             <option value="">Nomor Surat Pesanan</option>
+                            <option value="001071">001071</option>
+                            <option value="001098">001098</option>
+                            <option value="001456">001456</option>
+                            <option value="001932">001932</option>
+                            <option value="002752">002752</option>
+                            <option value="006095">006095</option>
+                            <option value="006560">006560</option>
+                            <option value="007687">007687</option>
+                            <option value="007720">007720</option>
+                            <option value="008062">008062</option>
+                            <option value="008116">008116</option>
+                            <option value="008834">008834</option>
+                            <option value="010232">010232</option>
+                            <option value="011890">011890</option>
                             </select>
                         </div>
+
                         <div class="form-group">
-                            <select class="form-control" id="teritory">
-                            <option value="">Pilih Area</option>
-                            <option value='SBY UTARA'>SBY UTARA</option>
-                            <option value='MADURA'>MADURA</option>
-                            <option value='SBY SELATAN'>SBY SELATAN</option>
-                            <option value='PASURUAN'>PASURUAN</option>
-                            <option value='SIDOARJO'>SIDOARJO</option>
-                            <option value='MALANG'>MALANG</option>
-                            <option value='KEDIRI'>KEDIRI</option>
-                            <option value='MADIUN'>MADIUN</option>
-                            <option value='JEMBER'>JEMBER</option>
-                            <option value='DENPASAR'>DENPASAR</option>
-                            <option value='SINGARAJA'>SINGARAJA</option>
-                            <option value='MATARAM'>MATARAM</option>
-                            <option value='KUPANG'>KUPANG</option>
-                            <option value='REGIONAL'>REGIONAL</option>
+                            <select class="form-control" name="pekerjaan" id="pekerjaan">
+                                <option value="">Pekerjaan</option>
+                                <option value="node-b_/_node_b">NODE-B / NODE B</option>
+                                <option value="relok_mdu">RELOK MDU</option>
+                                <option value="scrap">SCRAP</option>
+                                <option value="t-cloud_/_tcloud">T-CLOUD / TCLOUD</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <select class="form-control" name="area/witel" id="area/witel">
+                                <option value="">Area/Witel</option>
+                                <option value="regional">Regional</option>
+                                <option value="sby_utara">SBY UTARA</option>
+                                <option value="madura">MADURA</option>
+                                <option value="sby_selatan">SBY SELATAN</option>
+                                <option value="sidoarjo">SIDOARJO</option>
+                                <option value="pasuruan">PASURUAN</option>
+                                <option value="madiun">MADIUN</option>
+                                <option value="malang">MALANG</option>
+                                <option value="jember">JEMBER</option>
+                                <option value="kediri">KEDIRI</option>
+                                <option value="denpasar">DENPASAR</option>
+                                <option value="singaraja">SINGARAJA</option>
+                                <option value="kupang">KUPANG</option>
+                                <option value="mataram">MATARAM</option>
                             </select>
                         </div>
                         <button class="btn btn-secondary" type="button" style="width: 100%" id="btn_reset_filter">Reset Filter</button>
@@ -109,9 +135,10 @@
                     <div class="row  title-header">
                         <div class="col-md-6">
                             <h3>
-                                Detail Arsip TAGIHAN MITRA
+                                Detail Arsip Construction
                             </h3>
                         </div>
+
                         <div class="col-md-6">
                             <div class="input-group search-box">
                                 <input type="text" class="form-control" placeholder="Cari Arsip" id="cari_arsip" onkeyup="cari_arsip()">
@@ -125,15 +152,15 @@
                     </div>
                     
                     <div class="table-responsive">
-                        <table class="table table-sm table-hover tabel-arsip" id="tag_mitra_table">
+                        <table class="table table-sm table-hover tabel-arsip" id="construction_table">
                             <thead>
                               <tr>
-                                <th scope="col">ID PM</th>
-                                <th scope="col">Pekerjaan</th>
-                                <th scope="col">PERIODE</th>
-                                <th scope="col">TERITORY</th>
-                                <th scope="col">BOX</th>
-                                <th class="action" scope="col">Action</th>
+                                <th class="action" scope="col">NO. SURAT PESANAN</th>
+                                <th class="action" scope="col">NODE</th>
+                                <th class="action" scope="col">PEKERJAAN</th>
+                                <th class="action" scope="col">PERIODE</th>
+                                <th class="action" scope="col">AREA</th>
+                                <th class="action" scope="col">NAMA BOX</th>
                               </tr>
                             </thead>
                             <tbody>

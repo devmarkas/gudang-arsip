@@ -109,7 +109,7 @@
                     <div class="row  title-header">
                         <div class="col-md-6">
                             <h3>
-                                Detail Arsip TAGIHAN MITRA
+                                Detail Arsip HCM
                             </h3>
                         </div>
                         <div class="col-md-6">

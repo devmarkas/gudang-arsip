@@ -291,7 +291,7 @@
                                 <th scope="col">ID PM</th>
                                 <th scope="col">Pekerjaan</th>
                                 <th scope="col">PERIODE</th>
-                                <th scope="col">TERITORY</th>
+                                <th scope="col">Area</th>
                                 <th scope="col">BOX</th>
                                 <th class="action" scope="col">Action</th>
                               </tr>
