@@ -43,24 +43,24 @@
                 <div id="finance-billco" class="collapse show" aria-labelledby="headingTwo" data-parent="#finance-billco">
                     <div class="py-2 collapse-inner rounded">
 
-                        <!-- Nav Item - IMPRESS FUND -->
+                        <!-- Nav Item - Imprest Fund -->
                         <a class="nav-link {{ Request::is('impress-fund*') ? 'nav-active-custom' : '' }} " href="{{ route('impress_fund.index') }}" id="impress-fund">
                             @if (Request::is('impress-fund*'))
                                 <img class="nav-icon-impress" class="nav-icon-impress" src="{{asset ("template")}}/img/icon-sidebar-kelola-arsip-active.svg" alt="">
                             @else
                                 <img class="nav-icon-impress" src="{{asset ("template")}}/img/icon-sidebar-kelola-arsip.svg" alt="">
                             @endif
-                            <span class="{{ Request::is('impress-fund*') ? 'nav-active-custom-span' : '' }}">IMPRESS FUND</span>
+                            <span class="{{ Request::is('impress-fund*') ? 'nav-active-custom-span' : '' }}">Imprest Fund</span>
                         </a>
 
-                        <!-- Nav Item - TAG MITRA -->
+                        <!-- Nav Item - Tagihan Mitra -->
                         <a class="nav-link {{ Request::is('tag-mitra*') ? 'nav-active-custom' : '' }} " href="{{ route('tag_mitra.index') }}" id="tag-mitra">
                             @if (Request::is('tag-mitra*'))
                                 <img class="nav-icon-impress" src="{{asset ("template")}}/img/icon-sidebar-kelola-arsip-active.svg" alt="">
                             @else
                                 <img class="nav-icon-impress" src="{{asset ("template")}}/img/icon-sidebar-kelola-arsip.svg" alt="">
                             @endif
-                            <span class="{{ Request::is('tag-mitra*') ? 'nav-active-custom-span' : '' }}">TAG MITRA</span>
+                            <span class="{{ Request::is('tag-mitra*') ? 'nav-active-custom-span' : '' }}">Tagihan Mitra</span>
                         </a>    
                                                 
                         <!-- Nav Item - BILLING COLLECTION -->

@@ -66,7 +66,7 @@
                    <form action="">
                         <div class="form-group">
                             <select class="form-control" id="tahun">
-                            <option value="">Tahun</option>
+                            <option value="">Pilih Tahun</option>
                             <option value="2017">2017</option>
                             <option value="2018">2018</option>
                             <option value="2019">2019</option>
@@ -78,7 +78,7 @@
             
                         <div class="form-group">
                             <select class="form-control" id="periode">
-                            <option value="">Periode</option>
+                            <option value="">Pilih Periode</option>
                             <option value="januari">Januari</option>
                             <option value="februari">Februari</option>
                             <option value="maret">Maret</option>
@@ -96,7 +96,7 @@
 
                         <div class="form-group">
                             <select class="form-control" name="pekerjaan" id="pekerjaan">
-                                <option value="">Pekerjaan</option>
+                                <option value="">Pilih Pekerjaan</option>
                                 <option value="ioan">IOAN</option>
                                 <option value="migrasi">MIGRASI</option>
                                 <option value="mod_5_sto">MOD 5 STO</option>
@@ -104,10 +104,17 @@
                                 <option value="pt2">PT2</option>
                                 <option value="qe">QE</option>
                                 <option value="sttf">STTF</option>
-                                
                             </select>
-
                         </div>
+
+                        
+                        <div class="form-group">
+                            <select class="form-control" name="pekerjaan" id="box">
+                                <option value="">Pilih Box</option>
+                            </select>
+                        </div>
+
+
                         <button class="btn btn-secondary" type="button" style="width: 100%" id="btn_reset_filter">Reset Filter</button>
                    </form>
                    

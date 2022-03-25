@@ -187,16 +187,20 @@
                    <form action="">
                         <div class="form-group">
                             <select class="form-control" id="tahun">
-                            <option value="">Tahun</option>
-                            <option value="2022">2022</option>
-                            <option value="2021">2021</option>
-                            <option value="2020">2020</option>
+                            <option value="">Pilih Tahun</option>
+                            <option value="2015">2015</option>
+                            <option value="2016">2016</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
                             <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <select class="form-control" id="bulan">
-                            <option value="">Bulan</option>
+                            <option value="">Pilih Bulan</option>
                             <option value="Januari">Januari</option>
                             <option value="Februari">Februari</option>
                             <option value="Maret">Maret</option>
@@ -290,7 +294,7 @@
                               <tr>
                                 <th scope="col">ID PM</th>
                                 <th scope="col">Pekerjaan</th>
-                                <th scope="col">PERIODE</th>
+                                <th scope="col">BULAN</th>
                                 <th scope="col">Area</th>
                                 <th scope="col">BOX</th>
                                 <th class="action" scope="col">Action</th>
@@ -343,7 +347,7 @@
                     <td style="text-align: right">{{json_decode(Session::get('barcode'))[2]}}</td>
                 </tr>
                 <tr>
-                    <td><b>Periode</b></td>
+                    <td><b>Bulan</b></td>
                     <td style="text-align: right">{{json_decode(Session::get('barcode'))[1]}}</td>
                 </tr>
                 <tr>
@@ -378,7 +382,7 @@
                     <td style="text-align: right" id="qr_code_id_pm"></td>
                 </tr>
                 <tr>
-                    <td><b>Periode</b></td>
+                    <td><b>Bulan</b></td>
                     <td style="text-align: right" id="qr_code_periode"></td>
                 </tr>
                 <tr>
@@ -417,7 +421,7 @@
                         <td style="text-align: right">{{$barcode->id_pm}}</td>
                     </tr>
                     <tr>
-                        <td><b>Periode</b></td>
+                        <td><b>Bulan</b></td>
                         <td style="text-align: right">{{$barcode->periode}}</td>
                     </tr>
                     <tr>

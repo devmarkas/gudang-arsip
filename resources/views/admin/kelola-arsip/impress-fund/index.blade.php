@@ -1,5 +1,5 @@
 @extends('layouts.app',[
-	'title' => 'Impress Fund',
+	'title' => 'Imprest Fund',
 ])
 
 @section('style')
@@ -151,8 +151,8 @@
     @endif
     <div class="row">
         <div class="col-md-6">
-            <h1>Lihat Arsip IMPRESS FUND</h1>
-            <p>Data lengkap arsip IMPRESS FUND</p>
+            <h1>Lihat Arsip Imprest Fund</h1>
+            <p>Data lengkap arsip Imprest Fund</p>
         </div>
         <div class="col-md-6">
             <div class="row">
@@ -199,16 +199,20 @@
                    <form action="">
                         <div class="form-group">
                             <select class="form-control" id="tahun">
-                            <option value="">Tahun</option>
-                            <option value="2022">2022</option>
-                            <option value="2021">2021</option>
-                            <option value="2020">2020</option>
+                            <option value="">Pilih Tahun</option>
+                            <option value="2015">2015</option>
+                            <option value="2016">2016</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
                             <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <select class="form-control" id="bulan">
-                                <option value="">Bulan</option>
+                                <option value="">Pilih Bulan</option>
                                 <option value="Januari">Januari</option>
                                 <option value="Februari">Februari</option>
                                 <option value="Maret">Maret</option>
@@ -225,7 +229,7 @@
                         </div>
                         <div class="form-group">
                             <select class="form-control" id="teritory">
-                            <option value="">Pilih Teritory</option>
+                            <option value="">Pilih Territory</option>
                             <option value="BALI">BALI</option>
                             <option value="BALNUS">BALNUS</option>
                             <option value="JATIM">JATIM</option>
@@ -258,7 +262,7 @@
                     <div class="row title-header">
                         <div class="col-md-6">
                             <h3>
-                                Detail Arsip IMPRESS FUND
+                                Detail Arsip Imprest Fund
                             </h3>
                         </div>
                         <div class="col-md-6">
@@ -279,7 +283,7 @@
                               <tr>
                                 <th class="action" scope="col">ID PM</th>
                                 <th class="action" scope="col">PERIODE</th>
-                                <th class="action" scope="col">TERITORY</th>
+                                <th class="action" scope="col">TERRITORY</th>
                                 <th class="action" scope="col">BOX</th>
                                 <th class="action" scope="col">Action</th>
                               </tr>
@@ -330,11 +334,11 @@
                         <td style="text-align: right">{{$barcode->id_pm}}</td>
                     </tr>
                     <tr>
-                        <td><b>Periode</b></td>
+                        <td><b>Bulan</b></td>
                         <td style="text-align: right">{{$barcode->periode}}</td>
                     </tr>
                     <tr>
-                        <td><b>Teritory</b></td>
+                        <td><b>Territory</b></td>
                         <td style="text-align: right">{{$barcode->teritory}}</td>
                     </tr>
                     <tr>
@@ -371,11 +375,11 @@
                         <td style="text-align: right">{{json_decode(Session::get('barcode'))[0]}}</td>
                     </tr>
                     <tr>
-                        <td><b>Periode</b></td>
+                        <td><b>Bulan</b></td>
                         <td style="text-align: right">{{json_decode(Session::get('barcode'))[1]}}</td>
                     </tr>
                     <tr>
-                        <td><b>Teritory</b></td>
+                        <td><b>Territory</b></td>
                         <td style="text-align: right">{{json_decode(Session::get('barcode'))[2]}}</td>
                     </tr>
                     <tr>
@@ -406,11 +410,11 @@
                     <td style="text-align: right" id="qr_code_id_pm"></td>
                 </tr>
                 <tr>
-                    <td><b>Periode</b></td>
+                    <td><b>Bulan</b></td>
                     <td style="text-align: right" id="qr_code_periode"></td>
                 </tr>
                 <tr>
-                    <td><b>Teritory</b></td>
+                    <td><b>Territory</b></td>
                     <td style="text-align: right" id="qr_code_teritory"></td>
                 </tr>
                 <tr>

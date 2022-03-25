@@ -66,7 +66,7 @@
                    <form action="">
                         <div class="form-group">
                             <select class="form-control" id="tahun">
-                            <option value="">Tahun</option>
+                            <option value="">Pilih Tahun</option>
                             <option value="2018">2018</option>
                             <option value="2019">2019</option>
                             <option value="2020">2020</option>
@@ -76,7 +76,7 @@
 
                         <div class="form-group">
                             <select class="form-control" id="nomor_surat_pesanan">
-                            <option value="">Nomor Surat Pesanan</option>
+                            <option value="">Pilih Nomor Surat Pesanan</option>
                             <option value="001071">001071</option>
                             <option value="001098">001098</option>
                             <option value="001456">001456</option>
@@ -96,7 +96,7 @@
 
                         <div class="form-group">
                             <select class="form-control" name="pekerjaan" id="pekerjaan">
-                                <option value="">Pekerjaan</option>
+                                <option value="">Pilih Pekerjaan</option>
                                 <option value="node-b_/_node_b">NODE-B / NODE B</option>
                                 <option value="relok_mdu">RELOK MDU</option>
                                 <option value="scrap">SCRAP</option>
@@ -106,7 +106,7 @@
 
                         <div class="form-group">
                             <select class="form-control" name="area/witel" id="area/witel">
-                                <option value="">Area/Witel</option>
+                                <option value="">Pilih Area/Witel</option>
                                 <option value="regional">Regional</option>
                                 <option value="sby_utara">SBY UTARA</option>
                                 <option value="madura">MADURA</option>

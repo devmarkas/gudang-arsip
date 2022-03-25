@@ -66,7 +66,7 @@
                    <form action="">
                         <div class="form-group">
                             <select class="form-control" id="tahun">
-                            <option value="">Tahun</option>
+                            <option value="">Pilih Tahun</option>
                             <option value="2014">2014</option>
                             <option value="2015">2015</option>
                             <option value="2016">2016</option>
@@ -80,7 +80,7 @@
 
                         <div class="form-group">
                             <select class="form-control" id="periode">
-                            <option value="">Periode</option>
+                            <option value="">Pilih Periode</option>
                             <option value="januari">Januari</option>
                             <option value="februari">Februari</option>
                             <option value="maret">Maret</option>
@@ -98,7 +98,7 @@
 
                         <div class="form-group">
                             <select class="form-control" name="pekerjaan" id="pekerjaan">
-                                <option value="">Pekerjaan</option>
+                                <option value="">Pilih Pekerjaan</option>
                                 <option value="bges">BGES</option>
                                 <option value="capex_hem">CAPEX HEM</option>
                                 <option value="ioan">IOAN</option>

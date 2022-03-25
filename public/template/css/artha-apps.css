@@ -454,3 +454,8 @@ a:hover {
 .topbar-name{
     padding-left: 15%;
 }
+
+img.logo-ta{
+    width: 150px;
+    margin-left: 50px;
+}
