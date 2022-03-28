@@ -66,50 +66,69 @@
                    <form action="">
                         <div class="form-group">
                             <select class="form-control" id="tahun">
-                            <option value="">Tahun</option>
+                            <option value="">Pilih Tahun</option>
+                            <option value="2017">2017</option>
                             <option value="2018">2018</option>
                             <option value="2019">2019</option>
                             <option value="2020">2020</option>
                             <option value="2021">2021</option>
+                            <option value="2022">2022</option>
                             </select>
                         </div>
+            
                         <div class="form-group">
-                            <select class="form-control" id="bulan">
-                            <option value="">Nomor Surat Pesanan</option>
+                            <select class="form-control" id="periode">
+                            <option value="">Pilih Periode</option>
+                            <option value="januari">Januari</option>
+                            <option value="februari">Februari</option>
+                            <option value="maret">Maret</option>
+                            <option value="april">April</option>
+                            <option value="mei">Mei</option>
+                            <option value="juni">Juni</option>
+                            <option value="juli">Juli</option>
+                            <option value="agustus">Agustus</option>
+                            <option value="september">September</option>
+                            <option value="oktober">Oktober</option>
+                            <option value="november">November</option>
+                            <option value="desember">Desember</option>
                             </select>
                         </div>
+
                         <div class="form-group">
-                            <select class="form-control" id="teritory">
-                            <option value="">Pilih Area</option>
-                            <option value='SBY UTARA'>SBY UTARA</option>
-                            <option value='MADURA'>MADURA</option>
-                            <option value='SBY SELATAN'>SBY SELATAN</option>
-                            <option value='PASURUAN'>PASURUAN</option>
-                            <option value='SIDOARJO'>SIDOARJO</option>
-                            <option value='MALANG'>MALANG</option>
-                            <option value='KEDIRI'>KEDIRI</option>
-                            <option value='MADIUN'>MADIUN</option>
-                            <option value='JEMBER'>JEMBER</option>
-                            <option value='DENPASAR'>DENPASAR</option>
-                            <option value='SINGARAJA'>SINGARAJA</option>
-                            <option value='MATARAM'>MATARAM</option>
-                            <option value='KUPANG'>KUPANG</option>
-                            <option value='REGIONAL'>REGIONAL</option>
+                            <select class="form-control" name="pekerjaan" id="pekerjaan">
+                                <option value="">Pilih Pekerjaan</option>
+                                <option value="ioan">IOAN</option>
+                                <option value="migrasi">MIGRASI</option>
+                                <option value="mod_5_sto">MOD 5 STO</option>
+                                <option value="psb">PSB</option>
+                                <option value="pt2">PT2</option>
+                                <option value="qe">QE</option>
+                                <option value="sttf">STTF</option>
                             </select>
                         </div>
+
+                        
+                        <div class="form-group">
+                            <select class="form-control" name="pekerjaan" id="box">
+                                <option value="">Pilih Box</option>
+                            </select>
+                        </div>
+
+
                         <button class="btn btn-secondary" type="button" style="width: 100%" id="btn_reset_filter">Reset Filter</button>
                    </form>
                    
                 </div>
             </div>
         </div>
+
         <div class="col-md-9">
             <div class="card-custom">
                 <div class="conten-custom">
                     <div class="row  title-header">
                         <div class="col-md-6">
                             <h3>
-                                Detail Arsip TAGIHAN MITRA
+                                Detail Arsip Billing Collection
                             </h3>
                         </div>
                         <div class="col-md-6">
@@ -125,15 +144,13 @@
                     </div>
                     
                     <div class="table-responsive">
-                        <table class="table table-sm table-hover tabel-arsip" id="tag_mitra_table">
+                        <table class="table table-sm table-hover tabel-arsip" id="billing_collection_table">
                             <thead>
                               <tr>
-                                <th scope="col">ID PM</th>
-                                <th scope="col">Pekerjaan</th>
-                                <th scope="col">PERIODE</th>
-                                <th scope="col">TERITORY</th>
-                                <th scope="col">BOX</th>
-                                <th class="action" scope="col">Action</th>
+                                <th class="action" scope="col">Nomor Invoice</th>
+                                <th class="action" scope="col">Tahun Invoice</th>
+                                <th class="action" scope="col">PERIODE</th>
+                                <th class="action" scope="col">Nama Box</th>
                               </tr>
                             </thead>
                             <tbody>

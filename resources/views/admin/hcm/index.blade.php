@@ -66,18 +66,20 @@
                    <form action="">
                         <div class="form-group">
                             <select class="form-control" id="tahun">
-                            <option value="">Tahun</option>
+                            <option value="">Pilih Tahun</option>
                             <option value="2018">2018</option>
                             <option value="2019">2019</option>
                             <option value="2020">2020</option>
                             <option value="2021">2021</option>
                             </select>
                         </div>
+
                         <div class="form-group">
                             <select class="form-control" id="bulan">
-                            <option value="">Nomor Surat Pesanan</option>
+                            <option value="">Pilih Nomor Surat Pesanan</option>
                             </select>
                         </div>
+
                         <div class="form-group">
                             <select class="form-control" id="teritory">
                             <option value="">Pilih Area</option>
@@ -97,6 +99,14 @@
                             <option value='REGIONAL'>REGIONAL</option>
                             </select>
                         </div>
+
+                        <div class="form-group">
+                            <select class="form-control" id="box">
+                                <option value="">Pilih Box</option>
+                            </select>
+
+                        </div>
+
                         <button class="btn btn-secondary" type="button" style="width: 100%" id="btn_reset_filter">Reset Filter</button>
                    </form>
                    
@@ -109,7 +119,7 @@
                     <div class="row  title-header">
                         <div class="col-md-6">
                             <h3>
-                                Detail Arsip TAGIHAN MITRA
+                                Detail Arsip HCM
                             </h3>
                         </div>
                         <div class="col-md-6">

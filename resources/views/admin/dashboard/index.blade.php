@@ -13,7 +13,7 @@
 <div class="container-content" style="position: relative; margin-top: -20px;" >
     <div class="card-custom">
         <div class="conten-custom">
-            <img src="{{asset ("template") }}/img/dashboard1.svg" class="img-fluid" alt="...">
+            <img src="{{asset ("template") }}/img/maps.jpg" class="img-fluid" alt="...">
         </div>
     </div>
 </div>
