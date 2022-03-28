@@ -164,7 +164,7 @@
                 </div>
 
                 <div class="col-xl-3 col-md-6">
-                    <button type="button" data-toggle="modal" data-target="#input-arsip-keluar"> 
+                    <button type="button" data-toggle="modal" data-target="#input-arsip-keluar-if"> 
                         <img src="{{asset ("template")}}/img/icon-arsip-keluar.svg" alt="">
                         <p>Input Arsip Keluar</p>
                     </button>
@@ -330,24 +330,15 @@
                         <td style="text-align: right">{{$barcode->id_pm}}</td>
                     </tr>
                     <tr>
-                        <td><b>Periode</b></td>
-                        <td style="text-align: right">{{$barcode->periode}}</td>
-                    </tr>
-                    <tr>
-                        <td><b>Teritory</b></td>
-                        <td style="text-align: right">{{$barcode->teritory}}</td>
-                    </tr>
-                    <tr>
                         <td><b>Box</b></td>
                         <td style="text-align: right">{{$barcode->box}}</td>
                     </tr>
                 </table>
-        </div>
+            </div>
             @endforeach
         </div>
         <div class="modal-footer">
-        <button type="button" class="btn btn-primary" onclick="print_barcode('print_qrcode_import')" style="background-color: #1180BF; width: 100%" data-dismiss="modal">Print</button>
-        
+        <a class="btn btn-primary" style="background-color: #1180BF; width: 100%" target="_blank" href="/print/{{Session::get('succes_import')}}">Print</a>
         </div>
     </div>
     </div>
@@ -371,21 +362,13 @@
                         <td style="text-align: right">{{json_decode(Session::get('barcode'))[0]}}</td>
                     </tr>
                     <tr>
-                        <td><b>Periode</b></td>
-                        <td style="text-align: right">{{json_decode(Session::get('barcode'))[1]}}</td>
-                    </tr>
-                    <tr>
-                        <td><b>Teritory</b></td>
-                        <td style="text-align: right">{{json_decode(Session::get('barcode'))[2]}}</td>
-                    </tr>
-                    <tr>
                         <td><b>Box</b></td>
                         <td style="text-align: right">{{json_decode(Session::get('barcode'))[3]}}</td>
                     </tr>
                 </table>
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-primary" onclick="print_barcode('print_qrcode_input')" id="downloadPNG"  style="background-color: #1180BF; width: 100%" data-dismiss="modal">Print</button>
+                <a class="btn btn-primary" style="background-color: #1180BF; width: 100%" target="_blank" href="/print/{{(Session::get('barcode'))}}">Print</a>
             
             </div>
         </div>
@@ -404,14 +387,6 @@
                 <tr>
                     <td><b>ID PM</b></td>
                     <td style="text-align: right" id="qr_code_id_pm"></td>
-                </tr>
-                <tr>
-                    <td><b>Periode</b></td>
-                    <td style="text-align: right" id="qr_code_periode"></td>
-                </tr>
-                <tr>
-                    <td><b>Teritory</b></td>
-                    <td style="text-align: right" id="qr_code_teritory"></td>
                 </tr>
                 <tr>
                     <td><b>Box</b></td>
@@ -656,8 +631,6 @@
                 $('#qrcode_modal').modal();
                 JsBarcode("#barcode", data.id_pm.toString(), {format: "msi",  displayValue: false});
                 $('#qr_code_id_pm').html(data.id_pm)
-                $('#qr_code_periode').html(data.bulan)
-                $('#qr_code_teritory').html(data.teritory)
                 $('#qr_code_box').html(data.box)
             },
             error: function() { 
@@ -684,7 +657,7 @@
                             <td>'+today.toLocaleDateString("en-US", options)+'</td>\
                             <td>'+data[index].name+'</td>\
                             <td>\
-                                <a href="/template/img/archive/'+data[index].file+'" ><img src="{{asset ("template")}}/img/icon-preview.svg" alt=""></a>\
+                                <a target="_blank" href="/template/img/archive/'+data[index].file+'" ><img src="{{asset ("template")}}/img/icon-preview.svg" alt=""></a>\
                             </td>\
                         </tr>'
                         );
@@ -863,6 +836,27 @@
             }
         });
     }
+
+    // function print_batch_barcode(data){
+    //     console.log(data)
+    //     $.ajaxSetup({
+    //             headers: {
+    //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //             }
+    //         });
+    //     console.log(data)
+    //     $.ajax({
+    //         type: 'POST',
+    //         data: {data},
+    //         url: '/print',
+    //         success: function (data) {
+                
+    //         },
+    //         error: function() { 
+    //             console.log(data);
+    //         }
+    //     });
+    // }
     
 </script>
 @endpush

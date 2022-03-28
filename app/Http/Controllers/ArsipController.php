@@ -86,7 +86,7 @@ class ArsipController extends Controller
     {
         $last_id=DB::table('archives')->max('id');
         if(!$last_id){
-            $last_id=$year.'00000'.$last_id;
+            $last_id=$year.'000000'.$last_id;
         }else{
             $last_id=DB::table('archives')->select('id_pm')->where('id',$last_id)->pluck('id_pm')->first();
             $last_id=$year.substr($last_id,4,5);
@@ -97,7 +97,6 @@ class ArsipController extends Controller
     public function archive_save(Request $request)
     {
         $request->validate([
-            'name'=>'required',
             'file'=>'required|file',
         ]);
 
@@ -107,7 +106,7 @@ class ArsipController extends Controller
         $request->file->move($path,$file_name);
 
         $file=new File();
-        $file->name=$request->name;
+        $file->name=$file_name;
         $file->file=$file_name;
         $file->user_id=Auth::id();
         $file->archive_id=$request->archive_id;

@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/print/{query}', [HomeController::class, 'print'])->name('print');
+Route::get('/print_single/{query}', [HomeController::class, 'print_single'])->name('print_single');
 Auth::routes();
 
 //Dashboard Route

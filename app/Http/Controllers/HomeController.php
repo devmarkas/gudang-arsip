@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Archive;
 use App\Models\ImpressFund;
 use App\Models\TagPartner;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -35,6 +37,17 @@ class HomeController extends Controller
             $data['tag_partners'][]=Archive::where('periode',$year)->where('type','TM')->count();
         }
         return view('admin.dashboard.index',$data);
+    }
+
+    public function print($data)
+    {
+        $barcodes=json_decode($data);
+        return view('barcode',compact('barcodes'));
+    }
+    public function print_single($data)
+    {
+        $barcode=json_decode($data);
+        return view('barcode',compact('barcode'));
     }
 
     

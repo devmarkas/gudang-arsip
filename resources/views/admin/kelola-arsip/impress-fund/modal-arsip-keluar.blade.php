@@ -1,5 +1,5 @@
 {{-- <form action=""> --}}
-    <div class="modal fade" id="input-arsip-keluar" tabindex="-1" role="dialog" aria-labelledby="input-arsip-keluar" aria-hidden="true" data-backdrop="static">
+    <div class="modal fade" id="input-arsip-keluar-if" tabindex="-1" role="dialog" aria-labelledby="input-arsip-keluar" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
           <div class="modal-content">
             <div class="modal-header">

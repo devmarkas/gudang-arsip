@@ -55,7 +55,7 @@ class PartnerController extends Controller
     {
         $last_id=DB::table('archives')->max('id');
         if(!$last_id){
-            $last_id=$year.'00000'.$last_id;
+            $last_id=$year.'000000'.$last_id;
         }else{
             $last_id=DB::table('archives')->select('id_pm')->where('id',$last_id)->pluck('id_pm')->first();
             $last_id=$year.substr($last_id,4,5);

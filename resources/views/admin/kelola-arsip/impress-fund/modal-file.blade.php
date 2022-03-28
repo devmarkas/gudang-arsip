@@ -32,11 +32,8 @@
           </button>
           <form action="{{ route('archive_save.save') }}" method="POST" id="tambah_file" enctype="multipart/form-data">@csrf
             <div class="row">
-              <div class="col-md-5">
-                <input type="text" class="form-control" name="name" id="name" placeholder="Nama Dokumen">
                 <input type="hidden" name="archive_id" id="archive_id">
-              </div>
-              <div class="col-md-5">
+              <div class="col-md-10">
                 <input type="file" class="form-control" name="file" id="file" placeholder="Pilih Dokumen">
               </div>
               <div class="col-md-2">
