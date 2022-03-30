@@ -282,7 +282,7 @@
                             <thead>
                               <tr>
                                 <th class="action" scope="col">ID PM</th>
-                                <th class="action" scope="col">PERIODE</th>
+                                <th class="action" scope="col">BULAN</th>
                                 <th class="action" scope="col">TERRITORY</th>
                                 <th class="action" scope="col">BOX</th>
                                 <th class="action" scope="col">Action</th>
@@ -326,7 +326,7 @@
             @foreach (json_decode(Session::get('succes_import')) as $barcode)
             <div class="item-barcode" id="item-barcode">
                 @php
-                    echo '<img style="margin-bottom:10px;" src="data:image/png;base64,' . DNS1D::getBarcodePNG($barcode->id_pm, 'CODABAR') . '" alt="barcode"   />';
+                    echo DNS1D::getBarcodeSVG($barcode->id_pm, 'CODABAR',3,33,'yellow');
                 @endphp
                 <table style="width: 100%">
                     <tr>
@@ -358,7 +358,7 @@
             </div>
             <div class="modal-body" id="print_qrcode_input" style="display: block;margin: auto">
                 @php
-                    echo '<img style="margin-bottom:10px;" src="data:image/png;base64,' . DNS1D::getBarcodePNG(json_decode(Session::get('barcode'))[0], 'CODABAR') . '" alt="barcode"   />';
+                    echo DNS1D::getBarcodeSVG(json_decode(Session::get('barcode'))[0], 'CODABAR',3,33,'yellow');
                 @endphp
                 <table style="width: 100%">
                     <tr>
@@ -372,7 +372,7 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <a class="btn btn-primary" style="background-color: #1180BF; width: 100%" target="_blank" href="/print/{{(Session::get('barcode'))}}">Print</a>
+                <a class="btn btn-primary" style="background-color: #1180BF; width: 100%" target="_blank" href="/print_single/{{(Session::get('barcode'))}}">Print</a>
             
             </div>
         </div>

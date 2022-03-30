@@ -158,7 +158,7 @@
                                 <th class="action" scope="col">NO. SURAT PESANAN</th>
                                 <th class="action" scope="col">NODE</th>
                                 <th class="action" scope="col">PEKERJAAN</th>
-                                <th class="action" scope="col">PERIODE</th>
+                                <th class="action" scope="col">BULAN</th>
                                 <th class="action" scope="col">AREA</th>
                                 <th class="action" scope="col">NAMA BOX</th>
                               </tr>

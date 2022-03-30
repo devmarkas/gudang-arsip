@@ -105,6 +105,14 @@
                     @endif
                     <span class="{{ Request::is('hcm*') ? 'nav-active-custom-span' : '' }}">HCM</span>
                 </a>
+                <a class="nav-link {{ Request::is('box*') ? 'nav-active-custom' : '' }}" href="{{ route('box.index') }}" id="box">
+                    @if (Request::is('box*'))
+                        <img class="nav-icon-impress" class="nav-icon-impress" src="{{asset ("template")}}/img/icon-sidebar-kelola-arsip-active.svg" alt="">
+                    @else
+                        <img class="nav-icon-impress" src="{{asset ("template")}}/img/icon-sidebar-kelola-arsip.svg" alt="">
+                    @endif
+                    <span class="{{ Request::is('box*') ? 'nav-active-custom-span' : '' }}">Manajemen Box</span>
+                </a>
 
             </div>
         </div>

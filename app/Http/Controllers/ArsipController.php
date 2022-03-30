@@ -7,6 +7,7 @@ use App\Models\Counter;
 use App\Models\File;
 use App\Models\History;
 use App\Models\Archive;
+use App\Models\Box;
 use App\Models\TagPartner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,6 +26,8 @@ class ArsipController extends Controller
     public function impress_fund()
     {
         $data['archives']=Archive::where('type','IF')->get();
+        $data['boxes']=Box::where('unit','IF')->get();
+
         // dd($data);
         return view('admin.kelola-arsip.impress-fund.index',$data);
     }
@@ -58,7 +61,6 @@ class ArsipController extends Controller
             'box'=>'required',
         ]);
         $id_pm=$this->id_archive($request->tahun);
-
         $check_archive=Archive::where('id_pm',$id_pm)->first();
         if($check_archive==null){
             $impress=new Archive();
@@ -89,7 +91,7 @@ class ArsipController extends Controller
             $last_id=$year.'000000'.$last_id;
         }else{
             $last_id=DB::table('archives')->select('id_pm')->where('id',$last_id)->pluck('id_pm')->first();
-            $last_id=$year.substr($last_id,4,5);
+            $last_id=$year.substr($last_id,4,6);
         }
         return $last_id+=1;
     }

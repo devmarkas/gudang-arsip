@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArsipController;
 use App\Http\Controllers\BillingController;
+use App\Http\Controllers\BoxController;
 use App\Http\Controllers\CommerceController;
 use App\Http\Controllers\ConstructionController;
 use App\Http\Controllers\HcmController;
@@ -62,6 +63,12 @@ Route::get('/commerce', [CommerceController::class, 'index'])->name('commerce.in
 
 //Route HCM
 Route::get('/hcm', [HcmController::class, 'index'])->name('hcm.index');
+
+//Manajemen Box
+Route::get('/box', [BoxController::class, 'index'])->name('box.index');
+Route::post('/box', [BoxController::class, 'store'])->name('box.store');
+Route::get('/delete-box/{id}', [BoxController::class, 'destroy'])->name('box.delet');
+
 
 
 

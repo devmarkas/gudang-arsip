@@ -28,7 +28,7 @@
                     <thead>
                       <tr>
                         <th scope="col">ID PM</th>
-                        <th scope="col">PERIODE</th>
+                        <th scope="col">BULAN</th>
                         <th scope="col">TERITORY</th>
                         <th scope="col">BOX</th>
                         <th class="action" scope="col">Action</th>

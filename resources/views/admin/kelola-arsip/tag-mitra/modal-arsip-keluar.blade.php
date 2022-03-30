@@ -29,7 +29,7 @@
                       <tr>
                         <th scope="col">ID PM</th>
                         <th scope="col">PEKERJAAN</th>
-                        <th scope="col">PERIODE</th>
+                        <th scope="col">BULAN</th>
                         <th scope="col">TAHUN</th>
                         <th scope="col">AREA</th>
                         <th scope="col">BOX</th>

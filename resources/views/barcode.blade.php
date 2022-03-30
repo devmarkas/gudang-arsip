@@ -24,7 +24,7 @@
 </head>
 
 <body>
-    @if (($barcode))
+    @if ((isset($barcode)))
     <div class="item-barcode" id="item-barcode">
         @php
             echo DNS1D::getBarcodeSVG($barcode[0], 'CODABAR',3,33,'yellow');

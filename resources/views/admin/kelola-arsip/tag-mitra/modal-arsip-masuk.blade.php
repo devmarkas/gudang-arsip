@@ -24,7 +24,7 @@
                   </div>
                   <div class="col-md-2">
                     <div class="form-group">
-                        <label></label>
+                        <label>Bulan</label>
                         <select class="form-control mt-2" id="bulan-input-arsip-masuk" name="bulan">
                             <option>Bulan</option>
                             <option value="januari">Januari</option>
@@ -88,12 +88,10 @@
                     <label for="teritory-input-arsip-masuk">Box Penyimpanan Arsip</label>
                     <div class="form-group">
                         <select class="form-control" id="box-penyimpanan-arsip-input-arsip-masuk" name="box">
-                            <option>Pilih Box</option>
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                            <option value="D">D</option>
-                            <option value="E">E</option>
+                            <option value="">Pilih Box Penyimpanan Arsip</option>
+                            @foreach ($boxes as $box)
+                            <option value="{{$box->nama}}">{{$box->nama}}</option>
+                            @endforeach
                         </select>
                     </div>
                   </div>

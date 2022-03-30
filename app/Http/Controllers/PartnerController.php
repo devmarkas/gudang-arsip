@@ -6,6 +6,7 @@ use App\Imports\ImpressFunds;
 use App\Models\Counter;
 use App\Models\ImpressFund;
 use App\Models\Archive;
+use App\Models\Box;
 use App\Models\History;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +18,7 @@ class PartnerController extends Controller
     public function index()
     {
         $data['archives']=Archive::where('type','TM')->get();
+        $data['boxes']=Box::where('unit','TM')->get();
         return view('admin.kelola-arsip.tag-mitra.index',$data);
     }
 
@@ -58,7 +60,7 @@ class PartnerController extends Controller
             $last_id=$year.'000000'.$last_id;
         }else{
             $last_id=DB::table('archives')->select('id_pm')->where('id',$last_id)->pluck('id_pm')->first();
-            $last_id=$year.substr($last_id,4,5);
+            $last_id=$year.substr($last_id,4,6);
         }
         return $last_id+=1;
     }
