@@ -326,7 +326,7 @@
             @foreach (json_decode(Session::get('succes_import')) as $barcode)
             <div class="item-barcode" id="item-barcode">
                 @php
-                    echo DNS1D::getBarcodeSVG($barcode->id_pm, 'CODABAR',3,33,'yellow');
+                    echo DNS1D::getBarcodeSVG($barcode->id_pm, 'CODABAR',3,33,'#CDAE3E');
                 @endphp
                 <table style="width: 100%">
                     <tr>
@@ -358,7 +358,7 @@
             </div>
             <div class="modal-body" id="print_qrcode_input" style="display: block;margin: auto">
                 @php
-                    echo DNS1D::getBarcodeSVG(json_decode(Session::get('barcode'))[0], 'CODABAR',3,33,'yellow');
+                    echo DNS1D::getBarcodeSVG(json_decode(Session::get('barcode'))[0], 'CODABAR',3,33,'#CDAE3E');
                 @endphp
                 <table style="width: 100%">
                     <tr>
@@ -633,7 +633,7 @@
             success: function (data) {
                 console.log(data.id_pm.toString())
                 $('#qrcode_modal').modal();
-                JsBarcode("#barcode", data.id_pm.toString(), {format: "msi",  displayValue: false});
+                JsBarcode("#barcode", data.id_pm.toString(), {format: "msi",  displayValue: false,  lineColor: "#CDAE3E",});
                 $('#qr_code_id_pm').html(data.id_pm)
                 $('#qr_code_box').html(data.box)
             },

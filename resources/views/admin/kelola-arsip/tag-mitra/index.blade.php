@@ -3,7 +3,12 @@
 ])
 @section('style')
 <link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
+
     <style>
+        svg{
+            display: block;
+            margin: auto;
+        }
         div#barcode_modal_import .modal-dialog,
         div#barcode_modal .modal-dialog {
             max-width: 768px;
@@ -159,7 +164,7 @@
                 </div>
 
                 <div class="col-xl-3 col-md-6">
-                    <button>
+                    <button type="button" data-toggle="modal" data-target="#input-scan-barcode">
                         <img src="{{asset ("template")}}/img/icon-scan-arsip.svg" alt="">
                         <p>Scan Arsip</p>
                     </button>
@@ -333,9 +338,9 @@
         <div class="modal-header">
         <p style="text-align: left;" id="barcode_modalLabel">Barcode Generated</p>
         </div>
-        <div class="modal-body" id="print_qrcode_input" style="display: block;margin: auto">
+            <div class="modal-body" id="print_qrcode_input" style="display: block;margin: auto">
             @php
-                echo '<img style="margin-bottom:10px;" src="data:image/png;base64,' . DNS1D::getBarcodePNG(json_decode(Session::get('barcode'))[0], 'CODABAR') . '" alt="barcode"   />';
+                echo DNS1D::getBarcodeSVG(json_decode(Session::get('barcode'))[0], 'CODABAR',3,33,'#CDAE3E');
             @endphp
             <table style="width: 100%">
                 <tr>
@@ -413,7 +418,7 @@
             @foreach (json_decode(Session::get('succes_import')) as $barcode)
             <div class="item-barcode" id="item-barcode">
                 @php
-                    echo '<img style="margin-bottom:10px;" src="data:image/png;base64,' . DNS1D::getBarcodePNG($barcode->id_pm, 'CODABAR') . '" alt="barcode"   />';
+                    echo DNS1D::getBarcodeSVG($barcode->id_pm, 'CODABAR',3,33,'#CDAE3E');
                 @endphp
                 <table style="width: 100%">
                     <tr>
@@ -447,6 +452,7 @@
 <!-- Modal Input Arsip Masuk -->
 @include('admin.kelola-arsip.tag-mitra.modal-arsip-masuk')
 
+@include('admin.kelola-arsip.tag-mitra.modal-scan-barcode')
 <!-- Modal Input Arsip Masuk -->
 @include('admin.kelola-arsip.tag-mitra.modal-arsip-keluar')
 
@@ -466,6 +472,18 @@
 @push('js')
 <script src="https://cdn.jsdelivr.net/jsbarcode/3.3.20/JsBarcode.all.min.js"></script>
 <script>
+
+
+$('#inputGroupFile02').change(function() {
+    var filename = $('#inputGroupFile02').val();
+    if (filename.substring(3,11) == 'fakepath') {
+        filename = filename.substring(12);
+    } // For Remove fakepath
+    $("label[for='inputGroupFile02']").html(filename);
+    if (filename == "") {
+        $("label[for='file_default']").text('No File Choosen');
+    }
+});
 
 function print_barcode(elem){
     const node = document.getElementById(elem);
@@ -763,7 +781,7 @@ function qrcode_archive(archive_id){
         success: function (data) {
             console.log(data)
             $('#qrcode_modal').modal();
-            JsBarcode("#barcode", data.id_pm.toString(), {format: "msi",  displayValue: false});
+            JsBarcode("#barcode", data.id_pm.toString(), {format: "msi",  displayValue: false,lineColor: "#CDAE3E"});
             $('#qr_code_id_pm').html(data.id_pm)
             $('#qr_code_periode').html(data.bulan)
             $('#qr_code_teritory').html(data.teritory)

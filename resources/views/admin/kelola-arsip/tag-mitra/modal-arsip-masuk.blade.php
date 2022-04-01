@@ -25,7 +25,7 @@
                   <div class="col-md-2">
                     <div class="form-group">
                         <label>Bulan</label>
-                        <select class="form-control mt-2" id="bulan-input-arsip-masuk" name="bulan">
+                        <select class="form-control" id="bulan-input-arsip-masuk" name="bulan">
                             <option>Bulan</option>
                             <option value="januari">Januari</option>
                             <option value="februari">Februari</option>

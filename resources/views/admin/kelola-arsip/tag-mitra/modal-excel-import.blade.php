@@ -3,7 +3,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title modal-title-custom" id="input-arsip-keluar">Input Arsip Keluar</h5>
+              <h5 class="modal-title modal-title-custom" id="input-arsip-keluar">Excel Import</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -33,6 +33,9 @@
                 </div>
                 <div class="col-md-2">
                   <button type="file" class="button" style="width: 132%; margin-left: -23%;">Scan Barcode</button>
+                </div>
+                <div class="col-md-12">
+                  <p>Untuk mengupload arsip massal silahkan pakai format sesuai sampel excel ini, <a href="/sample_impress_fund (2).xlsx" download="sample_barcode_import">Download</a></p>
                 </div>
               </div>
             </div>
