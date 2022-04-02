@@ -257,13 +257,11 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <select class="form-control" id="box">
-                                <option value="">Pilih Box</option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="C">C</option>
-                                <option value="D">D</option>
-                                <option value="E">E</option>
+                            <select class="form-control" id="box_select" name="box">
+                                <option value="">Pilih Box Penyimpanan Arsip</option>
+                                @foreach ($boxes as $box)
+                                <option value="{{$box->nama}}">{{$box->nama}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <button class="btn btn-secondary" type="button" style="width: 100%" id="btn_reset_filter">Reset Filter</button>
@@ -517,7 +515,7 @@ $(document).ready(function(){
             var bulan=$('#bulan').val();
             var pekerjaan=$('#pekerjaan').val();
             var teritory=$('#teritory').val();
-            var box=$('#box').val();
+            var box=$('#box_select').val();
             archives(tahun,bulan,pekerjaan,teritory,box)
         });
 
@@ -526,7 +524,7 @@ $(document).ready(function(){
             var bulan=this.value;
             var teritory=$('#teritory').val();
             var pekerjaan=$('#pekerjaan').val();
-            var box=$('#box').val();
+            var box=$('#box_select').val();
             archives(tahun,bulan,pekerjaan,teritory,box)
         });
 
@@ -534,7 +532,7 @@ $(document).ready(function(){
             var tahun=$('#tahun').val();
             var bulan=$('#bulan').val();
             var teritory=this.value;
-            var box=$('#box').val();
+            var box=$('#box_select').val();
             var pekerjaan=$('#pekerjaan').val();
             archives(tahun,bulan,pekerjaan,teritory,box)
         });
@@ -544,11 +542,11 @@ $(document).ready(function(){
             var bulan=$('#bulan').val();
             var teritory=$('#teritory').val();
             var pekerjaan=this.value;
-            var box=$('#box').val();
+            var box=$('#box_select').val();
             archives(tahun,bulan,pekerjaan,teritory,box)
         });
 
-        $('#box').on('change', function() {
+        $('#box_select').on('change', function() {
             var tahun=$('#tahun').val();
             var bulan=$('#bulan').val();
             var teritory=$('#teritory').val();
@@ -562,7 +560,7 @@ $(document).ready(function(){
             var tahun=$('#tahun').val();
             var bulan=$('#bulan').val();
             var teritory=$('#teritory').val();
-            var box=$('#box').val();
+            var box=$('#box_select').val();
             var pekerjaan=$('#pekerjaan').val();
             archives(tahun,bulan,pekerjaan,teritory,box)
         })

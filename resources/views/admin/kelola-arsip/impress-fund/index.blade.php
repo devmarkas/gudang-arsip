@@ -241,13 +241,11 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <select class="form-control" id="box">
-                                <option value="">Pilih Box</option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="C">C</option>
-                                <option value="D">D</option>
-                                <option value="E">E</option>
+                            <select class="form-control" id="box_select" name="box">
+                                <option value="">Pilih Box Penyimpanan Arsip</option>
+                                @foreach ($boxes as $box)
+                                <option value="{{$box->nama}}">{{$box->nama}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <button class="btn btn-secondary" type="button" style="width: 100%" id="btn_reset_filter">Reset Filter</button>
@@ -449,6 +447,18 @@
         $printSection.appendChild(domClone);
         window.print();
     }
+
+    $('#inputGroupFile02').change(function() {
+        var filename = $('#inputGroupFile02').val();
+        if (filename.substring(3,11) == 'fakepath') {
+            filename = filename.substring(12);
+        } // For Remove fakepath
+        $("label[for='inputGroupFile02']").html(filename);
+        if (filename == "") {
+            $("label[for='file_default']").text('No File Choosen');
+        }
+    });
+
     $(document).ready(function(){
 
 
@@ -466,7 +476,7 @@
             var tahun=this.value;
             var bulan=$('#bulan').val();
             var teritory=$('#teritory').val();
-            var box=$('#box').val();
+            var box=$('#box_select').val();
             archives(tahun,bulan,teritory,box)
         });
 
@@ -474,7 +484,7 @@
             var tahun=$('#tahun').val();
             var bulan=this.value;
             var teritory=$('#teritory').val();
-            var box=$('#box').val();
+            var box=$('#box_select').val();
             archives(tahun,bulan,teritory,box)
         });
 
@@ -482,11 +492,11 @@
             var tahun=$('#tahun').val();
             var bulan=$('#bulan').val();
             var teritory=this.value;
-            var box=$('#box').val();
+            var box=$('#box_select').val();
             archives(tahun,bulan,teritory,box)
         });
 
-        $('#box').on('change', function() {
+        $('#box_select').on('change', function() {
             var tahun=$('#tahun').val();
             var bulan=$('#bulan').val();
             var teritory=$('#teritory').val();
@@ -499,7 +509,7 @@
             var tahun=$('#tahun').val();
             var bulan=$('#bulan').val();
             var teritory=$('#teritory').val();
-            var box=this.value;
+            var box=$('#box_select').val();
             archives(tahun,bulan,teritory,box)
         })
 

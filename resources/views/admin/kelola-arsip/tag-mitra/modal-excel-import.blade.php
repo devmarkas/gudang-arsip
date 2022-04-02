@@ -35,7 +35,7 @@
                   <button type="file" class="button" style="width: 132%; margin-left: -23%;">Scan Barcode</button>
                 </div>
                 <div class="col-md-12">
-                  <p>Untuk mengupload arsip massal silahkan pakai format sesuai sampel excel ini, <a href="/sample_impress_fund (2).xlsx" download="sample_barcode_import">Download</a></p>
+                  <p>Untuk mengunggah arsip massal silahkan menggunakan format sesuai sampel excel berikut, <a href="/sample_impress_fund (2).xlsx" download="sample_barcode_import">Download</a></p>
                 </div>
               </div>
             </div>
