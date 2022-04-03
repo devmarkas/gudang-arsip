@@ -429,6 +429,14 @@
 <script src="https://cdn.jsdelivr.net/jsbarcode/3.3.20/JsBarcode.all.min.js"></script>
 <script src="/template/js/print.js"></script>
 
+<!-- Sibar JS -->
+<script>
+    $(".nav-link").addClass(["collapsed","active"]);
+    $("#unit a:first-child").addClass("collapsed").attr("aria-expanded", "true");
+    $("#finance-billco").addClass("show");
+    $("#unit").addClass("show");
+</script>
+
 <script>
     
     function print_barcode(elem){

@@ -3,7 +3,7 @@
 ])
 @section('content')
 
-<div class="header-content arsip">
+<div class="header-content arsip" style="height: 219px;">
     @if ($errors->any())
         <div id="validasi" class="peringatan">
             @foreach ($errors->all() as $error)
@@ -32,20 +32,20 @@
                     <div class="row  title-header">
                         <div class="col-md-6">
                             <h3>
-                                Detail Arsip HCM
+                                Detail Arsip BOX
                             </h3>
                         </div>
                         <div class="col-md-6">
                             <div class="input-group search-box">
+                                <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#add-box" style="margin-right: 20px;">
+                                    Tambah Box <i class="fa fa-plus"></i>
+                                </button>
                                 <input type="text" class="form-control" placeholder="Cari Arsip" id="cari_arsip" onkeyup="cari_arsip()">
                                 <div class="input-group-append">
                                   <button class="btn btn-secondary" type="button">
                                     <i class="fa fa-search"></i>
                                   </button>
                                 </div>
-                                <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#add-box">
-                                    Tambah Box <i class="fa fa-plus"></i>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -91,6 +91,14 @@
 @endsection
 
 @push('js')
+
+<!-- Sibar JS -->
+<script>
+    $(".nav-link").addClass(["collapsed","active"]);
+    $("#unit a:first-child").addClass("collapsed").attr("aria-expanded", "true");
+    $("#unit").addClass("show");
+</script>
+
 <script>
     function modal_delete_box(box){
         $("#nama_box").html(box);

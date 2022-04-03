@@ -192,4 +192,11 @@
 
 @push('js')
 
+<!-- Sibar JS -->
+<script>
+    $(".nav-link").addClass(["collapsed","active"]);
+    $("#unit a:first-child").addClass("collapsed").attr("aria-expanded", "true");
+    $("#unit").addClass("show");
+</script>
+
 @endpush
