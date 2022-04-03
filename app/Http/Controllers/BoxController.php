@@ -65,7 +65,9 @@ class BoxController extends Controller
      */
     public function show($id)
     {
-        //
+        $box=Box::find($id);
+        return response($box);
+
     }
 
     /**
@@ -86,9 +88,22 @@ class BoxController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'nama'=>'required',
+            'type'=>'required',
+            'subunit'=>'required',
+            'kuota'=>'required',
+        ]);
+        $box=new Box();
+        $box=Box::find($request->box_id);
+        $box->nama=$request->nama;
+        $box->unit=$request->type;
+        $box->subunit=$request->subunit;
+        $box->kuota=$request->kuota;
+        $box->save();
+        return redirect()->route('box.index');
     }
 
     /**

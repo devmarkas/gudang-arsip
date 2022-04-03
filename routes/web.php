@@ -66,8 +66,10 @@ Route::get('/hcm', [HcmController::class, 'index'])->name('hcm.index');
 
 //Manajemen Box
 Route::get('/box', [BoxController::class, 'index'])->name('box.index');
+Route::get('/box-detail/{id}', [BoxController::class, 'show'])->name('box.detail');
 Route::post('/box', [BoxController::class, 'store'])->name('box.store');
-Route::get('/delete-box/{id}', [BoxController::class, 'destroy'])->name('box.delet');
+Route::post('/update-box/', [BoxController::class, 'update'])->name('box.update');
+Route::get('/delete-box/{id}', [BoxController::class, 'destroy'])->name('box.delete');
 
 
 

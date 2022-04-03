@@ -1,5 +1,5 @@
 <form action="">
-    <div class="modal fade" id="input-arsip-keluar" tabindex="-1" role="dialog" aria-labelledby="input-arsip-keluar" aria-hidden="true" data-backdrop="static">
+    <div class="modal fade" id="input-arsip-keluar-tm" tabindex="-1" role="dialog" aria-labelledby="input-arsip-keluar" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -13,7 +13,7 @@
               <div class="row mb-2">
                 <div class="col-md-8">
                   <div class="input-group">
-                    <input type="text" class="form-control mt-1" placeholder="input id arsip" id="id_archive" onkeyup="find_archive()">
+                    <input type="text" class="form-control mt-1" placeholder="input id arsip" id="id_archive_tm" onkeyup="find_archive()">
                   </div>
                 </div>
                 <div class="col-md-2">

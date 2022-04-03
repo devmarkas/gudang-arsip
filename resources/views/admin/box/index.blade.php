@@ -67,7 +67,7 @@
                                   <td>{{$box->unit=='IF'?'Imprest Fund':'Tagihan Mitra'}}</td>
                                   <td>{{($archive[$key]).' Dari '.$box->kuota}}</td>
                                   <td>
-                                    <button type="button" class="btn btn-warning" data-toggle="modal">Edit</button>
+                                    <button type="button" class="btn btn-warning" data-toggle="modal" onclick="modal_edit_box('{{$box->id}}')" data-target="#edit-box">Edit</button>
                                     <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_box('{{$box->nama}}')" data-target="#hapus_box">Hapus</button>
                                   </td>
                                 </tr> 
@@ -83,6 +83,7 @@
 </div>
 <!-- Modal Input Arsip Masuk -->
 @include('admin.box.modal-add')
+@include('admin.box.modal-edit')
 @include('admin.box.modal-hapus')
 @include('admin.box.modal-sukses-hapus')
 
@@ -104,6 +105,38 @@
                 setTimeout(function(){// wait for 5 secs(2)
                     location.reload(); // then reload the page.(3)
                 }, 1000); 
+            },
+            error: function() { 
+                console.log(data);
+            }
+        });
+    }
+    function modal_edit_box(box_id){
+        const options = ["Finance & Billco", "Commerce", "Construction","HCM"];
+        $.ajax({
+            type: 'GET',
+            url: '/box-detail/'+box_id,
+            success: function (data) {
+                $('#box_id').val(data.id)
+                $('#box_name').val(data.nama)
+                $('#box_kuota').val(data.kuota)
+                for (let index = 0; index < options.length; index++) {
+                    console.log(data.subunit==options[index])
+                    $('#type_box').append('<option value="">Pilih Unit Arsip</option>');
+                    if(data.subunit==options[index]){
+                        $('#type_box').append('<option selected value="'+options[index]+'">'+options[index]+'</option>');   
+                    }else{
+                        $('#type_box').append('<option value="'+options[index]+'">'+options[index]+'</option>');   
+                    }
+                }
+                if(data.unit=='IF'){
+                    $('#type_archive').append('<option selected value="IF">Imprest Fund</option>');
+                    $('#type_archive').append('<option value="TM">Tagihan Mitra</option>');
+                    
+                }else{
+                    $('#type_archive').append('<option value="IF">Imprest Fund</option>');
+                    $('#type_archive').append('<option selected value="TM">Tagihan Mitra</option>');
+                }
             },
             error: function() { 
                 console.log(data);

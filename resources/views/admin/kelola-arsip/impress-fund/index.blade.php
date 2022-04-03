@@ -290,7 +290,7 @@
                                 @foreach ($archives as $archive)
                                 <tr style="background-color: {{$archive->status!='IN'?'#d5483b;':''}}">
                                   <td>{{$archive->id_pm}}</td>
-                                  <td>{{strtoupper(substr($archive->bulan,0,3))}}</td>
+                                  <td>{{strtoupper($archive->bulan)}}</td>
                                   <td>{{$archive->teritory}}</td>
                                   <td>{{$archive->box}}</td>
                                   <td>

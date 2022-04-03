@@ -157,7 +157,7 @@
                 </div>
 
                 <div class="col-xl-3 col-md-6">
-                    <button type="button" data-toggle="modal" data-target="#input-arsip-keluar"> 
+                    <button type="button" data-toggle="modal" data-target="#input-arsip-keluar-tm"> 
                         <img src="{{asset ("template")}}/img/icon-arsip-keluar.svg" alt="">
                         <p>Input Arsip Keluar</p>
                     </button>
@@ -697,8 +697,9 @@ function open_history(archive_id){
         }
     });
 }
-function find_archive(archive_id){
-    var id_archive=$('#id_archive').val()
+function find_archive(){
+    var id_archive=$('#id_archive_tm').val()
+    console.log(id_archive)
     $('#tabel_archive_partner_out tr').remove()
     $.ajax({
         type: 'GET',
