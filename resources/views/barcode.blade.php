@@ -23,12 +23,14 @@
     </style>
 </head>
 
-<body>
+<body style="background-color: #CDAE3E">
     @if ((isset($barcode)))
     <div class="item-barcode" id="item-barcode">
-        @php
-            echo DNS1D::getBarcodeSVG($barcode[0], 'CODABAR',3,33,'yellow');
-        @endphp
+        <div class="d-flex justify-content-center"> 
+            @php
+                echo DNS1D::getBarcodeSVG($barcode[0], 'CODABAR',3,33,'#000000');
+            @endphp
+        </div>
         <table style="width: 100%">
             <tbody>
                 <tr>
@@ -45,9 +47,11 @@
     @else
     @foreach (($barcodes) as $barcode)
         <div class="item-barcode" id="item-barcode">
-            @php
-                echo DNS1D::getBarcodeSVG($barcode->id_pm, 'CODABAR',3,33,'yellow');
-            @endphp
+            <div class="d-flex justify-content-center">
+                @php
+                    echo DNS1D::getBarcodeSVG($barcode->id_pm, 'CODABAR',3,33,'#000000');
+                @endphp
+            </div>
             <table style="width: 100%">
                 <tbody>
                     <tr>

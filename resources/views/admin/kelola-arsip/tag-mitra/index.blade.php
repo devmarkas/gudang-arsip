@@ -385,14 +385,6 @@
                     <td style="text-align: right" id="qr_code_id_pm"></td>
                 </tr>
                 <tr>
-                    <td><b>Bulan</b></td>
-                    <td style="text-align: right" id="qr_code_periode"></td>
-                </tr>
-                <tr>
-                    <td><b>Teritory</b></td>
-                    <td style="text-align: right" id="qr_code_teritory"></td>
-                </tr>
-                <tr>
                     <td><b>Box</b></td>
                     <td style="text-align: right" id="qr_code_box"></td>
                 </tr>
@@ -790,10 +782,9 @@ function qrcode_archive(archive_id){
         success: function (data) {
             console.log(data)
             $('#qrcode_modal').modal();
-            JsBarcode("#barcode", data.id_pm.toString(), {format: "msi",  displayValue: false,lineColor: "#CDAE3E"});
+            JsBarcode("#barcode", data.id_pm.toString(), {format: "msi",  displayValue: false,lineColor: "#000000"});
             $('#qr_code_id_pm').html(data.id_pm)
-            $('#qr_code_periode').html(data.bulan)
-            $('#qr_code_teritory').html(data.teritory)
+           
             $('#qr_code_box').html(data.box)
         },
         error: function() { 

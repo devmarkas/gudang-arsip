@@ -323,9 +323,11 @@
         <div class="modal-body" id="print_qrcode_import">
             @foreach (json_decode(Session::get('succes_import')) as $barcode)
             <div class="item-barcode" id="item-barcode">
-                @php
-                    echo DNS1D::getBarcodeSVG($barcode->id_pm, 'CODABAR',3,33,'#CDAE3E');
-                @endphp
+                <div class="mt-5">
+                    @php
+                        echo DNS1D::getBarcodeSVG($barcode->id_pm, 'CODABAR',3,33,'#000000');
+                    @endphp
+                </div>
                 <table style="width: 100%">
                     <tr>
                         <td><b>ID PM</b></td>
@@ -352,22 +354,29 @@
         <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <p style="text-align: left;" id="barcode_modalLabel">Barcode Generated</p>
+                <h5 class="modal-title modal-title-custom" style="text-align: left;" id="barcode_modalLabel">Barcode Generated</h5>
             </div>
-            <div class="modal-body" id="print_qrcode_input" style="display: block;margin: auto">
-                @php
-                    echo DNS1D::getBarcodeSVG(json_decode(Session::get('barcode'))[0], 'CODABAR',3,33,'#CDAE3E');
-                @endphp
-                <table style="width: 100%">
-                    <tr>
-                        <td><b>ID PM</b></td>
-                        <td style="text-align: right">{{json_decode(Session::get('barcode'))[0]}}</td>
-                    </tr>
-                    <tr>
-                        <td><b>Box</b></td>
-                        <td style="text-align: right">{{json_decode(Session::get('barcode'))[3]}}</td>
-                    </tr>
-                </table>
+            <div class="modal-body" id="print_qrcode_input">
+                <div class="mt-5">
+                    <div class="d-flex justify-content-center">
+                        @php
+                            echo DNS1D::getBarcodeSVG(json_decode(Session::get('barcode'))[0], 'CODABAR',3,33,'#000000');
+                        @endphp
+                    </div>
+                    <table class="" style="width: 100%">
+                        <tr>
+                            <td><b>ID PM</b></td>
+                            <td style="text-align: right">{{json_decode(Session::get('barcode'))[0]}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Box</b></td>
+                            <td style="text-align: right">{{json_decode(Session::get('barcode'))[3]}}</td>
+                        </tr>
+                    </table>
+                    
+                </div>
+
+                
             </div>
             <div class="modal-footer">
                 <a class="btn btn-primary" style="background-color: #1180BF; width: 100%" target="_blank" href="/print_single/{{(Session::get('barcode'))}}">Print</a>
@@ -651,7 +660,7 @@
             success: function (data) {
                 console.log(data.id_pm.toString())
                 $('#qrcode_modal').modal();
-                JsBarcode("#barcode", data.id_pm.toString(), {format: "msi",  displayValue: false,  lineColor: "#CDAE3E",});
+                JsBarcode("#barcode", data.id_pm.toString(), {format: "msi",  displayValue: false,  lineColor: "#000000",});
                 $('#qr_code_id_pm').html(data.id_pm)
                 $('#qr_code_box').html(data.box)
             },
