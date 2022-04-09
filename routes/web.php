@@ -50,6 +50,7 @@ Route::post('/tag-mitra', [PartnerController::class, 'save'])->name('tag_mitra.s
 Route::get('/out-archive-partner/{id}', [PartnerController::class, 'out_archive']);
 Route::get('/cari-tag-partner/{id}', [PartnerController::class, 'cari_tag_partner'])->name('tag_mitra.cari');
 Route::post('/import_tag_partner', [PartnerController::class, 'import_tag_partner'])->name('tag_mitra.import');
+Route::get('/scan-tm-archive/{id}', [PartnerController::class, 'out_archive']);
 Route::get('/delete-partner-archive/{id}', [PartnerController::class, 'delete_partner'])->name('archive.take_out_partner');
 
 //Route Construction 

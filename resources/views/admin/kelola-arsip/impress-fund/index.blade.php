@@ -561,9 +561,9 @@
                             $('#archive_table > tbody:last-child').append('\
                                 <tr style="background-color: '+color+'">\
                                 <td>'+data[index].id_pm+'</td>\
-                                <td>'+data[index].bulan.substring(0, 3).toUpperCase()+'</td>\
+                                <td>'+data[index].bulan.toUpperCase()+'</td>\
                                 <td>'+data[index].teritory+'</td>\
-                                <td>BOX '+data[index].box+'</td>\
+                                <td>'+data[index].box+'</td>\
                                 <td>\
                                     <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history('+data[index].id_pm+')" data-target="#history">History</button>\
                                     <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file('+data[index].id_pm+')" data-target="#file" data-arsip-id="'+data[index].id_pm+'">File</button>\
@@ -609,41 +609,40 @@
             type: 'GET',
             url: '/cari-impress-fund/'+cari,
             success: function (data) {
-                console.log(data)
-                    $('#archive_table tbody tr').remove()
-                    if(data.length>0){
-                        for (let index = 0; index < data.length; index++) {
-                        if (data[index].status!='IN') {
-                                color='#d5483b'
-                            } else {
-                                color=''
-                            }
-                            $('#archive_table > tbody:last-child').append('\
-                            <tr style="background-color: '+color+'">\
-                                <td>'+data[index].id_pm+'</td>\
-                                <td>'+data[index].bulan.substring(0, 3).toUpperCase()+'</td>\
-                                <td>'+data[index].teritory+'</td>\
-                                <td>BOX '+data[index].box+'</td>\
-                                <td>\
-                                    <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history('+data[index].id_pm+')" data-target="#history">History</button>\
-                                    <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file('+data[index].id_pm+')" data-target="#file" data-arsip-id="'+data[index].id_pm+'">File</button>\
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_file('+data[index].id_pm+')" data-target="#hapus">Hapus</button>\
-                                    <button type="button" class="btn btn-secondary" onclick="qrcode_archive('+data[index].id_pm+')">QR</button>\
-                                </td>\
-                                </tr>'
-                            );
+                $('#archive_table tbody tr').remove()
+                if(data.length>0){
+                    for (let index = 0; index < data.length; index++) {
+                    if (data[index].status!='IN') {
+                            color='#d5483b'
+                        } else {
+                            color=''
                         }
-                    }else{
                         $('#archive_table > tbody:last-child').append('\
-                        <tr>\
-                            <td></td>\
-                            <td></td>\
-                            <td style="text-align:center">Item Arsip Tidak Ditemukan</td>\
-                            <td></td>\
-                            <td></td>\
-                        </tr>');
-
+                        <tr style="background-color: '+color+'">\
+                            <td>'+data[index].id_pm+'</td>\
+                            <td>'+data[index].bulan.toUpperCase()+'</td>\
+                            <td>'+data[index].teritory+'</td>\
+                            <td>'+data[index].box+'</td>\
+                            <td>\
+                                <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history('+data[index].id_pm+')" data-target="#history">History</button>\
+                                <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file('+data[index].id_pm+')" data-target="#file" data-arsip-id="'+data[index].id_pm+'">File</button>\
+                                <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_file('+data[index].id_pm+')" data-target="#hapus">Hapus</button>\
+                                <button type="button" class="btn btn-secondary" onclick="qrcode_archive('+data[index].id_pm+')">QR</button>\
+                            </td>\
+                            </tr>'
+                        );
                     }
+                }else{
+                    $('#archive_table > tbody:last-child').append('\
+                    <tr>\
+                        <td></td>\
+                        <td></td>\
+                        <td style="text-align:center">Item Arsip Tidak Ditemukan</td>\
+                        <td></td>\
+                        <td></td>\
+                    </tr>');
+
+                }
             },
             error: function() { 
                 console.log(data);
@@ -743,6 +742,9 @@
 
     function find_archive(archive_id){
         var id_archive=$('#id_archive').val()
+        if(id_archive==''){
+            id_archive=0
+        }
         $('#tabel_archive_out tbody tr').remove()
         $.ajax({
             type: 'GET',
@@ -754,9 +756,9 @@
                         $('#tabel_archive_out > tbody:last-child').append('\
                         <tr>\
                         <td>'+data[index].id_pm+'</td>\
-                        <td>'+data[index].bulan.substring(0, 3).toUpperCase()+'</td>\
+                        <td>'+data[index].bulan.toUpperCase()+'</td>\
                         <td>'+data[index].teritory+'</td>\
-                        <td>BOX '+data[index].box+'</td>\
+                        <td>'+data[index].box+'</td>\
                         <td>\
                           <button type="button" class="button" style="height: 29px" data-toggle="modal" data-target="#input-arsip-confrim-keluar" data-dismiss="modal" onclick="modal_archive_out('+data[index].id_pm+')" aria-label="Close">Arsip Keluar</button>\
                         </td>\
@@ -783,6 +785,9 @@
 
     function scan_barcode(archive_id){
         var id_archive=$('#scan_archive').val()
+        if(id_archive==''){
+            id_archive=0
+        }
         $('#tabel_scan_archive tbody tr').remove()
         $.ajax({
             type: 'GET',
@@ -795,9 +800,9 @@
                         $('#tabel_scan_archive > tbody:last-child').append('\
                         <tr>\
                         <td>'+data[index].id_pm+'</td>\
-                        <td>'+data[index].bulan.substring(0, 3).toUpperCase()+'</td>\
+                        <td>'+data[index].bulan.toUpperCase()+'</td>\
                         <td>'+data[index].teritory+'</td>\
-                        <td>BOX '+data[index].box+'</td>\
+                        <td>'+data[index].box+'</td>\
                         <td>\
                             <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history('+data[index].id_pm+')" data-target="#history">History</button>\
                             <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file('+data[index].id_pm+')" data-target="#file" data-arsip-id="'+data[index].id_pm+'">File</button>\

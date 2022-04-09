@@ -600,9 +600,9 @@ $(document).ready(function(){
                                 <tr style="background-color: '+color+'">\
                                 <td>'+data[index].id_pm+'</td>\
                                 <td>'+data[index].pekerjaan+'</td>\
-                                <td>'+data[index].bulan.substring(0, 3).toUpperCase()+'</td>\
+                                <td>'+data[index].bulan.toUpperCase()+'</td>\
                                 <td>'+data[index].teritory+'</td>\
-                                <td>BOX '+data[index].box+'</td>\
+                                <td>'+data[index].box+'</td>\
                                 <td>\
                                     <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history('+data[index].id_pm+')" data-target="#history">History</button>\
                                     <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file('+data[index].id_pm+')" data-target="#file" data-arsip-id="'+data[index].id_pm+'">File</button>\
@@ -702,21 +702,22 @@ function open_history(archive_id){
 function find_archive(){
     var id_archive=$('#id_archive_tm').val()
     console.log(id_archive)
-    $('#tabel_archive_partner_out tr').remove()
+    $('#tabel_archive_partner_out tbody tr').remove()
     $.ajax({
         type: 'GET',
         url: '/out-archive-partner/'+id_archive,
         success: function (data) {
             console.log(data)
-            $('#tabel_archive_partner_out tr').remove()
+            $('#tabel_archive_partner_out tbody tr').remove()
             if(data.length>0){
                 for (let index = 0; index < data.length; index++) {
                     $('#tabel_archive_partner_out > tbody:last-child').append('\
                     <tr>\
                     <td>'+data[index].id_pm+'</td>\
-                    <td>'+data[index].bulan.substring(0, 3).toUpperCase()+'</td>\
+                    <td>'+data[index].pekerjaan+'</td>\
+                    <td>'+data[index].bulan.toUpperCase()+'</td>\
                     <td>'+data[index].teritory+'</td>\
-                    <td>BOX '+data[index].box+'</td>\
+                    <td>'+data[index].box+'</td>\
                     <td>\
                         <button type="button" class="button" style="height: 29px" data-toggle="modal" data-target="#input-arsip-confrim-keluar" data-dismiss="modal" onclick="modal_archive_partner_out('+data[index].id_pm+')" aria-label="Close">Arsip Keluar</button>\
                     </td>\
@@ -725,6 +726,54 @@ function find_archive(){
                 }
             }else{
                 console.log('tidak ada')
+            }
+        },
+        error: function() { 
+            console.log(data);
+        }
+    });
+}
+
+function scan_tm_barcode(archive_id){
+    var id_archive=$('#scan_archive').val()
+    if(id_archive==''){
+        id_archive=0
+    }
+    $('#tabel_scan_archive_partner_out tbody tr').remove()
+    $.ajax({
+        type: 'GET',
+        url: '/scan-tm-archive/'+id_archive,
+        success: function (data) {
+            // console.log(data)
+            if(data.length>0){
+                $('#tabel_scan_archive_partner_out tbody tr').remove()
+                for (let index = 0; index < data.length; index++) {
+                    $('#tabel_scan_archive_partner_out > tbody:last-child').append('\
+                    <tr>\
+                    <td>'+data[index].id_pm+'</td>\
+                    <td>'+data[index].pekerjaan+'</td>\
+                    <td>'+data[index].bulan.toUpperCase()+'</td>\
+                    <td>'+data[index].teritory+'</td>\
+                    <td>'+data[index].box+'</td>\
+                    <td>\
+                        <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history('+data[index].id_pm+')" data-target="#history">History</button>\
+                        <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file('+data[index].id_pm+')" data-target="#file" data-arsip-id="'+data[index].id_pm+'">File</button>\
+                        <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_file('+data[index].id_pm+')" data-target="#hapus">Hapus</button>\
+                        <button type="button" class="btn btn-secondary" onclick="qrcode_archive('+data[index].id_pm+')">QR</button>\
+                    </td>\
+                    </tr>'
+                    );
+                }
+            }else{
+                $('#tabel_scan_archive tbody tr').remove()
+                $('#tabel_scan_archive > tbody:last-child').append('\
+                    <tr>\
+                        <td></td>\
+                        <td></td>\
+                        <td style="text-align:center">Item Arsip Tidak Ditemukan</td>\
+                        <td></td>\
+                        <td></td>\
+                    </tr>');
             }
         },
         error: function() { 
@@ -812,9 +861,9 @@ function cari_arsip(){
                     <tr style="background-color: '+color+'">\
                         <td>'+data[index].id_pm+'</td>\
                         <td>'+data[index].pekerjaan+'</td>\
-                        <td>'+data[index].bulan.substring(0, 3).toUpperCase()+'</td>\
+                        <td>'+data[index].bulan.toUpperCase()+'</td>\
                         <td>'+data[index].teritory+'</td>\
-                        <td>BOX '+data[index].box+'</td>\
+                        <td>'+data[index].box+'</td>\
                         <td>\
                             <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history('+data[index].id_pm+')" data-target="#history">History</button>\
                             <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file('+data[index].id_pm+')" data-target="#file" data-arsip-id="'+data[index].id_pm+'">File</button>\

@@ -15,10 +15,10 @@
                     <div class="form-group">
                         <select class="form-control" id="tahun-input-arsip-masuk" name="periode">
                             <option>Tahun</option>
-                            <option value="2022">2022</option>
-                            <option value="2021">2021</option>
-                            <option value="2020">2020</option>
-                            <option value="2019">2019</option>
+                            <option value="">Tahun</option>
+                            @for ($i = 2015; $i < date('Y'); $i++)
+                            <option value="{{$i}}">{{$i}}</option>
+                            @endfor
                         </select>
                     </div>
                   </div>

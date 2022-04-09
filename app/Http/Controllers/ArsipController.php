@@ -104,7 +104,7 @@ class ArsipController extends Controller
 
         date_default_timezone_set('Asia/Jakarta');
         $path = public_path().'/template/img/archive';
-        $file_name=time().'.'.$request->file->getClientOriginalExtension();
+        $file_name=$request->file->getClientOriginalName();
         $request->file->move($path,$file_name);
 
         $file=new File();
@@ -125,7 +125,11 @@ class ArsipController extends Controller
     }
 
     public function out_archive($id){
-        $archives=Archive::where('id_pm','LIKE','%'.$id.'%')->where('type','IF')->get();
+        if(!$id==0){
+            $archives=Archive::where('id_pm','LIKE','%'.$id.'%')->where('type','IF')->get();
+        }else{
+            $archives=Archive::where('type','IF')->get();
+        }
         return response($archives);
     }
 
@@ -234,7 +238,9 @@ class ArsipController extends Controller
     {
         $archives=DB::table('archives')
         ->where('type','IF')
-        ->where('id_pm','LIKE','%'.$query)->get();
+        ->where('id_pm','LIKE','%'.$query.'%')
+        ->orWhere('box','LIKE','%'.$query.'%')
+        ->get();
         return response($archives);
     }
 }

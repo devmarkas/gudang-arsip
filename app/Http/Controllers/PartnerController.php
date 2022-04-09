@@ -66,7 +66,11 @@ class PartnerController extends Controller
     }
 
     public function out_archive($id){
-        $archives=Archive::where('id_pm','LIKE','%'.$id.'%')->where('type','TM')->get();
+        if(!$id==0){
+            $archives=Archive::where('id_pm','LIKE','%'.$id.'%')->where('type','TM')->get();
+        }else{
+            $archives=Archive::where('type','TM')->get();
+        }
         return response($archives);
     }
 
