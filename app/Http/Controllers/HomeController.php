@@ -50,5 +50,17 @@ class HomeController extends Controller
         return view('barcode',compact('barcode'));
     }
 
+    public function print_massal_if()
+    {
+        $barcodes=Archive::where('type','IF')->get();
+        return view('barcode',compact('barcodes'));
+    }
+    
+    public function print_massal_tm()
+    {
+        $barcodes=Archive::where('type','TM')->get();
+        return view('barcode',compact('barcodes'));
+    }
+
     
 }

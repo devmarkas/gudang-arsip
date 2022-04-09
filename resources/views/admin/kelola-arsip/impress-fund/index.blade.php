@@ -263,15 +263,18 @@
                                 Detail Arsip Imprest Fund
                             </h3>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="input-group search-box">
                                 <input type="text" class="form-control" placeholder="Cari Arsip" id="cari_arsip" onkeyup="cari_arsip()">
                                 <div class="input-group-append">
-                                  <button class="btn btn-secondary" type="button">
-                                    <i class="fa fa-search"></i>
-                                  </button>
+                                    <button class="btn btn-secondary" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-md-2">
+                            <a href="{{ route('print_massal_if') }}" target="_blank" class="btn btn-success"><i class="fa fa-print"></i></a>
                         </div>
                     </div>
                     
