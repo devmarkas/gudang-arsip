@@ -295,6 +295,14 @@
                             <table class="table table-sm table-hover tabel-arsip" id="archive_table">
                                 <thead>
                                     <tr>
+                                        <th class="action" scope="col">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="centang-semua">
+                                                <label class="form-check-label">
+                                                    
+                                                </label>
+                                            </div>
+                                        </th>
                                         <th class="action" scope="col">ID PM</th>
                                         <th class="action" scope="col">BULAN</th>
                                         <th class="action" scope="col">TERRITORY</th>
@@ -305,6 +313,13 @@
                                 <tbody>
                                     @foreach ($archives as $archive)
                                         <tr style="background-color: {{ $archive->status != 'IN' ? '#d5483b;' : '' }}">
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input checkitem" type="checkbox" value="" id="centang">
+                                                    <label class="form-check-label">
+                                                    </label>
+                                                </div>
+                                            </td>
                                             <td>{{ $archive->id_pm }}</td>
                                             <td>{{ strtoupper($archive->bulan) }}</td>
                                             <td>{{ $archive->teritory }}</td>
@@ -467,6 +482,24 @@
 @push('js')
     <script src="https://cdn.jsdelivr.net/jsbarcode/3.3.20/JsBarcode.all.min.js"></script>
     <script src="/template/js/print.js"></script>
+
+    <!-- Checkbox JS -->
+    <script>
+		// fungsi saat ingin di check all atau dipilih semua
+		$("#centang-semua").change(function(){
+			$(".checkitem").prop("checked", $(this).prop("checked"))
+		})
+		// berfungsi untuk mengubah beberapa item checkbox terpilih(checklist) semua atau tidak terpilih (unchecklist)
+		$(".checkitem").change(function(){
+			if($(this).prop("checked")==false){
+				$("#centang-semua").prop("checked",false)
+			}
+			// saat beberapa item terpilih dan hampir semua maka akan pada checkbox yang memiliki id centang-semua terchecklist
+			if($(".checkitem:checked").length == $(".checkitem").length){
+				$("#centang-semua").prop("checked",true)
+			}
+		})
+	</script>
 
     <!-- Sibar JS -->
     <script>
