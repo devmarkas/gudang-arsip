@@ -651,7 +651,7 @@
                     },
                     success: function(data) {
                         console.log(data)
-                        $('#tag_mitra_table tbody tr').remove()
+                        $('#archive_table tbody tr').remove()
                         if (data.length > 0) {
                             var color = ''
                             for (let index = 0; index < data.length; index++) {
@@ -660,50 +660,73 @@
                                 } else {
                                     color = ''
                                 }
-                                $('#tag_mitra_table > tbody:last-child').append(
+                                $('#archive_table > tbody:last-child').append(
                                     '\
-                                                                                                    <tr style="background-color: ' +
-                                    color + '">\
-                                                                                                    <td>' + data[index]
-                                    .id_pm + '</td>\
-                                                                                                    <td>' + data[index]
-                                    .pekerjaan + '</td>\
-                                                                                                    <td>' + data[index]
+                                                                                                                                                <tr style="background-color: ' +
+                                    color +
+                                    '">\
+                                                                <td><div class="form-check"><input class="form-check-input checkitem" type="checkbox" name="checkbox[]" value="' +
+                                    data[index].id_pm +
+                                    '" id="centang"><label class="form-check-label"></label></div></td>\
+                                                                                                                                                <td>' +
+                                    data[
+                                        index]
+                                    .id_pm +
+                                    '</td>\
+                                                                                                                                                <td>' +
+                                    data[
+                                        index]
+                                    .pekerjaan +
+                                    '</td>\
+                                                                                                                                                <td>' +
+                                    data[
+                                        index]
                                     .bulan
-                                    .toUpperCase() + '</td>\
-                                                                                                    <td>' + data[index]
-                                    .teritory + '</td>\
-                                                                                                    <td>' + data[index]
+                                    .toUpperCase() +
+                                    '</td>\
+                                                                                                                                                <td>' +
+                                    data[
+                                        index]
+                                    .teritory +
+                                    '</td>\
+                                                                                                                                                <td>' +
+                                    data[
+                                        index]
                                     .box +
                                     '</td>\
-                                                                                                    <td>\
-                                                                                                        <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history(' +
+                                                                                                                                                <td>\
+                                                                                                                                                    <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history(' +
                                     data[index].id_pm +
                                     ')" data-target="#history">History</button>\
-                                                                                                        <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file(' +
+                                                                                                                                                    <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file(' +
                                     data[index]
                                     .id_pm + ')" data-target="#file" data-arsip-id="' + data[index]
                                     .id_pm +
                                     '">File</button>\
-                                                                                                        <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_file(' +
+                                                                                                                                                    <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_file(' +
                                     data[index].id_pm +
                                     ')" data-target="#hapus">Hapus</button>\
-                                                                                                        <button type="button" class="btn btn-secondary" onclick="qrcode_archive(' +
+                                                                                                                                                    <button type="button" class="btn btn-secondary" onclick="qrcode_archive(' +
                                     data[
-                                        index].id_pm + ')">QR</button>\
-                                                                                                    </td>\
-                                                                                                    </tr>'
+                                        index].id_pm +
+                                    ')">QR</button>\
+                                                                                                                                                </td>\
+                                                                                                                                                </tr>'
                                 );
                             }
                         } else {
-                            $('#tag_mitra_table > tbody:last-child').append('\
-                                                                                            <tr>\
-                                                                                                <td></td>\
-                                                                                                <td></td>\
-                                                                                                <td style="text-align:center">Item Arsip Tidak Ditemukan</td>\
-                                                                                                <td></td>\
-                                                                                                <td></td>\
-                                                                                            </tr>');
+                            $('#archive_table > tbody:last-child').append(
+                                '\
+                                                                                                                                        <tr>\
+                                                                                                                                            <td></td>\
+                                                                                                                                            <td></td>\
+                                                                                                                                            <td></td>\
+                                                                                                                                            <td></td>\
+                                                                                                                                            <td style="text-align:center">Item Arsip Tidak Ditemukan</td>\
+                                                                                                                                            <td></td>\
+                                                                                                                                            <td></td>\
+                                                                                                                                        </tr>'
+                            );
 
                         }
                     },
@@ -734,29 +757,39 @@
                                 minute: 'numeric'
                             };
                             var today = new Date(tanggal);
-                            $('#tabel-arsip > tbody:last-child').append('\
-                                                                                        <tr>\
-                                                                                            <td>' + today
+                            $('#tabel-arsip > tbody:last-child').append(
+                                '\
+                                                                                                                                    <tr>\
+                                                                                                                                        <td>' +
+                                today
                                 .toLocaleDateString(
                                     "en-US",
-                                    options) + '</td>\
-                                                                                            <td>' + data[index].name +
+                                    options) +
                                 '</td>\
-                                                                                            <td>\
-                                                                                                <a href="/template/img/archive/' +
+                                                                                                                                        <td>' +
                                 data[
                                     index]
-                                .file + '" ><img src="{{ asset('template') }}/img/icon-preview.svg" alt=""></a>\
-                                                                                            </td>\
-                                                                                        </tr>');
+                                .name +
+                                '</td>\
+                                                                                                                                        <td>\
+                                                                                                                                            <a href="/template/img/archive/' +
+                                data[
+                                    index]
+                                .file +
+                                '" ><img src="{{ asset('template') }}/img/icon-preview.svg" alt=""></a>\
+                                                                                                                                        </td>\
+                                                                                                                                    </tr>'
+                            );
                         }
                     } else {
-                        $('#tabel-arsip > tbody:last-child').append('\
-                                                                                        <tr>\
-                                                                                            <td></td>\
-                                                                                            <td style="text-align:center">Item Arsip Tidak Ditemukan</td>\
-                                                                                            <td></td>\
-                                                                                        </tr>');
+                        $('#tabel-arsip > tbody:last-child').append(
+                            '\
+                                                                                                                                    <tr>\
+                                                                                                                                        <td></td>\
+                                                                                                                                        <td style="text-align:center">Item Arsip Tidak Ditemukan</td>\
+                                                                                                                                        <td></td>\
+                                                                                                                                    </tr>'
+                        );
                     }
                 },
                 error: function() {
@@ -783,15 +816,27 @@
                                 minute: 'numeric'
                             };
                             var today = new Date(tanggal);
-                            $('#tabel-history > tbody:last-child').append('\
-                                                                                        <tr>\
-                                                                                            <td>' + today
+                            $('#tabel-history > tbody:last-child').append(
+                                '\
+                                                                                                                                    <tr>\
+                                                                                                                                        <td>' +
+                                today
                                 .toLocaleDateString(
                                     "en-US",
-                                    options) + '</td>\
-                                                                                            <td>' + data[index].status + '</td>\
-                                                                                            <td>' + data[index].name + '</td>\
-                                                                                        </tr>');
+                                    options) +
+                                '</td>\
+                                                                                                                                        <td>' +
+                                data[
+                                    index]
+                                .status +
+                                '</td>\
+                                                                                                                                        <td>' +
+                                data[
+                                    index]
+                                .name +
+                                '</td>\
+                                                                                                                                    </tr>'
+                            );
                         }
                     } else {
                         console.log('tidak ada')
@@ -815,20 +860,41 @@
                     $('#tabel_archive_partner_out tbody tr').remove()
                     if (data.length > 0) {
                         for (let index = 0; index < data.length; index++) {
-                            $('#tabel_archive_partner_out > tbody:last-child').append('\
-                                                                                        <tr>\
-                                                                                        <td>' + data[index].id_pm + '</td>\
-                                                                                        <td>' + data[index].pekerjaan + '</td>\
-                                                                                        <td>' + data[index].bulan
-                                .toUpperCase() + '</td>\
-                                                                                        <td>' + data[index].teritory + '</td>\
-                                                                                        <td>' + data[index].box +
+                            $('#tabel_archive_partner_out > tbody:last-child').append(
+                                '\
+                                                                                                                                    <tr>\
+                                                                                                                                    <td>' +
+                                data[
+                                    index]
+                                .id_pm +
                                 '</td>\
-                                                                                        <td>\
-                                                                                            <button type="button" class="button" style="height: 29px" data-toggle="modal" data-target="#input-arsip-confrim-keluar" data-dismiss="modal" onclick="modal_archive_partner_out(' +
-                                data[index].id_pm + ')" aria-label="Close">Arsip Keluar</button>\
-                                                                                        </td>\
-                                                                                        </tr>'
+                                                                                                                                    <td>' +
+                                data[
+                                    index]
+                                .pekerjaan +
+                                '</td>\
+                                                                                                                                    <td>' +
+                                data[
+                                    index]
+                                .bulan
+                                .toUpperCase() +
+                                '</td>\
+                                                                                                                                    <td>' +
+                                data[
+                                    index]
+                                .teritory +
+                                '</td>\
+                                                                                                                                    <td>' +
+                                data[
+                                    index]
+                                .box +
+                                '</td>\
+                                                                                                                                    <td>\
+                                                                                                                                        <button type="button" class="button" style="height: 29px" data-toggle="modal" data-target="#input-arsip-confrim-keluar" data-dismiss="modal" onclick="modal_archive_partner_out(' +
+                                data[index].id_pm +
+                                ')" aria-label="Close">Arsip Keluar</button>\
+                                                                                                                                    </td>\
+                                                                                                                                    </tr>'
                             );
                         }
                     } else {
@@ -855,45 +921,68 @@
                     if (data.length > 0) {
                         $('#tabel_scan_archive_partner_out tbody tr').remove()
                         for (let index = 0; index < data.length; index++) {
-                            $('#tabel_scan_archive_partner_out > tbody:last-child').append('\
-                                                                                        <tr>\
-                                                                                        <td>' + data[index].id_pm + '</td>\
-                                                                                        <td>' + data[index].pekerjaan + '</td>\
-                                                                                        <td>' + data[index].bulan
-                                .toUpperCase() + '</td>\
-                                                                                        <td>' + data[index].teritory + '</td>\
-                                                                                        <td>' + data[index].box +
+                            $('#tabel_scan_archive_partner_out > tbody:last-child').append(
+                                '\
+                                                                                                                                    <tr>\
+                                                                                                                                    <td>' +
+                                data[
+                                    index]
+                                .id_pm +
                                 '</td>\
-                                                                                        <td>\
-                                                                                            <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history(' +
+                                                                                                                                    <td>' +
+                                data[
+                                    index]
+                                .pekerjaan +
+                                '</td>\
+                                                                                                                                    <td>' +
+                                data[
+                                    index]
+                                .bulan
+                                .toUpperCase() +
+                                '</td>\
+                                                                                                                                    <td>' +
+                                data[
+                                    index]
+                                .teritory +
+                                '</td>\
+                                                                                                                                    <td>' +
+                                data[
+                                    index]
+                                .box +
+                                '</td>\
+                                                                                                                                    <td>\
+                                                                                                                                        <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history(' +
                                 data[index].id_pm +
                                 ')" data-target="#history">History</button>\
-                                                                                            <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file(' +
+                                                                                                                                        <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file(' +
                                 data[
                                     index].id_pm + ')" data-target="#file" data-arsip-id="' + data[index]
                                 .id_pm +
                                 '">File</button>\
-                                                                                            <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_file(' +
+                                                                                                                                        <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_file(' +
                                 data[index].id_pm +
                                 ')" data-target="#hapus">Hapus</button>\
-                                                                                            <button type="button" class="btn btn-secondary" onclick="qrcode_archive(' +
+                                                                                                                                        <button type="button" class="btn btn-secondary" onclick="qrcode_archive(' +
                                 data[
                                     index]
-                                .id_pm + ')">QR</button>\
-                                                                                        </td>\
-                                                                                        </tr>'
+                                .id_pm +
+                                ')">QR</button>\
+                                                                                                                                    </td>\
+                                                                                                                                    </tr>'
                             );
                         }
                     } else {
                         $('#tabel_scan_archive tbody tr').remove()
-                        $('#tabel_scan_archive > tbody:last-child').append('\
-                                                                                        <tr>\
-                                                                                            <td></td>\
-                                                                                            <td></td>\
-                                                                                            <td style="text-align:center">Item Arsip Tidak Ditemukan</td>\
-                                                                                            <td></td>\
-                                                                                            <td></td>\
-                                                                                        </tr>');
+                        $('#tabel_scan_archive > tbody:last-child').append(
+                            '\
+                                                                                                                                    <tr>\
+                                                                                                                                        <td></td>\
+                                                                                                                                        <td></td>\
+                                                                                                                                        <td style="text-align:center">Item Arsip Tidak Ditemukan</td>\
+                                                                                                                                        <td></td>\
+                                                                                                                                        <td></td>\
+                                                                                                                                    </tr>'
+                        );
                     }
                 },
                 error: function() {
@@ -990,49 +1079,73 @@
                             } else {
                                 color = ''
                             }
-                            $('#archive_table > tbody:last-child').append('\
-                                                                                        <tr style="background-color: ' +
+                            $('#archive_table > tbody:last-child').append(
+                                '\
+                                                                                                                                    <tr style="background-color: ' +
                                 color +
                                 '">\
-                                                                                            <td><div class="form-check"><input class="form-check-input checkitem" type="checkbox" value="' +
+                                                                                                                                        <td><div class="form-check"><input class="form-check-input checkitem" type="checkbox" value="' +
                                 data[index]
-                                .id_pm + '" name="checkbox[]" id="centang"><label class="form-check-label"></div></td>\
-                                                                                            <td>' + data[index].id_pm + '</td>\
-                                                                                            <td>' + data[index].pekerjaan + '</td>\
-                                                                                            <td>' + data[index].bulan
-                                .toUpperCase() + '</td>\
-                                                                                            <td>' + data[index].teritory + '</td>\
-                                                                                            <td>' + data[index].box +
+                                .id_pm +
+                                '" name="checkbox[]" id="centang"><label class="form-check-label"></div></td>\
+                                                                                                                                        <td>' +
+                                data[
+                                    index]
+                                .id_pm +
                                 '</td>\
-                                                                                            <td>\
-                                                                                                <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history(' +
+                                                                                                                                        <td>' +
+                                data[
+                                    index]
+                                .pekerjaan +
+                                '</td>\
+                                                                                                                                        <td>' +
+                                data[
+                                    index]
+                                .bulan
+                                .toUpperCase() +
+                                '</td>\
+                                                                                                                                        <td>' +
+                                data[
+                                    index]
+                                .teritory +
+                                '</td>\
+                                                                                                                                        <td>' +
+                                data[
+                                    index]
+                                .box +
+                                '</td>\
+                                                                                                                                        <td>\
+                                                                                                                                            <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history(' +
                                 data[index].id_pm +
                                 ')" data-target="#history">History</button>\
-                                                                                                <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file(' +
+                                                                                                                                            <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file(' +
                                 data[index].id_pm + ')" data-target="#file" data-arsip-id="' + data[index]
                                 .id_pm +
                                 '">File</button>\
-                                                                                                <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_file(' +
+                                                                                                                                            <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_file(' +
                                 data[index].id_pm +
                                 ')" data-target="#hapus">Hapus</button>\
-                                                                                                <button type="button" class="btn btn-secondary" onclick="qrcode_archive(' +
+                                                                                                                                            <button type="button" class="btn btn-secondary" onclick="qrcode_archive(' +
                                 data[
                                     index]
-                                .id_pm + ')">QR</button>\
-                                                                                            </td>\
-                                                                                            </tr>'
+                                .id_pm +
+                                ')">QR</button>\
+                                                                                                                                        </td>\
+                                                                                                                                        </tr>'
                             );
                         }
                     } else {
-                        $('#archive_table > tbody:last-child').append('\
-                                                                                    <tr>\
-                                                                                        <td></td>\
-                                                                                        <td></td>\
-                                                                                        <td></td>\
-                                                                                        <td style="text-align:center">Item Arsip Tidak Ditemukan</td>\
-                                                                                        <td></td>\
-                                                                                        <td></td>\
-                                                                                    </tr>');
+                        $('#archive_table > tbody:last-child').append(
+                            '\
+                                                                                                                                <tr>\
+                                                                                                                                    <td></td>\
+                                                                                                                                    <td></td>\
+                                                                                                                                    <td></td>\
+                                                                                                                                    <td style="text-align:center">Item Arsip Tidak Ditemukan</td>\
+                                                                                                                                    <td></td>\
+                                                                                                                                    <td></td>\
+                                                                                                                                </tr>'
+                        );
 
                     }
                 },
