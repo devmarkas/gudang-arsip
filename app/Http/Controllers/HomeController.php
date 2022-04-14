@@ -52,12 +52,26 @@ class HomeController extends Controller
 
     public function print_massal_if(Request $request)
     {
+        $messages = [
+            'required'  => 'Harap pilih arsip yang akan di Print!!',
+        ];
+        $request->validate([
+            'checkbox' => 'required',
+
+        ], $messages);
         $barcodes = Archive::where('type', 'IF')->whereIn('id_pm', $request->input('checkbox'))->get();
         return view('barcode', compact('barcodes'));
     }
 
     public function print_massal_tm(Request $request)
     {
+        $messages = [
+            'required'  => 'Harap pilih arsip yang akan di Print!!',
+        ];
+        $request->validate([
+            'checkbox' => 'required',
+
+        ], $messages);
         $barcodes = Archive::where('type', 'TM')->whereIn('id_pm', $request->input('checkbox'))->get();
         return view('barcode', compact('barcodes'));
     }
