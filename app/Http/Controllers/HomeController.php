@@ -28,39 +28,37 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $impress_fun_year=Archive::distinct('periode')->orderBy('periode','ASC')->where('type','IF')->pluck('periode')->toArray();
-        $tag_partner_year=Archive::distinct('periode')->orderBy('periode','ASC')->where('type','TM')->pluck('periode')->toArray();
-        $data['year_combine']=array_values(array_unique(array_merge($tag_partner_year,$impress_fun_year)));
-        
-        foreach ($data['year_combine'] as $year){
-            $data['impress_funds'][]=Archive::where('periode',$year)->where('type','IF')->count();
-            $data['tag_partners'][]=Archive::where('periode',$year)->where('type','TM')->count();
+        $impress_fun_year = Archive::distinct('periode')->orderBy('periode', 'ASC')->where('type', 'IF')->pluck('periode')->toArray();
+        $tag_partner_year = Archive::distinct('periode')->orderBy('periode', 'ASC')->where('type', 'TM')->pluck('periode')->toArray();
+        $data['year_combine'] = array_values(array_unique(array_merge($tag_partner_year, $impress_fun_year)));
+
+        foreach ($data['year_combine'] as $year) {
+            $data['impress_funds'][] = Archive::where('periode', $year)->where('type', 'IF')->count();
+            $data['tag_partners'][] = Archive::where('periode', $year)->where('type', 'TM')->count();
         }
-        return view('admin.dashboard.index',$data);
+        return view('admin.dashboard.index', $data);
     }
 
     public function print($data)
     {
-        $barcodes=json_decode($data);
-        return view('barcode',compact('barcodes'));
+        $barcodes = json_decode($data);
+        return view('barcode', compact('barcodes'));
     }
     public function print_single($data)
     {
-        $barcode=json_decode($data);
-        return view('barcode',compact('barcode'));
+        $barcode = json_decode($data);
+        return view('barcode', compact('barcode'));
     }
 
-    public function print_massal_if()
+    public function print_massal_if(Request $request)
     {
-        $barcodes=Archive::where('type','IF')->get();
-        return view('barcode',compact('barcodes'));
-    }
-    
-    public function print_massal_tm()
-    {
-        $barcodes=Archive::where('type','TM')->get();
-        return view('barcode',compact('barcodes'));
+        $barcodes = Archive::where('type', 'IF')->whereIn('id_pm', $request->input('checkbox'))->get();
+        return view('barcode', compact('barcodes'));
     }
 
-    
+    public function print_massal_tm(Request $request)
+    {
+        $barcodes = Archive::where('type', 'TM')->whereIn('id_pm', $request->input('checkbox'))->get();
+        return view('barcode', compact('barcodes'));
+    }
 }

@@ -24,8 +24,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/print/{query}', [HomeController::class, 'print'])->name('print');
 Route::get('/print_single/{query}', [HomeController::class, 'print_single'])->name('print_single');
-Route::get('/print_all_if', [HomeController::class, 'print_massal_if'])->name('print_massal_if');
-Route::get('/print_all_tm', [HomeController::class, 'print_massal_tm'])->name('print_massal_tm');
+Route::POST('/print_all_if', [HomeController::class, 'print_massal_if'])->name('print_massal_if');
+Route::POST('/print_all_tm', [HomeController::class, 'print_massal_tm'])->name('print_massal_tm');
 Auth::routes();
 
 //Dashboard Route
@@ -55,10 +55,10 @@ Route::post('/import_tag_partner', [PartnerController::class, 'import_tag_partne
 Route::get('/scan-tm-archive/{id}', [PartnerController::class, 'out_archive']);
 Route::get('/delete-partner-archive/{id}', [PartnerController::class, 'delete_partner'])->name('archive.take_out_partner');
 
-//Route Construction 
+//Route Construction
 Route::get('/construction', [ConstructionController::class, 'index'])->name('construction.index');
 
-//Route BILLING COLLECTION 
+//Route BILLING COLLECTION
 Route::get('/billing-collection', [BillingController::class, 'index'])->name('billing.index');
 
 //Route Commerce
@@ -73,8 +73,3 @@ Route::get('/box-detail/{id}', [BoxController::class, 'show'])->name('box.detail
 Route::post('/box', [BoxController::class, 'store'])->name('box.store');
 Route::post('/update-box/', [BoxController::class, 'update'])->name('box.update');
 Route::get('/delete-box/{id}', [BoxController::class, 'destroy'])->name('box.delete');
-
-
-
-
-
