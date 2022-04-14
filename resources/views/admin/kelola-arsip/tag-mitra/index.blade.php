@@ -285,7 +285,7 @@
                 <div class="card-custom">
                     <div class="conten-custom">
                         <div class="row  title-header">
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <h3>
                                     Detail Arsip TAGIHAN MITRA
                                 </h3>
@@ -301,9 +301,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
-                                <a href="{{ route('print_massal_tm') }}" target="_blank" class="btn btn-success"><i
-                                        class="fa fa-print"></i></a>
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fa fa-print"></i> Print Massal
+                                </button>
                             </div>
                         </div>
 
