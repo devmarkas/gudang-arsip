@@ -14,7 +14,7 @@
                     <label for="tahun-input-arsip-masuk">Periode Arsip</label>
                     <div class="form-group">
                         <select class="form-control" id="tahun-input-arsip-masuk" name="periode">
-                            <option>Tahun</option>
+                            {{-- <option>Tahun</option> --}}
                             <option value="">Tahun</option>
                             @for ($i = 2015; $i < date('Y'); $i++)
                             <option value="{{$i}}">{{$i}}</option>
