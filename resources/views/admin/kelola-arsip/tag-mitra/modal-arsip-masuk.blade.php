@@ -96,8 +96,8 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <button type="submit" class="button">Submit Arsip & Generate Barcode</button>
                         </div>
+                        <button type="submit" class="button">Submit Arsip & Generate Barcode</button>
                     </div>
                 </div>
             </div>
