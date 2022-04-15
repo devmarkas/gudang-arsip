@@ -344,7 +344,7 @@
                                                         onclick="modal_delete_file({{ $archive->id_pm }})"
                                                         data-target="#hapus">Hapus</button>
                                                     <button type="button" class="btn btn-secondary"
-                                                        onclick="qrcode_archive({{ $archive->id_pm }})">QR</button>
+                                                        onclick="qrcode_archive({{ $archive->id_pm }})">Barcode</button>
                                                 </td>
                                             </tr>
                                         @endforeach
