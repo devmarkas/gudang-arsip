@@ -1,4 +1,5 @@
-<form action="{{ route('tag_mitra.save') }}" method="POST">@csrf
+<form action="{{ route('tag_mitra.save') }}" method="POST">
+    @csrf
     <div class="modal fade" id="input-arsip-masuk" tabindex="-1" role="dialog" aria-labelledby="input-arsip-masuk"
         aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -101,4 +102,6 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 </form>
