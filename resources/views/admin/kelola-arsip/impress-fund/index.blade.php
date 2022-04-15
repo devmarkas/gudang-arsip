@@ -266,6 +266,7 @@
                 </div>
             </div>
             <div class="col-md-9">
+
                 <div class="card-custom">
                     <div class="conten-custom">
                         <div class="row title-header">
@@ -286,67 +287,71 @@
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <form action="{{ route('print_massal_if') }}" method="post">
-                                    @csrf
-                                    <button type="submit" class="btn btn-success">
-                                        <i class="fa fa-print"></i> Print Massal
-                                    </button>
+                                <button type="submit" class="btn btn-success"
+                                    onclick="document.getElementById('form-print').submit();">
+                                    <i class="fa fa-print"></i> Print Massal
+                                </button>
                             </div>
+
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table table-sm table-hover tabel-arsip" id="archive_table">
-                                <thead>
-                                    <tr>
-                                        <th class="action" scope="col">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="centang-semua">
-                                                <label class="form-check-label">
-
-                                                </label>
-                                            </div>
-                                        </th>
-                                        <th class="action" scope="col">ID PM</th>
-                                        <th class="action" scope="col">BULAN</th>
-                                        <th class="action" scope="col">TERRITORY</th>
-                                        <th class="action" scope="col">BOX</th>
-                                        <th class="action" scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($archives as $archive)
-                                        <tr style="background-color: {{ $archive->status != 'IN' ? '#d5483b;' : '' }}">
-                                            <td>
+                            <form action="{{ route('print_massal_if') }}" method="post" id="form-print">
+                                @csrf
+                                <table class="table table-sm table-hover tabel-arsip" id="archive_table">
+                                    <thead>
+                                        <tr>
+                                            <th class="action" scope="col">
                                                 <div class="form-check">
-                                                    <input class="form-check-input checkitem" type="checkbox"
-                                                        value="{{ $archive->id_pm }}" id="centang" name="checkbox[]">
+                                                    <input class="form-check-input" type="checkbox" value=""
+                                                        id="centang-semua">
                                                     <label class="form-check-label">
+
                                                     </label>
                                                 </div>
-                                            </td>
-                                            <td>{{ $archive->id_pm }}</td>
-                                            <td>{{ strtoupper($archive->bulan) }}</td>
-                                            <td>{{ $archive->teritory }}</td>
-                                            <td>{{ $archive->box }}</td>
-                                            <td>
-                                                <button type="button" class="btn btn-warning" data-toggle="modal"
-                                                    onclick="open_history({{ $archive->id_pm }})"
-                                                    data-target="#history">History</button>
-                                                <button type="button" class="btn btn-success" data-toggle="modal"
-                                                    onclick="add_file({{ $archive->id_pm }})" data-target="#file"
-                                                    data-arsip-id="{{ $archive->id_pm }}">File</button>
-                                                <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                    onclick="modal_delete_file({{ $archive->id_pm }})"
-                                                    data-target="#hapus">Hapus</button>
-                                                <button type="button" class="btn btn-secondary"
-                                                    onclick="qrcode_archive({{ $archive->id_pm }})">QR</button>
-                                            </td>
+                                            </th>
+                                            <th class="action" scope="col">ID PM</th>
+                                            <th class="action" scope="col">BULAN</th>
+                                            <th class="action" scope="col">TERRITORY</th>
+                                            <th class="action" scope="col">BOX</th>
+                                            <th class="action" scope="col">Action</th>
                                         </tr>
-                                    @endforeach
-                                    </form>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($archives as $archive)
+                                            <tr
+                                                style="background-color: {{ $archive->status != 'IN' ? '#d5483b;' : '' }}">
+                                                <td>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input checkitem" type="checkbox"
+                                                            value="{{ $archive->id_pm }}" id="centang" name="checkbox[]">
+                                                        <label class="form-check-label">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>{{ $archive->id_pm }}</td>
+                                                <td>{{ strtoupper($archive->bulan) }}</td>
+                                                <td>{{ $archive->teritory }}</td>
+                                                <td>{{ $archive->box }}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-warning" data-toggle="modal"
+                                                        onclick="open_history({{ $archive->id_pm }})"
+                                                        data-target="#history">History</button>
+                                                    <button type="button" class="btn btn-success" data-toggle="modal"
+                                                        onclick="add_file({{ $archive->id_pm }})" data-target="#file"
+                                                        data-arsip-id="{{ $archive->id_pm }}">File</button>
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                        onclick="modal_delete_file({{ $archive->id_pm }})"
+                                                        data-target="#hapus">Hapus</button>
+                                                    <button type="button" class="btn btn-secondary"
+                                                        onclick="qrcode_archive({{ $archive->id_pm }})">QR</button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -630,50 +635,64 @@
                                 }
                                 $('#archive_table > tbody:last-child').append(
                                     '\
-                                                                                                    <tr style="background-color: ' +
+                                                                                                                                                                                                     <tr style="background-color: ' +
                                     color +
                                     '">\
-                                                                                                        <td><div class="form-check"><input class="form-check-input checkitem" type="checkbox" name="checkbox[]" value="' +
-                                    data[index].id_pm + '" id="centang"><label class="form-check-label"></label></div></td>\
-                                                                                                <td>' + data[index].id_pm + '</td>\
-                                                                                                    <td>' + data[index]
-                                    .id_pm + '</td>\
-                                                                                                    <td>' + data[index]
+                                                                                                                                                                                                     <td> <div class="form-check"><input class="form-check-input checkitem" type="checkbox" selected="1" name="checkbox[]" value="' +
+                                    data[index].id_pm +
+                                    '" id="centang"><label class="form-check-label"></label></div></td>\
+                                                                                                                                                                                                     <td>' +
+                                    data[
+                                        index]
+                                    .id_pm +
+                                    '</td>\
+                                                                                                                                                                                                     <td>' +
+                                    data[
+                                        index]
                                     .bulan
-                                    .toUpperCase() + '</td>\
-                                                                                                    <td>' + data[index]
-                                    .teritory + '</td>\
-                                                                                                    <td>' + data[index]
+                                    .toUpperCase() +
+                                    '</td>\
+                                                                                                                                                                                                     <td>' +
+                                    data[
+                                        index]
+                                    .teritory +
+                                    '</td>\
+                                                                                                                                                                                                     <td>' +
+                                    data[
+                                        index]
                                     .box +
                                     '</td>\
-                                                                                                    <td>\
-                                                                                                        <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history(' +
+                                                                                                                                                                                                     <td>\
+                                                                                                                                                                                                     <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history(' +
                                     data[index].id_pm +
                                     ')" data-target="#history">History</button>\
-                                                                                                        <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file(' +
+                                                                                                                                                                                                                                                                                                                <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file(' +
                                     data[index]
                                     .id_pm + ')" data-target="#file" data-arsip-id="' + data[index]
                                     .id_pm +
                                     '">File</button>\
-                                                                                                        <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_file(' +
+                                                                                                                                                                                                                                                                                                                <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_file(' +
                                     data[index].id_pm +
                                     ')" data-target="#hapus">Hapus</button>\
-                                                                                                        <button type="button" class="btn btn-secondary" onclick="qrcode_archive(' +
+                                                                                                                                                                                                                                                                                                                <button type="button" class="btn btn-secondary" onclick="qrcode_archive(' +
                                     data[
-                                        index].id_pm + ')">QR</button>\
-                                                                                                    </td>\
-                                                                                                    </tr>'
-                                );
+                                        index].id_pm +
+                                    ')">QR</button>\
+                                                                                                                                                                                                                                                                                                            </td>\
+                                                                                                                                                                                                                                                                                                            </tr>'
+                                ).prop('selected', true);;
                             }
                         } else {
-                            $('#archive_table > tbody:last-child').append('\
-                                                                                            <tr>\
-                                                                                                <td></td>\
-                                                                                                <td></td>\
-                                                                                                <td style="text-align:center">Item Arsip Tidak Ditemukan</td>\
-                                                                                                <td></td>\
-                                                                                                <td></td>\
-                                                                                            </tr>');
+                            $('#archive_table > tbody:last-child').append(
+                                '\
+                                                                                                                                                                                       <tr>\
+                                                                                                                                                                                       <td></td>\
+                                                                                                                                                                                       <td></td>\
+                                                                                                                                                                                       <td style="text-align:center">Item Arsip Tidak Ditemukan</td>\
+                                                                                                                                                                                       <td></td>\
+                                                                                                                                                                                       <td></td>\
+                                                                                                                                                                                       </tr>'
+                            );
 
                         }
                     },
@@ -716,47 +735,65 @@
                             }
                             $('#archive_table > tbody:last-child').append(
                                 '\
-                                                                                            <tr style="background-color: ' +
+                                                                                                                                                                                                                                                                                                    <tr style="background-color: ' +
                                 color +
                                 '">\
-                                                                                                <td><div class="form-check"><input class="form-check-input checkitem" type="checkbox" name="checkbox[]" value="' +
-                                data[index].id_pm + '" id="centang"><label class="form-check-label"></label></div></td>\
-                                                                                                <td>' + data[index].id_pm + '</td>\
-                                                                                                <td>' + data[index].bulan
-                                .toUpperCase() + '</td>\
-                                                                                                <td>' + data[index]
-                                .teritory + '</td>\
-                                                                                                <td>' + data[index].box +
+                                                                                                                                                                                                                                                                                                        <td><div class="form-check"><input class="form-check-input checkitem" type="checkbox" name="checkbox[]" value="' +
+                                data[index].id_pm +
+                                '" id="centang"><label class="form-check-label"></label></div></td>\
+                                                                                                                                                                                                                                                                                                        <td>' +
+                                data[
+                                    index]
+                                .id_pm +
                                 '</td>\
-                                                                                                <td>\
-                                                                                                    <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history(' +
+                                                                                                                                                                                                                                                                                                        <td>' +
+                                data[
+                                    index]
+                                .bulan
+                                .toUpperCase() +
+                                '</td>\
+                                                                                                                                                                                                                                                                                                        <td>' +
+                                data[
+                                    index]
+                                .teritory +
+                                '</td>\
+                                                                                                                                                                                                                                                                                                        <td>' +
+                                data[
+                                    index]
+                                .box +
+                                '</td>\
+                                                                                                                                                                                                                                                                                                        <td>\
+                                                                                                                                                                                                                                                                                                            <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history(' +
                                 data[index].id_pm +
                                 ')" data-target="#history">History</button>\
-                                                                                                    <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file(' +
+                                                                                                                                                                                                                                                                                                            <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file(' +
                                 data[index].id_pm + ')" data-target="#file" data-arsip-id="' + data[index]
                                 .id_pm +
                                 '">File</button>\
-                                                                                                    <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_file(' +
+                                                                                                                                                                                                                                                                                                            <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_file(' +
                                 data[index].id_pm +
                                 ')" data-target="#hapus">Hapus</button>\
-                                                                                                    <button type="button" class="btn btn-secondary" onclick="qrcode_archive(' +
+                                                                                                                                                                                                                                                                                                            <button type="button" class="btn btn-secondary" onclick="qrcode_archive(' +
                                 data[
                                     index]
-                                .id_pm + ')">QR</button>\
-                                                                                                </td>\
-                                                                                                </tr>'
+                                .id_pm +
+                                ')">QR</button>\
+                                                                                                                                                                                                                                                                                                        </td>\
+                                                                                                                                                                                                                                                                                                        </tr>'
                             );
                         }
                     } else {
-                        $('#archive_table > tbody:last-child').append('\
-                                                                                        <tr>\
-                                                                                            <td></td>\
-                                                                                            <td></td>\
-                                                                                            <td></td>\
-                                                                                            <td style="text-align:center">Istem Arsip Tidak Ditemukan</td>\
-                                                                                            <td></td>\
-                                                                                            <td></td>\
-                                                                                        </tr>');
+                        $('#archive_table > tbody:last-child').append(
+                            '\
+                                                                                                                                                                                                                                                                                                <tr>\
+                                                                                                                                                                                                                                                                                                    <td></td>\
+                                                                                                                                                                                                                                                                                                    <td></td>\
+                                                                                                                                                                                                                                                                                                    <td></td>\
+                                                                                                                                                                                                                                                                                                    <td style="text-align:center">Istem Arsip Tidak Ditemukan</td>\
+                                                                                                                                                                                                                                                                                                    <td></td>\
+                                                                                                                                                                                                                                                                                                    <td></td>\
+                                                                                                                                                                                                                                                                                                </tr>'
+                        );
 
                     }
                 },
@@ -808,31 +845,41 @@
                                 minute: 'numeric'
                             };
                             var today = new Date(tanggal);
-                            $('#tabel-arsip > tbody:last-child').append('\
-                                                                                            <tr>\
-                                                                                                <td>' + today
+                            $('#tabel-arsip > tbody:last-child').append(
+                                '\
+                                                                                                                                                                                                                                                                                                    <tr>\
+                                                                                                                                                                                                                                                                                                        <td>' +
+                                today
                                 .toLocaleDateString(
                                     "en-US",
-                                    options) + '</td>\
-                                                                                                <td>' + data[index].name +
+                                    options) +
                                 '</td>\
-                                                                                                <td>\
-                                                                                                    <a target="_blank" href="/template/img/archive/' +
+                                                                                                                                                                                                                                                                                                        <td>' +
                                 data[
                                     index]
-                                .file + '" ><img src="{{ asset('template') }}/img/icon-preview.svg" alt=""></a>\
-                                                                                                </td>\
-                                                                                            </tr>');
+                                .name +
+                                '</td>\
+                                                                                                                                                                                                                                                                                                        <td>\
+                                                                                                                                                                                                                                                                                                            <a target="_blank" href="/template/img/archive/' +
+                                data[
+                                    index]
+                                .file +
+                                '" ><img src="{{ asset('template') }}/img/icon-preview.svg" alt=""></a>\
+                                                                                                                                                                                                                                                                                                        </td>\
+                                                                                                                                                                                                                                                                                                    </tr>'
+                            );
                         }
                     } else {
-                        $('#tabel-arsip > tbody:last-child').append('\
-                                                                                            <tr>\
-                                                                                                <td></td>\
-                                                                                                <td></td>\
-                                                                                                <td style="text-align:center">Item Arsip Tidak Ditemukan</td>\
-                                                                                                <td></td>\
-                                                                                                <td></td>\
-                                                                                            </tr>');
+                        $('#tabel-arsip > tbody:last-child').append(
+                            '\
+                                                                                                                                                                                                                                                                                                    <tr>\
+                                                                                                                                                                                                                                                                                                        <td></td>\
+                                                                                                                                                                                                                                                                                                        <td></td>\
+                                                                                                                                                                                                                                                                                                        <td style="text-align:center">Item Arsip Tidak Ditemukan</td>\
+                                                                                                                                                                                                                                                                                                        <td></td>\
+                                                                                                                                                                                                                                                                                                        <td></td>\
+                                                                                                                                                                                                                                                                                                    </tr>'
+                        );
                     }
                 },
                 error: function() {
@@ -861,16 +908,27 @@
                                 minute: 'numeric'
                             };
                             var today = new Date(tanggal);
-                            $('#tabel-history > tbody:last-child').append('\
-                                                                                            <tr>\
-                                                                                                <td>' + today
+                            $('#tabel-history > tbody:last-child').append(
+                                '\
+                                                                                                                                                                                                                                                                                                    <tr>\
+                                                                                                                                                                                                                                                                                                        <td>' +
+                                today
                                 .toLocaleDateString(
                                     "en-US",
-                                    options) + '</td>\
-                                                                                                <td>' + data[index]
-                                .status + '</td>\
-                                                                                                <td>' + data[index].name + '</td>\
-                                                                                            </tr>');
+                                    options) +
+                                '</td>\
+                                                                                                                                                                                                                                                                                                        <td>' +
+                                data[
+                                    index]
+                                .status +
+                                '</td>\
+                                                                                                                                                                                                                                                                                                        <td>' +
+                                data[
+                                    index]
+                                .name +
+                                '</td>\
+                                                                                                                                                                                                                                                                                                    </tr>'
+                            );
                         }
                     } else {
                         console.log('tidak ada')
@@ -895,31 +953,50 @@
                     console.log(data)
                     if (data.length > 0) {
                         for (let index = 0; index < data.length; index++) {
-                            $('#tabel_archive_out > tbody:last-child').append('\
-                                                                                            <tr>\
-                                                                                            <td>' + data[index].id_pm + '</td>\
-                                                                                            <td>' + data[index].bulan
-                                .toUpperCase() + '</td>\
-                                                                                            <td>' + data[index].teritory + '</td>\
-                                                                                            <td>' + data[index].box +
+                            $('#tabel_archive_out > tbody:last-child').append(
+                                '\
+                                                                                                                                                                                                                                                                                                    <tr>\
+                                                                                                                                                                                                                                                                                                    <td>' +
+                                data[
+                                    index]
+                                .id_pm +
                                 '</td>\
-                                                                                            <td>\
-                                                                                              <button type="button" class="button" style="height: 29px" data-toggle="modal" data-target="#input-arsip-confrim-keluar" data-dismiss="modal" onclick="modal_archive_out(' +
-                                data[index].id_pm + ')" aria-label="Close">Arsip Keluar</button>\
-                                                                                            </td>\
-                                                                                          </tr>'
+                                                                                                                                                                                                                                                                                                    <td>' +
+                                data[
+                                    index]
+                                .bulan
+                                .toUpperCase() +
+                                '</td>\
+                                                                                                                                                                                                                                                                                                    <td>' +
+                                data[
+                                    index]
+                                .teritory +
+                                '</td>\
+                                                                                                                                                                                                                                                                                                    <td>' +
+                                data[
+                                    index]
+                                .box +
+                                '</td>\
+                                                                                                                                                                                                                                                                                                    <td>\
+                                                                                                                                                                                                                                                                                                      <button type="button" class="button" style="height: 29px" data-toggle="modal" data-target="#input-arsip-confrim-keluar" data-dismiss="modal" onclick="modal_archive_out(' +
+                                data[index].id_pm +
+                                ')" aria-label="Close">Arsip Keluar</button>\
+                                                                                                                                                                                                                                                                                                    </td>\
+                                                                                                                                                                                                                                                                                                  </tr>'
                             );
                         }
                     } else {
                         $('#tabel_archive_out tbody tr').remove()
-                        $('#tabel_archive_out > tbody:last-child').append('\
-                                                                                            <tr>\
-                                                                                                <td></td>\
-                                                                                                <td></td>\
-                                                                                                <td style="text-align:center">Item Arsip Tidak Ditemukan</td>\
-                                                                                                <td></td>\
-                                                                                                <td></td>\
-                                                                                            </tr>');
+                        $('#tabel_archive_out > tbody:last-child').append(
+                            '\
+                                                                                                                                                                                                                                                                                                    <tr>\
+                                                                                                                                                                                                                                                                                                        <td></td>\
+                                                                                                                                                                                                                                                                                                        <td></td>\
+                                                                                                                                                                                                                                                                                                        <td style="text-align:center">Item Arsip Tidak Ditemukan</td>\
+                                                                                                                                                                                                                                                                                                        <td></td>\
+                                                                                                                                                                                                                                                                                                        <td></td>\
+                                                                                                                                                                                                                                                                                                    </tr>'
+                        );
                     }
                 },
                 error: function() {
@@ -942,43 +1019,62 @@
                     if (data.length > 0) {
                         $('#tabel_scan_archive tbody tr').remove()
                         for (let index = 0; index < data.length; index++) {
-                            $('#tabel_scan_archive > tbody:last-child').append('\
-                                                                                            <tr>\
-                                                                                            <td>' + data[index].id_pm + '</td>\
-                                                                                            <td>' + data[index].bulan
-                                .toUpperCase() + '</td>\
-                                                                                            <td>' + data[index].teritory + '</td>\
-                                                                                            <td>' + data[index].box +
+                            $('#tabel_scan_archive > tbody:last-child').append(
+                                '\
+                                                                                                                                                                                                                                                                                                    <tr>\
+                                                                                                                                                                                                                                                                                                    <td>' +
+                                data[
+                                    index]
+                                .id_pm +
                                 '</td>\
-                                                                                            <td>\
-                                                                                                <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history(' +
+                                                                                                                                                                                                                                                                                                    <td>' +
+                                data[
+                                    index]
+                                .bulan
+                                .toUpperCase() +
+                                '</td>\
+                                                                                                                                                                                                                                                                                                    <td>' +
+                                data[
+                                    index]
+                                .teritory +
+                                '</td>\
+                                                                                                                                                                                                                                                                                                    <td>' +
+                                data[
+                                    index]
+                                .box +
+                                '</td>\
+                                                                                                                                                                                                                                                                                                    <td>\
+                                                                                                                                                                                                                                                                                                        <button type="button" class="btn btn-warning" data-toggle="modal" onclick="open_history(' +
                                 data[index].id_pm +
                                 ')" data-target="#history">History</button>\
-                                                                                                <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file(' +
+                                                                                                                                                                                                                                                                                                        <button type="button" class="btn btn-success" data-toggle="modal" onclick="add_file(' +
                                 data[index].id_pm + ')" data-target="#file" data-arsip-id="' + data[index]
                                 .id_pm +
                                 '">File</button>\
-                                                                                                <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_file(' +
+                                                                                                                                                                                                                                                                                                        <button type="button" class="btn btn-danger" data-toggle="modal" onclick="modal_delete_file(' +
                                 data[index].id_pm +
                                 ')" data-target="#hapus">Hapus</button>\
-                                                                                                <button type="button" class="btn btn-secondary" onclick="qrcode_archive(' +
+                                                                                                                                                                                                                                                                                                        <button type="button" class="btn btn-secondary" onclick="qrcode_archive(' +
                                 data[
                                     index]
-                                .id_pm + ')">QR</button>\
-                                                                                            </td>\
-                                                                                          </tr>'
+                                .id_pm +
+                                ')">QR</button>\
+                                                                                                                                                                                                                                                                                                    </td>\
+                                                                                                                                                                                                                                                                                                  </tr>'
                             );
                         }
                     } else {
                         $('#tabel_scan_archive tbody tr').remove()
-                        $('#tabel_scan_archive > tbody:last-child').append('\
-                                                                                            <tr>\
-                                                                                                <td></td>\
-                                                                                                <td></td>\
-                                                                                                <td style="text-align:center">Item Arsip Tidak Ditemukan</td>\
-                                                                                                <td></td>\
-                                                                                                <td></td>\
-                                                                                            </tr>');
+                        $('#tabel_scan_archive > tbody:last-child').append(
+                            '\
+                                                                                                                                                                                                                                                                                                    <tr>\
+                                                                                                                                                                                                                                                                                                        <td></td>\
+                                                                                                                                                                                                                                                                                                        <td></td>\
+                                                                                                                                                                                                                                                                                                        <td style="text-align:center">Item Arsip Tidak Ditemukan</td>\
+                                                                                                                                                                                                                                                                                                        <td></td>\
+                                                                                                                                                                                                                                                                                                        <td></td>\
+                                                                                                                                                                                                                                                                                                    </tr>'
+                        );
                     }
                 },
                 error: function() {
