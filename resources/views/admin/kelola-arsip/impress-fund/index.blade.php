@@ -301,7 +301,7 @@
                                 <table class="table table-sm table-hover tabel-arsip" id="archive_table">
                                     <thead>
                                         <tr>
-                                            <th class="action" scope="col">
+                                            <th class="" scope="col">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" value=""
                                                         id="centang-semua">
